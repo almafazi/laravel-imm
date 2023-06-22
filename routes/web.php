@@ -20,12 +20,19 @@ Route::get('/', function () {
 });
 
 Route::get('/materials', [MaterialController::class, 'index'])->name('material.index');
+
 Route::get('/material/create', [MaterialController::class, 'create'])->name('material.create');
 Route::post('/material/store', [MaterialController::class, 'store'])->name('material.store');
 
+Route::get('/material/edit/{id}', [MaterialController::class, 'edit'])->name('material.edit');
+Route::post('/material/update', [MaterialController::class, 'update'])->name('material.update');
+Route::get('/material/destroy/{id}', [MaterialController::class, 'destroy'])->name('material.destroy');
+
 Route::get('/material/datatable', [MaterialController::class, 'datatable'])->name('material.datatable');
 
-
-Route::get('/material-stock/material-list', [MaterialStockController::class, 'material_list'])->name('material-stock.material-list');
-Route::get('/material-stock/create/{material_id}', [MaterialStockController::class, 'create'])->name('material-stock.create');
-Route::post('/material-stock/store', [MaterialStockController::class, 'store'])->name('material-stock.store');
+Route::prefix('material-stock')->group(function() {
+    Route::get('material-list', [MaterialStockController::class, 'material_list'])->name('material-stock.material-list');
+    Route::get('create/{material_id}', [MaterialStockController::class, 'create'])->name('material-stock.create');
+    Route::post('store', [MaterialStockController::class, 'store'])->name('material-stock.store');
+    Route::get('stocks/{material_id}', [MaterialStockController::class, 'index'])->name('material-stock.index');
+});

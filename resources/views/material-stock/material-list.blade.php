@@ -39,6 +39,7 @@
             <th>criteria_2</th>
             <th>information</th>
             <th>grade</th>
+            <th>total base qty</th>
             <th>action</th>
           </tr>
         </thead>
@@ -51,7 +52,8 @@
                     <td> {{ $material->criteria_2 }}</td>
                     <td> {{ $material->information }}</td>
                     <td> {{ $material->grade }}</td>
-                    <td> <a class="btn btn-danger" href="{{ route('material-stock.create', ["material_id" => $material->id]) }}">Pilih Bahan Ini</a></td>
+                    <td> {{ $material->material_stocks()->sum('base_qty') }}</td>
+                    <td> <a class="btn btn-danger" href="{{ route('material-stock.index', ["material_id" => $material->id]) }}">Pilih Bahan Ini</a></td>
                 </tr>
             @endforeach
         </tbody>

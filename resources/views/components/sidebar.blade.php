@@ -81,7 +81,7 @@
               <div>Input Master Bahan</div>
             </a>
           </li>
-          <li class="menu-item">
+          <li class="menu-item {{ request()->path() == 'material-stock/material-list' || request()->path() == 'material-stock/material-list/create' ? "active" : "" }}">
             <a href="{{ route('material-stock.material-list') }}" class="menu-link">
               <div>Kelola Stok Bahan</div>
             </a>

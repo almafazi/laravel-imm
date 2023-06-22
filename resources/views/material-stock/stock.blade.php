@@ -30,20 +30,29 @@
     <h5 class="card-header">Table Basic</h5>
     
     <div class="table-responsive text-nowrap">
-        <a href="{{ route('material.create') }}" class="btn btn-primary mb-3">Tambah Data</a>
+        <a href="{{ route('material-stock.create', ['material_id' => $material_id]) }}" class="btn btn-primary mb-3">Tambah Data</a>
       <table class="table">
         <thead>
           <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>criteria_1</th>
-            <th>criteria_2</th>
-            <th>information</th>
-            <th>grade</th>
+            <th>material</th>
+            <th>base qty</th>
+            <th>input qty</th>
+            <th>output qty</th>
+            <th>code</th>
             <th>action</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
+          @foreach ($stocks as $stock)
+              <tr>
+                <td>{{ $stock->material->name }}</td>
+                <td>{{ $stock->base_qty }}</td>
+                <td>{{ $stock->input_qty }}</td>
+                <td>{{ $stock->output_qty }}</td>
+                <td>{{ $stock->code }}</td>
+                <td></td>
+              </tr>
+          @endforeach
         </tbody>
       </table>
     </div>
@@ -63,25 +72,7 @@
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('.table').DataTable({
-            ajax: '{{ route("material.datatable") }}',
-            columns: [
-                { data: 'id' },
-                { data: 'name' },
-                { data: 'criteria_1' },
-                { data: 'criteria_2' },
-                { data: 'information' },
-                { data: 'grade' },
-                { data: 'action' },
-            ],
-            dom: 'Bfrtip',
-            buttons: [
-                'copyHtml5',
-                'excelHtml5',
-                'csvHtml5',
-                'pdfHtml5'
-            ]
-        });
+        $('.table').DataTable();
     });
 </script>
 @endsection

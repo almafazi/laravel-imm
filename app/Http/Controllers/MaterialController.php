@@ -37,13 +37,44 @@ class MaterialController extends Controller
         return redirect('/materials');
     }
 
+    public function edit($id) {
+        //logic
+        $material = Material::where('id', $id)->firstOrFail();
+        return view('material.edit', ["bahan" => $material]);
+    }
+
+    public function update(Request $request) {
+        $request->validate([
+            'id' => 'required|numeric|exists:materials,id',
+            'name' => 'required|string|min:5|max:100',
+            'criteria_1' => 'nullable|string|min:5|max:100',
+            'criteria_2' => 'nullable|string|min:5|max:100',
+            'information' => 'required|string|min:5|max:1000',
+            'grade' => 'required|numeric|in:1,2,3',
+        ]);
+        Material::whereId($request->id)->update(
+            $request->except('_token')
+        );
+        return redirect('/materials')->with('success', 'Data berhasil di update.');
+    }
+
     public function datatable() {
-        $model = Material::query();
+        $material = Material::query();
  
-        return DataTables::of($model)
-        ->addColumn('action', function($row) {
-            return '<a href="" class="btn btn-danger">edit</a>';
+        return DataTables::of($material)
+        ->addColumn('actions', function($material) {
+            return '<a href="'.route('material.edit',['id' => $material->id]).'" class="btn btn-danger me-1">edit</a>
+            <a onclick="deleteMaterial(`'.route('material.destroy',['id' => $material->id]).'`)" href="javascript:;" class="btn btn-danger me-1">hapus</a>';
         })
+        ->editColumn('name', function($material) {
+            return '<b>'.ucwords($material->name).'</b>';
+        })
+        ->rawColumns(['actions', 'name'])
         ->make(true);
+    }
+
+    public function destroy($id) {
+        Material::whereId($id)->delete();
+        return redirect('/materials')->with('success', 'Data berhasil di hapus.');
     }
 }

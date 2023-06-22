@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Material\Material;
+use App\Models\Material\MaterialStock;
 use Illuminate\Http\Request;
 
 class MaterialStockController extends Controller
 {
+    public function index($material_id) {
+        $stocks = Material::whereId($material_id)->first()->material_stocks()->get();
+        
+        return view('material-stock.stock', ["stocks" => $stocks, 'material_id' => $material_id ]);
+    }
+
     public function material_list() {
         //logic
         $materials = Material::all();
