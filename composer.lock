@@ -4,8 +4,75 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2a9aaf8c622c66bd6d319de18137372c",
+    "content-hash": "65b5d46078c84c6119fa44ed294f43bf",
     "packages": [
+        {
+            "name": "appstract/laravel-stock",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/appstract/laravel-stock.git",
+                "reference": "216ab0f124ad7ec133d3b9881a70c584ece4de61"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/appstract/laravel-stock/zipball/216ab0f124ad7ec133d3b9881a70c584ece4de61",
+                "reference": "216ab0f124ad7ec133d3b9881a70c584ece4de61",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.6",
+                "phpunit/phpunit": "^8.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Appstract\\Stock\\StockServiceProvider"
+                    ],
+                    "aliases": {
+                        "Alias": "Appstract\\Stock\\StockFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Appstract\\Stock\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gijs Jorissen",
+                    "email": "gijs@appstract.nl",
+                    "homepage": "https://appstract.nl",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Keep stock for Eloquent models",
+            "homepage": "https://github.com/appstract/laravel-stock",
+            "keywords": [
+                "appstract",
+                "laravel-stock"
+            ],
+            "support": {
+                "issues": "https://github.com/appstract/laravel-stock/issues",
+                "source": "https://github.com/appstract/laravel-stock/tree/1.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://www.patreon.com/appstract",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2021-05-14T07:49:21+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.11.0",

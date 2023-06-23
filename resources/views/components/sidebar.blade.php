@@ -87,7 +87,7 @@
             </a>
           </li>
           <li class="menu-item">
-            <a href="index.html" class="menu-link">
+            <a href="{{ route('material-stock.logs') }}" class="menu-link">
               <div>Log Stok Bahan</div>
             </a>
           </li>

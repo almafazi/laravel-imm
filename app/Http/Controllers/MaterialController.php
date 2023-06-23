@@ -27,10 +27,10 @@ class MaterialController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'name' => 'required|string|min:5|max:100',
-            'criteria_1' => 'nullable|string|min:5|max:100',
-            'criteria_2' => 'nullable|string|min:5|max:100',
-            'information' => 'required|string|min:5|max:1000',
+            'name' => 'required|string|min:2|max:100',
+            'criteria_1' => 'nullable|string|min:2|max:100',
+            'criteria_2' => 'nullable|string|min:2|max:100',
+            'information' => 'required|string|min:2|max:1000',
             'grade' => 'required|numeric|in:1,2,3',
         ]);
         Material::create($request->all());
@@ -46,10 +46,10 @@ class MaterialController extends Controller
     public function update(Request $request) {
         $request->validate([
             'id' => 'required|numeric|exists:materials,id',
-            'name' => 'required|string|min:5|max:100',
-            'criteria_1' => 'nullable|string|min:5|max:100',
-            'criteria_2' => 'nullable|string|min:5|max:100',
-            'information' => 'required|string|min:5|max:1000',
+            'name' => 'required|string|min:2|max:100',
+            'criteria_1' => 'nullable|string|min:2|max:100',
+            'criteria_2' => 'nullable|string|min:2|max:100',
+            'information' => 'required|string|min:2|max:1000',
             'grade' => 'required|numeric|in:1,2,3',
         ]);
         Material::whereId($request->id)->update(
@@ -68,6 +68,13 @@ class MaterialController extends Controller
         })
         ->editColumn('name', function($material) {
             return '<b>'.ucwords($material->name).'</b>';
+        })
+        ->editColumn('criteria_2', function($material) {
+            if($material->criteria_2) {
+                return $material->criteria_2;
+            } else {
+                return '-';
+;            }
         })
         ->rawColumns(['actions', 'name'])
         ->make(true);

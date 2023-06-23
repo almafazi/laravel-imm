@@ -35,4 +35,11 @@ Route::prefix('material-stock')->group(function() {
     Route::get('create/{material_id}', [MaterialStockController::class, 'create'])->name('material-stock.create');
     Route::post('store', [MaterialStockController::class, 'store'])->name('material-stock.store');
     Route::get('stocks/{material_id}', [MaterialStockController::class, 'index'])->name('material-stock.index');
+
+    Route::get('edit/{material_id}/{material_stock_id}', [MaterialStockController::class, 'edit'])->name('material-stock.edit');
+    Route::post('update', [MaterialStockController::class, 'update'])->name('material-stock.update');
+    Route::get('destroy/{id}', [MaterialStockController::class, 'destroy'])->name('material-stock.destroy');
+
+    Route::get('logs', [MaterialStockController::class, 'logs'])->name('material-stock.logs');
+
 });

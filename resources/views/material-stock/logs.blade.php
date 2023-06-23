@@ -29,7 +29,7 @@
 
   <!-- Basic Bootstrap Table -->
   <div class="card">
-    <h5 class="card-header">Pilih Bahan</h5>
+    <h5 class="card-header">Log Stock Bahan</h5>
     
     <div class="table-responsive text-nowrap">
       <table class="table">
@@ -41,27 +41,43 @@
             <th>criteria_2</th>
             <th>information</th>
             <th>grade</th>
-            <th>total base qty</th>
-            <th>action</th>
+            <th>jumlah</th>
+            <th>akumulasi</th>
+            <th>kode produksi</th>
+            <th>description</th>
+            <th>timestamp</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
-            @foreach ($materials as $material)      
-                <tr>
-                    <td> {{ $material->id }}</td>
-                    <td> {{ $material->name }}</td>
-                    <td> {{ $material->criteria_1 }}</td>
-                    <td> {{ $material->criteria_2 ?? '-'  }}</td>
-                    <td> {{ $material->information }}</td>
-                    <td> {{ $material->grade }}</td>
-                    <td> 
-                      {{ $material->stock_mutations()->sum('amount') }}
-                      {{-- {{ $material->material_stocks()->withSum('stockMutations', 'amount')->get()->sum('stock_mutations_sum_amount') }} --}}
-                    </td>
-                    <td> 
-                      <a class="btn btn-danger" href="{{ route('material-stock.index', ["material_id" => $material->id]) }}">Pilih Bahan Ini</a>
-                    </td>
-                </tr>
+            @foreach ($material_stocks as $material_stock)   
+                @php
+                    $accumulation = 0;
+                @endphp
+                @foreach($material_stock->stockMutations as $mutation) 
+                    <tr>
+                        <td> {{ $material_stock->material->id }}</td>
+                        <td> {{ $material_stock->material->name }}</td>
+                        <td> {{ $material_stock->material->criteria_1 }}</td>
+                        <td> {{ $material_stock->material->criteria_2 ?? '-'  }}</td>
+                        <td> {{ $material_stock->material->information }}</td>
+                        <td> {{ $material_stock->material->grade }}</td>
+                        <td> 
+                            {{ $mutation->amount }}
+                        </td>
+                        <td> 
+                            {{ $accumulation = $accumulation + $mutation->amount }}
+                        </td>
+                        <td> 
+                            {{ $material_stock->code }}
+                        </td>
+                        <td> 
+                            {!! $mutation->description ?? '<span class="badge bg-danger">stok awal</span>' !!}
+                        </td>
+                        <td> 
+                            {{ $mutation->created_at->format('d/m/Y') }}
+                        </td>
+                    </tr>
+                @endforeach   
             @endforeach
         </tbody>
       </table>
