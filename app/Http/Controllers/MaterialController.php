@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\StocksExport;
 use App\Models\Material\Material;
 use Illuminate\Http\Request;
 use DataTables;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MaterialController extends Controller
 {
@@ -83,5 +85,11 @@ class MaterialController extends Controller
     public function destroy($id) {
         Material::whereId($id)->delete();
         return redirect('/materials')->with('success', 'Data berhasil di hapus.');
+    }
+
+
+    public function export() 
+    {
+        return Excel::download(new StocksExport, 'Export Stock Tanggal '.date('d-m-Y').'.xlsx');
     }
 }

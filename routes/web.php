@@ -29,6 +29,7 @@ Route::post('/material/update', [MaterialController::class, 'update'])->name('ma
 Route::get('/material/destroy/{id}', [MaterialController::class, 'destroy'])->name('material.destroy');
 
 Route::get('/material/datatable', [MaterialController::class, 'datatable'])->name('material.datatable');
+Route::get('material/export', [MaterialController::class, 'export'])->name('material.export');
 
 Route::prefix('material-stock')->group(function() {
     Route::get('material-list', [MaterialStockController::class, 'material_list'])->name('material-stock.material-list');

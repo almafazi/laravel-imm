@@ -37,6 +37,7 @@
         @endif
         <div class="table-responsive text-nowrap">
             <a href="{{ route('material.create') }}" class="btn btn-primary mb-3 mx-2">Tambah Data</a>
+            <a href="{{ route('material.export') }}" class="btn btn-primary mb-3 mx-2">Export Data</a>
             <table class="table">
                 <thead>
                     <tr>
