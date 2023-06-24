@@ -19,7 +19,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/materials', [MaterialController::class, 'index'])->name('material.index');
+Route::get('/', [MaterialController::class, 'index'])->name('material.index');
 
 Route::get('/material/create', [MaterialController::class, 'create'])->name('material.create');
 Route::post('/material/store', [MaterialController::class, 'store'])->name('material.store');

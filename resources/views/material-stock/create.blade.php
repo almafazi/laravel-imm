@@ -6,7 +6,7 @@
 <form action="{{ route('material-stock.store') }}" method="post">
  <div class="col-md-6">
     <div class="card mb-4">
-      <h5 class="card-header">Input Bahan</h5>
+      <h5 class="card-header">Input Stock Bahan</h5>
       <div class="card-body demo-vertical-spacing demo-only-element">
         <div class="form-floating form-floating-outline mb-4">
           <input
@@ -16,7 +16,7 @@
             id="name"
             value="{{ $material->name }}" />
             <input type="hidden" name="material_id" value="{{ $material->id }}" id="">
-          <label for="name">Material</label>
+          <label for="name">Nama Bahan</label>
         </div>
         <div class="form-floating form-floating-outline mb-4">
             <input
@@ -24,7 +24,7 @@
               class="form-control"
               id="stock"
               name="stock"
-              placeholder="input base qty" />
+              placeholder="input stok awal" />
             <label for="stock">Stock</label>
         </div>
         <div class="form-floating form-floating-outline mb-4">
@@ -34,7 +34,7 @@
             id="code"
             name="code"
             placeholder="input kode produksi" />
-            <label for="code">input kode produksi</label>
+            <label for="code">Input Kode Produksi</label>
         </div>
       </div>
     </div>

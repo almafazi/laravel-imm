@@ -37,14 +37,14 @@
           <tr>
             <th>id</th>
             <th>name</th>
-            <th>criteria_1</th>
-            <th>criteria_2</th>
-            <th>information</th>
+            <th>kriteria 1</th>
+            <th>kriteria 2</th>
+            <th>informasi</th>
             <th>grade</th>
             <th>jumlah</th>
             <th>akumulasi</th>
             <th>kode produksi</th>
-            <th>description</th>
+            <th>deskripsi</th>
             <th>timestamp</th>
           </tr>
         </thead>
@@ -89,6 +89,7 @@
 
 @section('script')
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 <script>
     $(document).ready(function () {
         $('.table').DataTable({

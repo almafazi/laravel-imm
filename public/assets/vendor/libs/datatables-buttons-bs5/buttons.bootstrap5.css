@@ -33,6 +33,7 @@ div.dataTables_wrapper {
 
 div.dt-buttons {
   position: initial;
+  margin-left: 9px;
 }
 
 div.dt-buttons .dt-button {

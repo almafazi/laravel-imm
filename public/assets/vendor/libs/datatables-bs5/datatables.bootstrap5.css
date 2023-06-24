@@ -656,7 +656,11 @@ div.card-datatable .dataTable {
 div.dataTables_wrapper div.dataTables_length,
 div.dataTables_wrapper div.dataTables_filter {
   margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1rem;  
+}
+
+div.dataTables_length {
+  margin-left: 5px;
 }
 
 div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item.next .page-link, div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item.previous .page-link, div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item.first .page-link, div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item.last .page-link {

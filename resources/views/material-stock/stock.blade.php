@@ -31,7 +31,7 @@
 
   <!-- Basic Bootstrap Table -->
   <div class="card">
-    <h5 class="card-header">Table Basic</h5>
+    <h5 class="card-header">Kelola Stok Bahan</h5>
     
     <div class="table-responsive text-nowrap">
         <a href="{{ route('material-stock.create', ['material_id' => $material_id]) }}" class="btn btn-primary mb-3">Tambah Data</a>
@@ -43,7 +43,7 @@
         <table class="table">
         <thead>
           <tr>
-            <th>material</th>
+            <th>nama bahan</th>
             <th>base qty</th>
             <th>code</th>
             <th>action</th>

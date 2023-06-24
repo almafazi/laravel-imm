@@ -1,17 +1,12 @@
 <!DOCTYPE html>
 
-<html
-  lang="en"
-  class="light-style layout-navbar-fixed layout-menu-fixed"
-  dir="ltr"
-  data-theme="theme-default"
-  data-assets-path="{{ asset('assets/') }}/"
-  data-template="vertical-menu-template">
-  <head>
+<html lang="en" class="light-style layout-navbar-fixed layout-menu-fixed" dir="ltr" data-theme="theme-default"
+    data-assets-path="{{ asset('assets/') }}/" data-template="vertical-menu-template">
+
+<head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
     <title>Dashboard - Analytics | Materialize - Material Design HTML Admin Template</title>
 
@@ -23,9 +18,8 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
 
     <!-- Icons -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/materialdesignicons.css') }}" />
@@ -33,7 +27,8 @@
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/rtl/core.css') }}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/rtl/theme-default.css') }}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/rtl/theme-default.css') }}"
+        class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
 
     <!-- Vendors CSS -->
@@ -59,44 +54,44 @@
         }
     </style>
     @yield('style')
-  </head>
+</head>
 
-  <body>
+<body>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
-      <div class="layout-container">
-        @include('components/sidebar')
-        <!-- Menu -->
-        <!-- / Menu -->
+        <div class="layout-container">
+            @include('components/sidebar')
+            <!-- Menu -->
+            <!-- / Menu -->
 
-        <!-- Layout container -->
-        <div class="layout-page">
-          <!-- Navbar -->
+            <!-- Layout container -->
+            <div class="layout-page">
+                <!-- Navbar -->
 
-          @include('components/navbar')
+                @include('components/navbar')
 
-          <!-- / Navbar -->
+                <!-- / Navbar -->
 
-          <!-- Content wrapper -->
-          <div class="content-wrapper">
-            <!-- Content -->
-            @yield('content')
-            <!-- Footer -->
-           
-            <!-- / Footer -->
-            @include('components.footer')
-            <div class="content-backdrop fade"></div>
-          </div>
-          <!-- Content wrapper -->
+                <!-- Content wrapper -->
+                <div class="content-wrapper">
+                    <!-- Content -->
+                    @yield('content')
+                    <!-- Footer -->
+
+                    <!-- / Footer -->
+                    @include('components.footer')
+                    <div class="content-backdrop fade"></div>
+                </div>
+                <!-- Content wrapper -->
+            </div>
+            <!-- / Layout page -->
         </div>
-        <!-- / Layout page -->
-      </div>
 
-      <!-- Overlay -->
-      <div class="layout-overlay layout-menu-toggle"></div>
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
 
-      <!-- Drag Target Area To SlideIn Menu On Small Screens -->
-      <div class="drag-target"></div>
+        <!-- Drag Target Area To SlideIn Menu On Small Screens -->
+        <div class="drag-target"></div>
     </div>
     <!-- / Layout wrapper -->
 
@@ -126,5 +121,6 @@
     <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
 
     @yield('script')
-  </body>
+</body>
+
 </html>

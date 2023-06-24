@@ -6,7 +6,7 @@
 <form action="{{ route('material-stock.update') }}" method="post">
  <div class="col-md-6">
     <div class="card mb-4">
-      <h5 class="card-header">Input Bahan</h5>
+      <h5 class="card-header">Edit Stock Bahan</h5>
       <div class="card-body demo-vertical-spacing demo-only-element">
         <div class="form-floating form-floating-outline mb-4">
           <input
@@ -27,8 +27,8 @@
               name="base_qty"
               disabled
               value="{{ $material_stock->stock }}"
-              placeholder="input base qty" />
-            <label for="base_qty">base qty</label>
+              placeholder="input stock" />
+            <label for="base_qty">Stock</label>
         </div>
         <div class="form-floating form-floating-outline mb-4">
             <input
@@ -39,7 +39,7 @@
             disabled
             value="{{ $material_stock->code }}"
             placeholder="input kode produksi" />
-          <label for="code">input kode produksi</label>
+          <label for="code">Input Kode Produksi</label>
         </div>
         <hr>
         <h6>Update Stock</h6>

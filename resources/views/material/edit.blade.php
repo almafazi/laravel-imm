@@ -10,7 +10,7 @@
         <div class="error">{{ $message }}</div>
   @enderror
         <div class="card mb-4">
-      <h5 class="card-header">Input Bahan</h5>
+      <h5 class="card-header">Edit Master Bahan</h5>
       <div class="card-body demo-vertical-spacing demo-only-element">
         <div class="form-floating form-floating-outline mb-4">
           <input
@@ -19,8 +19,8 @@
             id="name"
             name="name"
             value="{{ $bahan->name }}"
-            placeholder="input nama" />
-          <label for="name">Nama</label>
+            placeholder="edit nama bahan" />
+          <label for="name">Nama Bahan</label>
           @error('name')
                 <div class="error">{{ $message }}</div>
           @enderror
@@ -32,8 +32,8 @@
               id="criteria_1"
               name="criteria_1"
               value="{{ $bahan->criteria_1 }}"
-              placeholder="input criteria 1" />
-            <label for="criteria_1">criteria 1</label>
+              placeholder="input kriteria 1" />
+            <label for="criteria_1">Kriteria 1</label>
             @error('criteria_1')
                 <div class="error">{{ $message }}</div>
            @enderror
@@ -45,16 +45,16 @@
               id="criteria_2"
               name="criteria_2"
               value="{{ $bahan->criteria_2 }}"
-              placeholder="input criteria 2" />
-            <label for="criteria_2">criteria 2</label>
+              placeholder="input kriteria 2" />
+            <label for="criteria_2">Kriteria 2</label>
           </div>
           <div class="form-floating form-floating-outline mb-4">
             <textarea
               class="form-control"
               id="information"
               name="information"
-              placeholder="input information" >{{ $bahan->information }}</textarea>
-            <label for="information">information</label>
+              placeholder="input informasi" >{{ $bahan->information }}</textarea>
+            <label for="information">Informasi</label>
           </div>
           <div class="form-floating form-floating-outline mb-4">
             <select class="form-control"
