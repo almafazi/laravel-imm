@@ -76,12 +76,12 @@
           <div>Gudang</div>
         </a>
         <ul class="menu-sub">
-          <li class="menu-item {{ request()->path() == 'materials' || request()->path() == 'material/create' ? "active" : "" }}">
+          <li class="menu-item {{ request()->path() == 'material' || request()->path() == 'material/create' ? "active" : "" }}">
             <a href="{{ route('material.index') }}" class="menu-link">
               <div>Input Master Bahan</div>
             </a>
           </li>
-          <li class="menu-item {{ request()->path() == 'material-stock/material-list' || request()->path() == 'material-stock/material-list/create' ? "active" : "" }}">
+          <li class="menu-item {{ request()->path() == '/' || request()->path() == 'material-stock/material-list/create' ? "active" : "" }}">
             <a href="{{ route('material-stock.material-list') }}" class="menu-link">
               <div>Kelola Stok Bahan</div>
             </a>

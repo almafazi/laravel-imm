@@ -32,6 +32,20 @@
     <div class="card">
         <h5 class="card-header mt">Kelola Stok Bahan</h5>
         <div class="table-responsive text-nowrap">
+            <div class="row mb-3">
+                <div class="col-2">
+                    <a class="btn btn-success" href="{{ asset('example-export/example-export.xlsx') }}">download sample</a>
+                </div>
+                <div class="offset-6 col-4">
+                    <form action="{{ route('material-stock.import') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="input-group">
+                            <input class="form-control" type="file" name="file" id="import">
+                            <button class="btn btn-primary" type="submit">Import</button>    
+                        </div>
+                    </form>
+                </div>
+            </div>
             <table class="table">
                 <thead>
                     <tr>

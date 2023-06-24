@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\StocksImport;
 use App\Models\Material\Material;
 use App\Models\Material\MaterialStock;
 use Appstract\Stock\StockMutation;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MaterialStockController extends Controller
 {
@@ -78,5 +80,12 @@ class MaterialStockController extends Controller
         $material_stocks = MaterialStock::with('stockMutations')->groupBy('code')->get();
        
         return view('material-stock.logs', compact('material_stocks'));
+    }
+
+    public function import() 
+    {
+        Excel::import(new StocksImport, request()->file('file'));
+        
+        return redirect('/')->with('success', 'All good!');
     }
 }

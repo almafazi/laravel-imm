@@ -15,11 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [MaterialStockController::class, 'material_list'])->name('material-stock.material-list');
 
-Route::get('/', [MaterialController::class, 'index'])->name('material.index');
+Route::get('/material', [MaterialController::class, 'index'])->name('material.index');
 
 Route::get('/material/create', [MaterialController::class, 'create'])->name('material.create');
 Route::post('/material/store', [MaterialController::class, 'store'])->name('material.store');
@@ -32,7 +30,7 @@ Route::get('/material/datatable', [MaterialController::class, 'datatable'])->nam
 Route::get('material/export', [MaterialController::class, 'export'])->name('material.export');
 
 Route::prefix('material-stock')->group(function() {
-    Route::get('material-list', [MaterialStockController::class, 'material_list'])->name('material-stock.material-list');
+    
     Route::get('create/{material_id}', [MaterialStockController::class, 'create'])->name('material-stock.create');
     Route::post('store', [MaterialStockController::class, 'store'])->name('material-stock.store');
     Route::get('stocks/{material_id}', [MaterialStockController::class, 'index'])->name('material-stock.index');
@@ -42,5 +40,7 @@ Route::prefix('material-stock')->group(function() {
     Route::get('destroy/{id}', [MaterialStockController::class, 'destroy'])->name('material-stock.destroy');
 
     Route::get('logs', [MaterialStockController::class, 'logs'])->name('material-stock.logs');
+
+    Route::post('import', [MaterialStockController::class, 'import'])->name('material-stock.import');
 
 });

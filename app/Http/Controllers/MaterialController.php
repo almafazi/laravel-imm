@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\StocksExport;
+use App\Imports\StocksImport;
 use App\Models\Material\Material;
 use Illuminate\Http\Request;
 use DataTables;
