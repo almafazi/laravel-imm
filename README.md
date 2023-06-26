@@ -3,4 +3,5 @@ cp .env.example .env
 
 composer install
 
-php artisan migrate
+php artisan migrate:fresh --seed
+php artisan queue:work

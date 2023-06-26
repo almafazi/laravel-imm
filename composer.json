@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.1",
         "appstract/laravel-stock": "^1.2",
+        "f9webltd/laravel-api-response-helpers": "^1.5",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
