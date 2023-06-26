@@ -11,24 +11,28 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class MaterialController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         //logic
         $materials = Material::all();
         return view('material.material', ["materials" => $materials]);
     }
 
-    public function material_api() {
+    public function material_api()
+    {
         //logic
         $materials = Material::all();
         return response()->json($materials);
     }
 
-    public function create() {
+    public function create()
+    {
         //logic
         return view('material.create');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $request->validate([
             'name' => 'required|string|min:2|max:100',
             'criteria_1' => 'nullable|string|min:2|max:100',
@@ -40,13 +44,15 @@ class MaterialController extends Controller
         return redirect('/materials');
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         //logic
         $material = Material::where('id', $id)->firstOrFail();
         return view('material.edit', ["bahan" => $material]);
     }
 
-    public function update(Request $request) {
+    public function update(Request $request)
+    {
         $request->validate([
             'id' => 'required|numeric|exists:materials,id',
             'name' => 'required|string|min:2|max:100',
@@ -61,36 +67,38 @@ class MaterialController extends Controller
         return redirect('/materials')->with('success', 'Data berhasil di update.');
     }
 
-    public function datatable() {
+    public function datatable()
+    {
         $material = Material::query();
- 
+
         return DataTables::of($material)
-        ->addColumn('actions', function($material) {
-            return '<a href="'.route('material.edit',['id' => $material->id]).'" class="btn btn-danger me-1">edit</a>
-            <a onclick="deleteMaterial(`'.route('material.destroy',['id' => $material->id]).'`)" href="javascript:;" class="btn btn-danger me-1">hapus</a>';
-        })
-        ->editColumn('name', function($material) {
-            return '<b>'.ucwords($material->name).'</b>';
-        })
-        ->editColumn('criteria_2', function($material) {
-            if($material->criteria_2) {
-                return $material->criteria_2;
-            } else {
-                return '-';
-;            }
-        })
-        ->rawColumns(['actions', 'name'])
-        ->make(true);
+            ->addColumn('actions', function ($material) {
+                return '<a href="' . route('material.edit', ['id' => $material->id]) . '" class="btn btn-danger me-1">edit</a>
+            <a onclick="deleteMaterial(`' . route('material.destroy', ['id' => $material->id]) . '`)" href="javascript:;" class="btn btn-danger me-1">hapus</a>';
+            })
+            ->editColumn('name', function ($material) {
+                return '<b>' . ucwords($material->name) . '</b>';
+            })
+            ->editColumn('criteria_2', function ($material) {
+                if ($material->criteria_2) {
+                    return $material->criteria_2;
+                } else {
+                    return '-';;
+                }
+            })
+            ->rawColumns(['actions', 'name'])
+            ->make(true);
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         Material::whereId($id)->delete();
         return redirect('/materials')->with('success', 'Data berhasil di hapus.');
     }
 
 
-    public function export() 
+    public function export()
     {
-        return Excel::download(new StocksExport, 'Export Stock Tanggal '.date('d-m-Y').'.xlsx');
+        return Excel::download(new StocksExport, 'Export Stock Tanggal ' . date('d-m-Y') . '.xlsx');
     }
 }
