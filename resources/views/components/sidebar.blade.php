@@ -76,6 +76,7 @@
           <div>Gudang</div>
         </a>
         <ul class="menu-sub">
+          @role('admin')
           <li class="menu-item {{ request()->path() == 'material' || request()->path() == 'material/create' ? "active" : "" }}">
             <a href="{{ route('material.index') }}" class="menu-link">
               <div>Input Master Bahan</div>
@@ -86,6 +87,7 @@
               <div>Kelola Stok Bahan</div>
             </a>
           </li>
+          @endrole
           <li class="menu-item">
             <a href="{{ route('material-stock.logs') }}" class="menu-link">
               <div>Log Stok Bahan</div>

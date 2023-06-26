@@ -18,7 +18,58 @@
                 </a>
             </li>
             <!--/ Style Switcher -->
-
+             <!-- Notification -->
+             <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-2 me-xl-1">
+                <a
+                  class="nav-link btn btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow"
+                  href="javascript:void(0);"
+                  data-bs-toggle="dropdown"
+                  data-bs-auto-close="outside"
+                  aria-expanded="false">
+                  <i class="mdi mdi-bell-outline mdi-24px"></i>
+                  <span
+                    class="position-absolute top-0 start-50 translate-middle-y badge badge-dot bg-danger mt-2 border"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end py-0">
+                  <li class="dropdown-menu-header border-bottom">
+                    <div class="dropdown-header d-flex align-items-center py-3">
+                      <h6 class="mb-0 me-auto">Notification</h6>
+                      <span class="badge rounded-pill bg-label-primary">8 New</span>
+                    </div>
+                  </li>
+                  <li class="dropdown-notifications-list scrollable-container">
+                    <ul class="list-group list-group-flush">
+                    @foreach (Auth()->user()->notifications as $item)
+               
+                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                            <div class="d-flex gap-2">
+                            <div class="flex-shrink-0">
+                                <div class="avatar me-1">
+                                <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-200">
+                                <h6 class="mb-1 text-truncate">{{ $item->data['title'] }}</h6>
+                                <small class="text-truncate text-body">Sebanyak: {{ $item->data['stock'] }}</small>
+                                <small class="text-muted">Tanggal {{ \Carbon\Carbon::parse($item->data['timestamp'])->format('d/m/Y') }}</small>
+                            </div>
+                            <div class="flex-shrink-0 dropdown-notifications-actions">
+                                
+                            </div>
+                            </div>
+                        </li>
+                        @endforeach
+                      
+                    </ul>
+                  </li>
+                  <li class="dropdown-menu-footer border-top p-2">
+                    <a href="javascript:void(0);" class="btn btn-primary d-flex justify-content-center">
+                      View all notifications
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <!--/ Notification -->
             <!-- User -->
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -37,8 +88,8 @@
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">John Doe</span>
-                                    <small class="text-muted">Admin</small>
+                                    <span class="fw-semibold d-block">{{ Auth()->user()->name }}</span>
+                                    <small class="text-muted">{{ Auth()->user()->getRoleNames()->first() }}</small>
                                 </div>
                             </div>
                         </a>
@@ -47,7 +98,7 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="pages-profile-user.html">
+                        <a class="dropdown-item" href="{{ route('profile.edit') }}">
                             <i class="mdi mdi-account-outline me-2"></i>
                             <span class="align-middle">My Profile</span>
                         </a>
@@ -61,7 +112,7 @@
                     <div class="dropdown-divider"></div>
             </li>
             <li>
-                <a class="dropdown-item" href="auth-login-cover.html" target="_blank">
+                <a class="dropdown-item" href="{{ route('logout') }}">
                     <i class="mdi mdi-logout me-2"></i>
                     <span class="align-middle">Log Out</span>
                 </a>

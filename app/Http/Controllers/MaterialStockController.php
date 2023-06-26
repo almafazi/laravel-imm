@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Imports\StocksImport;
 use App\Models\Material\Material;
 use App\Models\Material\MaterialStock;
+use App\Notifications\StockNotification;
 use Appstract\Stock\StockMutation;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -18,6 +19,9 @@ class MaterialStockController extends Controller
     }
 
     public function material_list() {
+        if(!Auth()->user()->hasRole('admin')) {
+           return redirect()->route('material-stock.logs');
+        }
         //logic
         $materials = Material::all();
         return view('material-stock.material-list', ["materials" => $materials]);
@@ -35,6 +39,9 @@ class MaterialStockController extends Controller
         $material_stock = $material->material_stocks()->create($request->except('_token', 'material_id', 'stock'));
 
         $material_stock->setStock($request->stock);
+
+        Auth()->user()->notify(new StockNotification($material_stock, $request->stock));
+
         return redirect()->route('material-stock.index', ['material_id' => $material->id ]);
     }
 
