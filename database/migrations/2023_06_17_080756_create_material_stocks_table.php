@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('base_qty');
             $table->integer('input_qty')->nullable();
             $table->integer('output_qty')->nullable();
-            $table->string('code');
+            $table->string('code')->nullabe();
             $table->timestamps();
         });
     }

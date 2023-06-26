@@ -16,17 +16,17 @@ class UserTableSeeder extends Seeder
      */
     public function run(): void
     {
-        // $user = User::create([
-        //     'name' => 'Admin',
-        //     'email' => 'admin@gudang.com',
-        //     'email_verified_at' => now(),
-        //     'password' => Hash::make('admin'),
-        //     'remember_token' => Str::random(10),
-        // ]);
+        $user = User::create([
+            'name' => 'Admin',
+            'email' => 'admin@gudang.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('admin'),
+            'remember_token' => Str::random(10),
+        ]);
 
-        // $role = Role::create(['name' => 'admin']);
+        $role = Role::create(['name' => 'admin']);
 
-        // $user->assignRole($role);
+        $user->assignRole($role);
 
         $user = User::create([
             'name' => 'Guest',

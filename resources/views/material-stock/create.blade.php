@@ -27,15 +27,6 @@
               placeholder="input stok awal" />
             <label for="stock">Stock</label>
         </div>
-        <div class="form-floating form-floating-outline mb-4">
-            <input
-            type="text"
-            class="form-control"
-            id="code"
-            name="code"
-            placeholder="input kode produksi" />
-            <label for="code">Input Kode Produksi</label>
-        </div>
       </div>
     </div>
   </div>

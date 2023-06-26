@@ -30,17 +30,6 @@
               placeholder="input stock" />
             <label for="base_qty">Stock</label>
         </div>
-        <div class="form-floating form-floating-outline mb-4">
-            <input
-            type="text"
-            class="form-control"
-            id="code"
-            name="code"
-            disabled
-            value="{{ $material_stock->code }}"
-            placeholder="input kode produksi" />
-          <label for="code">Input Kode Produksi</label>
-        </div>
         <hr>
         <h6>Update Stock</h6>
         <div class="form-floating form-floating-outline mb-4">
