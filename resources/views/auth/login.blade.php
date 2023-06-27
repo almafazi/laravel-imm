@@ -7,6 +7,7 @@
 
         <!-- Email Address -->
         <div>
+            <img src="{{ asset('assets/img/logo/gd-imm.png') }}" alt="">
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
