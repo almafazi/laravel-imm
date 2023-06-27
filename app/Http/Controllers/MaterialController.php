@@ -41,7 +41,7 @@ class MaterialController extends Controller
             'grade' => 'required|numeric|in:1,2,3',
         ]);
         Material::create($request->all());
-        return redirect('/materials');
+        return redirect('/material');
     }
 
     public function edit($id)
@@ -64,7 +64,7 @@ class MaterialController extends Controller
         Material::whereId($request->id)->update(
             $request->except('_token')
         );
-        return redirect('/materials')->with('success', 'Data berhasil di update.');
+        return redirect('/material')->with('success', 'Data berhasil di update.');
     }
 
     public function datatable()
@@ -73,7 +73,7 @@ class MaterialController extends Controller
 
         return DataTables::of($material)
             ->addColumn('actions', function ($material) {
-                return '<a href="' . route('material.edit', ['id' => $material->id]) . '" class="btn btn-danger me-1">edit</a>
+                return '<a href="' . route('material.edit', ['id' => $material->id]) . '" class="btn btn-primary me-1">ubah bahan</a>
             <a onclick="deleteMaterial(`' . route('material.destroy', ['id' => $material->id]) . '`)" href="javascript:;" class="btn btn-danger me-1">hapus</a>';
             })
             ->editColumn('name', function ($material) {
@@ -93,7 +93,7 @@ class MaterialController extends Controller
     public function destroy($id)
     {
         Material::whereId($id)->delete();
-        return redirect('/materials')->with('success', 'Data berhasil di hapus.');
+        return redirect('/material')->with('success', 'Data berhasil di hapus.');
     }
 
 

@@ -10,7 +10,7 @@
         <div class="error">{{ $message }}</div>
   @enderror
         <div class="card mb-4">
-      <h5 class="card-header">Edit Master Bahan</h5>
+      <h5 class="card-header">Ubah Master Bahan</h5>
       <div class="card-body demo-vertical-spacing demo-only-element">
         <div class="form-floating form-floating-outline mb-4">
           <input

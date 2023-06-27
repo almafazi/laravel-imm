@@ -29,7 +29,7 @@
 @section('content')
     <!-- Basic Bootstrap Table -->
     <div class="card">
-        <h5 class="card-header">Tabel Input Bahan</h5>
+        <h5 class="card-header">Input Master Bahan</h5>
         @if (\Session::has('success'))
             <div class="alert alert-success mx-3">
                 {!! \Session::get('success') !!}
@@ -76,7 +76,7 @@
         }, 2000);
         const deleteMaterial = (url) => {
             Swal.fire({
-                title: 'Are you sure?',
+                title: 'Yakin ingin hapus?',
                 text: "You won't be able to revert this!",
                 icon: 'warning',
                 showCancelButton: true,
