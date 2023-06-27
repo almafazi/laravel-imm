@@ -49,6 +49,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>id</th>
                         <th>nama bahan</th>
                         <th>kriteria 1</th>
                         <th>kriteria 2</th>
@@ -61,6 +62,7 @@
                 <tbody class="table-border-bottom-0">
                     @foreach ($materials as $material)
                         <tr>
+                            <td> {{ $material->id }}</td>
                             <td> {{ $material->name }}</td>
                             <td> {{ $material->criteria_1 }}</td>
                             <td> {{ $material->criteria_2 ?? '-' }}</td>

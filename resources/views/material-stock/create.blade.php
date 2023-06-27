@@ -24,7 +24,7 @@
               class="form-control"
               id="stock"
               name="stock"
-              placeholder="input stok awal" />
+              placeholder="Input stok awal" />
             <label for="stock">Stock</label>
         </div>
       </div>

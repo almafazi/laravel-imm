@@ -29,7 +29,7 @@
 @section('content')
     <!-- Basic Bootstrap Table -->
     <div class="card">
-        <h5 class="card-header">Log Stock Bahan</h5>
+        <h5 class="card-header">Log Stok Bahan</h5>
 
         <div class="table-responsive text-nowrap">
             <table class="table">
@@ -71,7 +71,7 @@
                                     {{ $material_stock->code }}
                                 </td>
                                 <td>
-                                    {!! $mutation->description ?? '<span class="badge bg-success">stok awal</span>' !!}
+                                    {!! $mutation->description ?? '<span class="badge bg-success">Stok Awal</span>' !!}
                                 </td>
                                 <td>
                                     {{ $mutation->created_at->format('d/m/Y') }}

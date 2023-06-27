@@ -15,7 +15,7 @@ class MaterialStockController extends Controller
 {
     public function index($material_id) {
         $stocks = Material::whereId($material_id)->first()->material_stocks()->get();
-        
+
         return view('material-stock.stock', ["stocks" => $stocks, 'material_id' => $material_id ]);
     }
 
@@ -51,9 +51,6 @@ class MaterialStockController extends Controller
             ]);
         });
 
-        
-        
-
         Auth()->user()->notify(new StockNotification($material_stock, $request->stock));
 
         return redirect()->route('material-stock.index', ['material_id' => $material->id ]);
@@ -77,19 +74,19 @@ class MaterialStockController extends Controller
 
         if($request->increase_stock) {
             $material_stock->increaseStock($request->increase_stock, [
-                'description' => $request->description,
+                'description' => '<span class="badge bg-primary">Penambahan Stok</span>',
                 'reference' => '',
             ]);
         }
 
         if($request->decrease_stock) {
             $material_stock->decreaseStock($request->decrease_stock, [
-                'description' => $request->description,
+                'description' => '<span class="badge bg-danger">Pengurangan Stok</span>',
                 'reference' => '',
             ]);
         }
 
-        return redirect()->route('material-stock.index', ['material_id' => $material->id ])->with('success', 'Stock berhasil di ubah.');
+        return redirect()->route('material-stock.index', ['material_id' => $material->id ])->with('success', 'Stok berhasil di ubah.');
     }
 
     public function destroy($id) {
@@ -98,15 +95,15 @@ class MaterialStockController extends Controller
     }
 
     public function logs() {
-        $material_stocks = MaterialStock::with('stockMutations')->groupBy('code')->get();
-       
+        $material_stocks = MaterialStock::with('stockMutations')->groupBy('id')->get();
+
         return view('material-stock.logs', compact('material_stocks'));
     }
 
-    public function import() 
+    public function import()
     {
         Excel::import(new StocksImport, request()->file('file'));
-        
+
         return redirect('/')->with('success', 'All good!');
     }
 }
