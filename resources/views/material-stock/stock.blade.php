@@ -32,9 +32,9 @@
   <!-- Basic Bootstrap Table -->
   <div class="card">
     <h5 class="card-header">Kelola Stok Bahan</h5>
-    
+
     <div class="table-responsive text-nowrap">
-        <a href="{{ route('material-stock.create', ['material_id' => $material_id]) }}" class="btn btn-primary mb-3">Tambah Data</a>
+        <a href="{{ route('material-stock.create', ['material_id' => $material_id]) }}" class="btn btn-primary mb-3">Tambah Stok</a>
         @if (\Session::has('success'))
             <div class="alert alert-success">
               {!! \Session::get('success') !!}
@@ -44,8 +44,8 @@
         <thead>
           <tr>
             <th>nama bahan</th>
-            <th>base qty</th>
-            <th>code</th>
+            <th>stok</th>
+            <th>kode produksi</th>
             <th>action</th>
           </tr>
         </thead>

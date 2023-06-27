@@ -34,14 +34,14 @@
         <div class="table-responsive text-nowrap">
             <div class="row mb-3">
                 <div class="col-2">
-                    <a class="btn btn-success" href="{{ asset('example-export/example-export.xlsx') }}">download sample</a>
+                    <a class="btn btn-success" href="{{ asset('example-export/example-export.xlsx') }}">format import</a>
                 </div>
                 <div class="offset-6 col-4">
                     <form action="{{ route('material-stock.import') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="input-group">
                             <input class="form-control" type="file" name="file" id="import">
-                            <button class="btn btn-primary" type="submit">Import</button>    
+                            <button class="btn btn-primary" type="submit">Import</button>
                         </div>
                     </form>
                 </div>
@@ -49,20 +49,18 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>id</th>
                         <th>nama bahan</th>
                         <th>kriteria 1</th>
                         <th>kriteria 2</th>
                         <th>informasi</th>
                         <th>grade</th>
-                        <th>total base qty</th>
+                        <th>total stok</th>
                         <th>aksi</th>
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
                     @foreach ($materials as $material)
                         <tr>
-                            <td> {{ $material->id }}</td>
                             <td> {{ $material->name }}</td>
                             <td> {{ $material->criteria_1 }}</td>
                             <td> {{ $material->criteria_2 ?? '-' }}</td>
@@ -73,9 +71,9 @@
                                 {{-- {{ $material->material_stocks()->withSum('stockMutations', 'amount')->get()->sum('stock_mutations_sum_amount') }} --}}
                             </td>
                             <td>
-                                <a class="btn btn-danger"
+                                <a class="btn btn-primary"
                                     href="{{ route('material-stock.index', ['material_id' => $material->id]) }}">Pilih
-                                    Bahan Ini</a>
+                                    Bahan</a>
                             </td>
                         </tr>
                     @endforeach

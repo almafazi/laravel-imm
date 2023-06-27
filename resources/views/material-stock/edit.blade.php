@@ -31,7 +31,7 @@
             <label for="base_qty">Stock</label>
         </div>
         <hr>
-        <h6>Update Stock</h6>
+        <h6>Update Stok</h6>
         <div class="form-floating form-floating-outline mb-4">
             <input
               type="number"
@@ -39,8 +39,8 @@
               id="increase_stock"
               name="increase_stock"
               value="{{ $material_stock->input_qty }}"
-              placeholder="input tambah stok" />
-            <label for="increase_stock">Tambah Stok:</label>
+              placeholder="Jumlah stok masuk" />
+            <label for="increase_stock">Tambah Stok</label>
         </div>
         <div class="form-floating form-floating-outline mb-4">
             <input
@@ -49,8 +49,8 @@
               id="decrease_stock"
               name="decrease_stock"
               value="{{ $material_stock->output_qty }}"
-              placeholder="input kurangi stok" />
-            <label for="decrease_stock">Kurangi Stok:</label>
+              placeholder="Jumlah stok keluar" />
+            <label for="decrease_stock">Kurangi Stok</label>
         </div>
         <div class="form-floating form-floating-outline mb-4">
             <textarea id="description" class="form-control" placeholder="Menambah atau mengurangi stok untuk?" name="description" id="" cols="300" rows="100"></textarea>

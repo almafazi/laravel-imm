@@ -77,11 +77,11 @@
         const deleteMaterial = (url) => {
             Swal.fire({
                 title: 'Yakin ingin hapus?',
-                text: "You won't be able to revert this!",
+                text: "Seluruh data termasuk stok akan terhapus !!!",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Ya, Hapus Saja',
-                cancelButtonText: "Tidak Jadi",
+                confirmButtonText: 'Ya, Hapus',
+                cancelButtonText: "Tidak",
                 customClass: {
                     confirmButton: 'btn btn-primary me-3 waves-effect waves-light',
                     cancelButton: 'btn btn-label-secondary waves-effect'
