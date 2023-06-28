@@ -46,6 +46,7 @@
             <th>nama bahan</th>
             <th>stok</th>
             <th>kode produksi</th>
+            <th>harga</th>
             <th>action</th>
           </tr>
         </thead>
@@ -55,6 +56,7 @@
                 <td>{{ $stock->material->name }}</td>
                 <td>{{ $stock->stock }}</td>
                 <td>{{ $stock->code }}</td>
+                <td>{{ $stock->price }}</td>
                 <td>
                   <a href="{{ route('material-stock.edit', ['material_id' => $material_id, 'material_stock_id' => $stock->id]) }}" class="btn btn-primary me-1">Kelola Stok</a>
                   <a onclick="deleteMaterialStock('{{ route('material-stock.destroy', ['id' => $stock->id]) }}')" href="javascript:;" class="btn btn-danger me-1">Delete</a>

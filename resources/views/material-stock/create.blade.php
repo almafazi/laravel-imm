@@ -27,6 +27,15 @@
               placeholder="Input stok awal" />
             <label for="stock">Stock</label>
         </div>
+        <div class="form-floating form-floating-outline mb-4">
+            <input
+              type="number"
+              class="form-control"
+              id="price"
+              name="price"
+              placeholder="Input harga" />
+            <label for="price">Harga</label>
+        </div>
       </div>
     </div>
   </div>
