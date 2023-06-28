@@ -1,4 +1,4 @@
-<nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+<nav class="layout-navbar container-fluid navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
     id="layout-navbar">
     <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
         <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
@@ -18,17 +18,14 @@
                 </a>
             </li>
             <!--/ Style Switcher -->
-             <!-- Notification -->
-             <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-2 me-xl-1">
-                <a
-                  class="nav-link btn btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow"
-                  href="javascript:void(0);"
-                  data-bs-toggle="dropdown"
-                  data-bs-auto-close="outside"
-                  aria-expanded="false">
-                  <i class="mdi mdi-bell-outline mdi-24px"></i>
-                  <span
-                    class="position-absolute top-0 start-50 translate-middle-y badge badge-dot bg-danger mt-2 border"></span>
+            <!-- Notification -->
+            <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-2 me-xl-1">
+                <a class="nav-link btn btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow"
+                    href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                    aria-expanded="false">
+                    <i class="mdi mdi-bell-outline mdi-24px"></i>
+                    <span
+                        class="position-absolute top-0 start-50 translate-middle-y badge badge-dot bg-danger mt-2 border"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end py-0">
                   <li class="dropdown-menu-header border-bottom">
@@ -67,8 +64,8 @@
                     </a>
                   </li>
                 </ul>
-              </li>
-              <!--/ Notification -->
+            </li>
+            <!--/ Notification -->
             <!-- User -->
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -96,7 +93,7 @@
                     <li>
                         <div class="dropdown-divider"></div>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a class="dropdown-item" href="{{ route('profile.edit') }}">
                             <i class="mdi mdi-account-outline me-2"></i>
                             <span class="align-middle">My Profile</span>
@@ -107,7 +104,7 @@
                             <i class="mdi mdi-cog-outline me-2"></i>
                             <span class="align-middle">Settings</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <div class="dropdown-divider"></div>
             </li>
             <li>
