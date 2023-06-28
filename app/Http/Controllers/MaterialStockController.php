@@ -40,7 +40,10 @@ class MaterialStockController extends Controller
 
         $material_stock = $material->material_stocks()->create($request->except('_token', 'material_id', 'stock'));
 
-        $material_stock->setStock($request->stock);
+        $material_stock->setStock($request->stock, [
+            'description' => '<span class="badge bg-success">Stok Awal</span>',
+            'reference' => '',
+        ]);
         DB::transaction(function () use ($material, $material_stock) {
             $current_material_count = $material->material_stocks()->count();
 

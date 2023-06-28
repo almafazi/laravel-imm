@@ -71,7 +71,7 @@
                                     {{ $material_stock->code }}
                                 </td>
                                 <td>
-                                    {!! $mutation->description ?? '<span class="badge bg-success">Stok Awal</span>' !!}
+                                    {!! $mutation->description ?? '' !!}
                                 </td>
                                 <td>
                                     {{ $mutation->created_at->format('d/m/Y') }}
