@@ -36,7 +36,7 @@
                   </li>
                   <li class="dropdown-notifications-list scrollable-container">
                     <ul class="list-group list-group-flush">
-                        @foreach (Auth()->user()->notifications as $item)
+                        @foreach (Auth()->user()->unreadNotifications as $item)
                             <li class="list-group-item list-group-item-action dropdown-notifications-item">
                                 <div class="d-flex gap-2">
                                     <div class="flex-shrink-0">
@@ -50,14 +50,14 @@
                                         <small class="text-muted">Tanggal {{ \Carbon\Carbon::parse($item->data['timestamp'])->format('d/m/Y') }}</small>
                                     </div>
                                     <div class="flex-shrink-0 dropdown-notifications-actions">
-                
+
                                     </div>
                                 </div>
                             </li>
                         @endforeach
                     </ul>
                 </li>
-                
+
                   <li class="dropdown-menu-footer border-top p-2">
                     <a href="javascript:void(0);" class="btn btn-primary d-flex justify-content-center">
                       View all notifications

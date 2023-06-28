@@ -58,7 +58,7 @@ class MaterialStockController extends Controller
             ]);
         });
 
-        Auth()->user()->notify(new StockNotification($material_stock, $request->stock, 'increase'));
+        Auth()->user()->notify(new StockNotification($material_stock, $request->stock, 'new_stock'));
 
         return redirect()->route('material-stock.index', ['material_id' => $material->id]);
     }

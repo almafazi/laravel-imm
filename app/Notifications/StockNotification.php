@@ -15,7 +15,7 @@ class StockNotification extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct($material_stock, $stock, $type = "increase")
+    public function __construct($material_stock, $stock, $type)
     {
         $this->material_stock = $material_stock;
         $this->stock = $stock;
@@ -29,7 +29,7 @@ class StockNotification extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        return ['mail', 'database'];
+        return ['database'];
     }
 
     /**
@@ -38,15 +38,15 @@ class StockNotification extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->greeting("Hi Admin!")
-                    ->subject('Perubahan Stok Ke Barang: '. $this->material_stock->material->name)
-                    ->line('Ada perubahan stok barang '. $this->material_stock->material->name)
-                    ->line('Detail Stock: ')
-                    ->line('Jumlah Stock: '.$this->stock)
-                    ->line('Kode Produksi: '.$this->material_stock->code)
-                    ->line('Timestamp: '.$this->material_stock->created_at)
-                    ->action('Cek Disini', url('/'))
-                    ->line('Terimakasih kaka!');
+            ->greeting("Hi Admin!")
+            ->subject('Perubahan Stok Ke Barang: ' . $this->material_stock->material->name)
+            ->line('Ada perubahan stok barang ' . $this->material_stock->material->name)
+            ->line('Detail Stock: ')
+            ->line('Jumlah Stock: ' . $this->stock)
+            ->line('Kode Produksi: ' . $this->material_stock->code)
+            ->line('Timestamp: ' . $this->material_stock->created_at)
+            ->action('Cek Disini', url('/'))
+            ->line('Terimakasih kaka!');
     }
 
     /**
@@ -56,11 +56,29 @@ class StockNotification extends Notification implements ShouldQueue
      */
     public function toArray(object $notifiable): array
     {
-        return [
-            'title' => 'Penambahan Stok Ke Barang: '.$this->material_stock->material->name,
-            'stock' => $this->stock,
-            'code' => $this->material_stock->code,
-            'timestamp' => $this->material_stock->created_at
-        ];
+        if ($this->type == 'increase') {
+            return [
+                'title' => 'Penambahan Stok: ' . $this->material_stock->material->name,
+                'stock' => $this->stock,
+                'code' => $this->material_stock->code,
+                'timestamp' => $this->material_stock->created_at
+            ];
+        }
+        if ($this->type == 'decrease') {
+            return [
+                'title' => 'Pengurangan Stok: ' . $this->material_stock->material->name,
+                'stock' => $this->stock,
+                'code' => $this->material_stock->code,
+                'timestamp' => $this->material_stock->created_at
+            ];
+        }
+        if ($this->type == 'new_stock') {
+            return [
+                'title' => 'Stok awal Ke Barang: ' . $this->material_stock->material->name,
+                'stock' => $this->stock,
+                'code' => $this->material_stock->code,
+                'timestamp' => $this->material_stock->created_at
+            ];
+        }
     }
 }
