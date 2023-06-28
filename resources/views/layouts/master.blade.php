@@ -13,7 +13,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/icons/brands/warehouse.png') }}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -66,14 +66,15 @@
 
             <!-- Layout container -->
             <div class="layout-page">
-                <!-- Navbar -->
+                <div class="container-fluid">
+                    <!-- Navbar -->
 
                 @include('components/navbar')
 
                 <!-- / Navbar -->
 
                 <!-- Content wrapper -->
-                <div class="content-wrapper">
+                <div class="content-wrapper my-1 mx-1">
                     <!-- Content -->
                     @yield('content')
                     <!-- Footer -->
@@ -83,6 +84,7 @@
                     <div class="content-backdrop fade"></div>
                 </div>
                 <!-- Content wrapper -->
+                </div>
             </div>
             <!-- / Layout page -->
         </div>
