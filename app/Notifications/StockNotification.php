@@ -39,8 +39,8 @@ class StockNotification extends Notification implements ShouldQueue
     {
         return (new MailMessage)
                     ->greeting("Hi Admin!")
-                    ->subject('Penambahan Stok Ke Barang: '. $this->material_stock->material->name)
-                    ->line('Ada penambah stok barang '. $this->material_stock->material->name)
+                    ->subject('Perubahan Stok Ke Barang: '. $this->material_stock->material->name)
+                    ->line('Ada perubahan stok barang '. $this->material_stock->material->name)
                     ->line('Detail Stock: ')
                     ->line('Jumlah Stock: '.$this->stock)
                     ->line('Kode Produksi: '.$this->material_stock->code)

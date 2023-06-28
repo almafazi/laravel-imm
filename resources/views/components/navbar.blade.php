@@ -39,29 +39,28 @@
                   </li>
                   <li class="dropdown-notifications-list scrollable-container">
                     <ul class="list-group list-group-flush">
-                    @foreach (Auth()->user()->notifications as $item)
-               
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                            <div class="d-flex gap-2">
-                            <div class="flex-shrink-0">
-                                <div class="avatar me-1">
-                                <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                        @foreach (Auth()->user()->notifications as $item)
+                            <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                                <div class="d-flex gap-2">
+                                    <div class="flex-shrink-0">
+                                        <div class="avatar me-1">
+                                            <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-200">
+                                        <h6 class="mb-1 text-truncate">{{ is_array($item->data['title']) ? '' : $item->data['title'] }}</h6>
+                                        <small class="text-truncate text-body">Sebanyak: {{ is_array($item->data['stock']) ? '' : $item->data['stock'] }}</small>
+                                        <small class="text-muted">Tanggal {{ \Carbon\Carbon::parse($item->data['timestamp'])->format('d/m/Y') }}</small>
+                                    </div>
+                                    <div class="flex-shrink-0 dropdown-notifications-actions">
+                
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-200">
-                                <h6 class="mb-1 text-truncate">{{ $item->data['title'] }}</h6>
-                                <small class="text-truncate text-body">Sebanyak: {{ $item->data['stock'] }}</small>
-                                <small class="text-muted">Tanggal {{ \Carbon\Carbon::parse($item->data['timestamp'])->format('d/m/Y') }}</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                                
-                            </div>
-                            </div>
-                        </li>
+                            </li>
                         @endforeach
-                      
                     </ul>
-                  </li>
+                </li>
+                
                   <li class="dropdown-menu-footer border-top p-2">
                     <a href="javascript:void(0);" class="btn btn-primary d-flex justify-content-center">
                       View all notifications
