@@ -53,7 +53,7 @@
                 </thead>
                 <tbody class="table-border-bottom-0">
                     @foreach ($stocks as $stock)
-                        @if ($stock->stock > 0)
+                        @if ($stock->stock != 0)
                             <tr>
                                 <td>{{ $stock->material->name }}</td>
                                 <td>{{ $stock->stock }}</td>
