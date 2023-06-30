@@ -82,7 +82,7 @@
                             @csrf
                             <div class="form-floating form-floating-outline mb-3">
                                 <input type="email" class="form-control" id="email" name="email"
-                                    placeholder="Enter your email" autofocus/>
+                                    placeholder="Email" autofocus />
                                 <label for="email">Email</label>
                             </div>
                             <div class="mb-3">
@@ -90,8 +90,8 @@
                                     <div class="input-group input-group-merge">
                                         <div class="form-floating form-floating-outline">
                                             <input type="password" id="password" class="form-control" name="password"
-                                                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                                aria-describedby="password"/>
+                                                placeholder="Password"
+                                                aria-describedby="password" />
                                             <label for="password">Password</label>
                                         </div>
                                         <span class="input-group-text cursor-pointer"><i
@@ -102,15 +102,14 @@
                             <div class="mb-3 d-flex justify-content-between">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="remember_me" />
-                                    <label class="form-check-label" for="remember_me"></label>
+                                    <label class="form-check-label" for="remember_me">Remember Me</label>
                                 </div>
-                                <a href="auth-forgot-password-basic.html" class="float-end mb-1">
+                                {{-- <a href="auth-forgot-password-basic.html" class="float-end mb-1">
                                     <span>Forgot Password?</span>
-                                </a>
+                                </a> --}}
                             </div>
                             <div class="mb-3">
-                                <button class="btn btn-primary d-grid w-100"
-                                    type="submit">Log In</button>
+                                <button class="btn btn-primary d-grid w-100" type="submit">Log In</button>
                             </div>
                         </form>
                     </div>
