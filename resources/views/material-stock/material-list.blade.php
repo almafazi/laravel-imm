@@ -32,14 +32,12 @@
     <div class="card">
         <h5 class="card-header mt">Kelola Stok Bahan</h5>
         <div class="table-responsive text-nowrap">
-            <div class="row mb-3">
-                <div class="col-2">
-                    <a class="btn btn-success" href="{{ asset('example-export/example-export.xlsx') }}">format import</a>
-                </div>
-                <div class="col-2 offset-4 ">
-                    <a href="{{ route('material.export') }}" class="btn btn-primary mb-3 mx-1">Export Data</a>
-                </div>
+            <div class="row">
                 <div class="col-4">
+                    <a class="btn btn-success" href="{{ asset('example-export/example-export.xlsx') }}">format import</a>
+                    <a href="{{ route('material.export') }}" class="btn btn-primary mx-2">Export Data</a>
+                </div>
+                <div class="offset-4 col-4">
                     <form action="{{ route('material-stock.import') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="input-group">

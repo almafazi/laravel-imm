@@ -50,10 +50,10 @@
               placeholder="Jumlah stok keluar" />
             <label for="decrease_stock">Kurangi Stok</label>
         </div>
-        <div class="form-floating form-floating-outline mb-4">
+        {{-- <div class="form-floating form-floating-outline mb-4">
             <textarea id="description" class="form-control" placeholder="Menambah atau mengurangi stok untuk?" name="description" id="" cols="300" rows="100"></textarea>
             <label for="description">Catatan</label>
-        </div>
+        </div> --}}
       </div>
     </div>
   </div>
