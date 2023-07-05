@@ -8,7 +8,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Gudang IMM</title>
+    <title>Gudang IMM - {{ $title }}</title>
 
     <meta name="description" content="" />
 
@@ -49,6 +49,18 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('assets/js/config.js') }}"></script>
     <style>
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
         #template-customizer {
             display: none;
         }
@@ -66,17 +78,19 @@
 
             <!-- Layout container -->
             <div class="layout-page">
-                <div class="container-fluid">
-                    <!-- Navbar -->
+                <!-- Navbar -->
 
                 @include('components/navbar')
 
                 <!-- / Navbar -->
 
                 <!-- Content wrapper -->
-                <div class="content-wrapper my-1 mx-1">
+                <div class="content-wrapper">
                     <!-- Content -->
-                    @yield('content')
+
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        @yield('content')
+                    </div>
                     <!-- Footer -->
 
                     <!-- / Footer -->
@@ -84,7 +98,7 @@
                     <div class="content-backdrop fade"></div>
                 </div>
                 <!-- Content wrapper -->
-                </div>
+
             </div>
             <!-- / Layout page -->
         </div>

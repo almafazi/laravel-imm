@@ -28,60 +28,71 @@
 @endsection
 
 @section('content')
+    <h5 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Gudang /</span>
+        {{ $title }}
+    </h5>
     <!-- Basic Bootstrap Table -->
     <div class="card">
-        <h5 class="card-header mt">Kelola Stok Bahan</h5>
+        <h2 class="card-header mt-2 mb-3">List Stok Bahan</h2>
         <div class="table-responsive text-nowrap">
             <div class="row">
                 <div class="col-4">
-                    <a class="btn btn-success" href="{{ asset('example-export/example-export.xlsx') }}">format import</a>
-                    <a href="{{ route('material.export') }}" class="btn btn-primary mx-2">Export Data</a>
+                    <a class="btn btn-label-secondary" href="{{ asset('example-export/example-export.xlsx') }}"><span
+                            class="mdi mdi-file-document-outline me-2"></span>format import</a>
+                    <a href="{{ route('material.export') }}" class="btn btn-label-primary mx-2"><span
+                            class="mdi mdi-export-variant me-2"></span>Export Data</a>
                 </div>
                 <div class="offset-4 col-4">
                     <form action="{{ route('material-stock.import') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="input-group">
                             <input class="form-control" type="file" name="file" id="import">
-                            <button class="btn btn-primary" type="submit">Import</button>
+                            <button class="btn btn-label-primary" type="submit"><span
+                                    class="mdi mdi-file-import me-2"></span>Import</button>
                         </div>
                     </form>
                 </div>
             </div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>nama bahan</th>
-                        <th>kriteria 1</th>
-                        <th>kriteria 2</th>
-                        <th>informasi</th>
-                        <th>grade</th>
-                        <th>total stok</th>
-                        <th>aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="table-border-bottom-0">
-                    @foreach ($materials as $material)
+            <div class="table-responsive text-nowrap">
+                <table class="datatables-basic table table-bordered">
+                    <thead class="table-light">
                         <tr>
-                            <td> {{ $material->id }}</td>
-                            <td> {{ $material->name }}</td>
-                            <td> {{ $material->criteria_1 }}</td>
-                            <td> {{ $material->criteria_2 ?? '-' }}</td>
-                            <td> {{ $material->information }}</td>
-                            <td> {{ $material->grade }}</td>
-                            <td>
-                                {{ $material->stock_mutations()->sum('amount') }}
-                                {{-- {{ $material->material_stocks()->withSum('stockMutations', 'amount')->get()->sum('stock_mutations_sum_amount') }} --}}
-                            </td>
-                            <td>
-                                <a class="btn btn-primary"
-                                    href="{{ route('material-stock.index', ['material_id' => $material->id]) }}">Pilih
-                                    Bahan</a>
-                            </td>
+                            <th>id</th>
+                            <th>nama bahan</th>
+                            <th>kriteria 1</th>
+                            <th>kriteria 2</th>
+                            <th>informasi</th>
+                            <th>grade</th>
+                            <th>total stok</th>
+                            <th class="text-center">aksi</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                        @foreach ($materials as $material)
+                            <tr>
+                                <td> {{ $material->id }}</td>
+                                <td> {{ $material->name }}</td>
+                                <td> {{ $material->criteria_1 }}</td>
+                                <td> {{ $material->criteria_2 ?? '-' }}</td>
+                                <td> {{ $material->information }}</td>
+                                <td> {{ $material->grade }}</td>
+                                <td>
+                                    {{ $material->stock_mutations()->sum('amount') }}
+                                    {{-- {{ $material->material_stocks()->withSum('stockMutations', 'amount')->get()->sum('stock_mutations_sum_amount') }} --}}
+                                </td>
+                                <td class="text-center">
+                                    <a class="btn btn-primary"
+                                        href="{{ route('material-stock.index', ['material_id' => $material->id]) }}"><span
+                                            class="mdi mdi-pencil me-2"></span>
+                                            Pilih Bahan
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <!--/ Basic Bootstrap Table -->

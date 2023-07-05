@@ -27,13 +27,16 @@
 @endsection
 
 @section('content')
+    <h5 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Gudang /</span>
+        {{ $title }}
+    </h5>
     <!-- Basic Bootstrap Table -->
     <div class="card">
-        <h5 class="card-header">Log Stok Bahan</h5>
-
+        <h2 class="card-header mb-2 mt-3">Log Stok Bahan</h2>
         <div class="table-responsive text-nowrap">
-            <table class="table">
-                <thead>
+            <table class="datatables-basic table table-bordered">
+                <thead class="table-light">
                     <tr>
                         <th>id</th>
                         <th>name</th>
