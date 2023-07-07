@@ -29,12 +29,21 @@
         </div>
         <div class="form-floating form-floating-outline mb-4">
             <input
-              type="number"
+              type="text"
               class="form-control"
-              id="price"
-              name="price"
-              placeholder="Input harga" />
-            <label for="price">Harga</label>
+              id="code"
+              name="code"
+              placeholder="Input kode produksi" />
+            <label for="code">Kode Produksi</label>
+        </div>
+        <div class="form-floating form-floating-outline mb-4">
+            <input
+              type="text"
+              class="form-control"
+              id="informasi"
+              name="informasi"
+              placeholder="Input informasi" />
+            <label for="price">Informasi</label>
         </div>
       </div>
     </div>

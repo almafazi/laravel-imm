@@ -47,7 +47,7 @@
                         <th>nama bahan</th>
                         <th>stok</th>
                         <th>kode produksi</th>
-                        <th>harga</th>
+                        <th>informasi</th>
                         <th>action</th>
                     </tr>
                 </thead>
@@ -58,7 +58,7 @@
                                 <td>{{ $stock->material->name }}</td>
                                 <td>{{ $stock->stock }}</td>
                                 <td>{{ $stock->code }}</td>
-                                <td>{{ $stock->price }}</td>
+                                <td>{{ $stock->informasi }}</td>
                                 <td>
                                     <a href="{{ route('material-stock.edit', ['material_id' => $material_id, 'material_stock_id' => $stock->id]) }}"
                                         class="btn btn-primary me-1">Kelola Stok</a>

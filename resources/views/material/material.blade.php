@@ -43,7 +43,7 @@
                         <th>nama bahan</th>
                         <th>kriteria 1</th>
                         <th>kriteria 2</th>
-                        <th>informasi</th>
+                        <th>satuan</th>
                         <th>grade</th>
                         <th>aksi</th>
                     </tr>

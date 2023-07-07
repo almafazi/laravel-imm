@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\LogsExport;
+use Illuminate\Http\Request;
 use App\Imports\StocksImport;
+use Illuminate\Support\Carbon;
 use App\Models\Material\Material;
+use Appstract\Stock\StockMutation;
+use Illuminate\Support\Facades\DB;
+use App\Exports\MaterialStockExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Material\MaterialStock;
 use App\Notifications\StockNotification;
-use Appstract\Stock\StockMutation;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\FromCollection;
+
 
 class MaterialStockController extends Controller
 {
@@ -48,15 +54,15 @@ class MaterialStockController extends Controller
             'description' => '<span class="badge bg-success">Stok Awal</span>',
             'reference' => '',
         ]);
-        DB::transaction(function () use ($material, $material_stock) {
-            $current_material_count = $material->material_stocks()->count();
+        // DB::transaction(function () use ($material, $material_stock) {
+        //     $current_material_count = $material->material_stocks()->count();
 
-            $generated_code = $material->grade . '/' . date('m') . date('Y') . '/' . str_pad($current_material_count, 3, 0, STR_PAD_LEFT);
+        //     $generated_code = $material->grade . '/' . date('m') . date('Y') . '/' . str_pad($current_material_count, 3, 0, STR_PAD_LEFT);
 
-            $material_stock->update([
-                'code' => $generated_code
-            ]);
-        });
+        //     $material_stock->update([
+        //         'code' => $generated_code
+        //     ]);
+        // });
 
         Auth()->user()->notify(new StockNotification($material_stock, $request->stock, 'new_stock'));
 
@@ -73,39 +79,44 @@ class MaterialStockController extends Controller
     }
 
     public function update(Request $request)
-{
-    $material = Material::whereId($request->material_id)->first();
-    $material_stock = $material->material_stocks()->whereId($request->material_stock_id)->first();
+    {
+        $material = Material::whereId($request->material_id)->first();
+        $material_stock = $material->material_stocks()->whereId($request->material_stock_id)->first();
 
-    if ($request->increase_stock) {
-        $increasedStock = $material_stock->increaseStock($request->increase_stock, [
-            'description' => '<span class="badge bg-primary">Penambahan Stok</span>',
-            'reference' => '',
-        ]);
+        if ($request->increase_stock) {
+            $increasedStock = $material_stock->increaseStock($request->increase_stock, [
+                'description' => '<span class="badge bg-primary">Penambahan Stok</span>',
+                'reference' => '',
+            ]);
 
-        // Mengirim notifikasi penambahan stok
-        Auth()->user()->notify(new StockNotification($material_stock, $increasedStock->amount, 'increase'));
+            // Mengirim notifikasi penambahan stok
+            Auth()->user()->notify(new StockNotification($material_stock, $increasedStock->amount, 'increase'));
+        }
+
+        if ($request->decrease_stock) {
+            $decreasedStock = $material_stock->decreaseStock($request->decrease_stock, [
+                'description' => '<span class="badge bg-danger">Pengurangan Stok</span>',
+                'reference' => '',
+            ]);
+
+            // Mengirim notifikasi pengurangan stok
+            Auth()->user()->notify(new StockNotification($material_stock, $decreasedStock->amount, 'decrease'));
+        }
+
+        return redirect()->route('material-stock.index', ['material_id' => $material->id])->with('success', 'Stok berhasil diubah.');
     }
-
-    if ($request->decrease_stock) {
-        $decreasedStock = $material_stock->decreaseStock($request->decrease_stock, [
-            'description' => '<span class="badge bg-danger">Pengurangan Stok</span>',
-            'reference' => '',
-        ]);
-
-        // Mengirim notifikasi pengurangan stok
-        Auth()->user()->notify(new StockNotification($material_stock, $decreasedStock->amount, 'decrease'));
-    }
-
-    return redirect()->route('material-stock.index', ['material_id' => $material->id])->with('success', 'Stok berhasil diubah.');
-}
-
-
 
     public function destroy($id)
     {
         MaterialStock::whereId($id)->delete();
         return redirect()->back()->with('success', 'Data berhasil dihapus.');
+    }
+
+    public function import()
+    {
+        Excel::import(new StocksImport, request()->file('file'));
+
+        return redirect('/')->with('success', 'All good!');
     }
 
     public function logs()
@@ -115,10 +126,8 @@ class MaterialStockController extends Controller
         return view('material-stock.logs', compact('material_stocks'));
     }
 
-    public function import()
+    public function export()
     {
-        Excel::import(new StocksImport, request()->file('file'));
-
-        return redirect('/')->with('success', 'All good!');
+        return Excel::download(new MaterialStockExport, 'Export Stock Tanggal ' . date('d-m-Y') . '.xlsx');
     }
 }
