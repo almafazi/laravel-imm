@@ -26,6 +26,13 @@
         .buttons-html5 {
             margin-right: 10px;
         }
+
+        @media only screen and (max-width: 767px) {
+            .button-file{
+                display: flex;
+                justify-content: center;
+            }
+        }
     </style>
 @endsection
 
@@ -34,49 +41,56 @@
         <span class="text-muted fw-light">Gudang / List Stock Bahan /</span>
         {{ $title }}
     </h5>
-    <!-- Basic Bootstrap Table -->
+
     <div class="card">
         <h2 class="card-header mt-2 mb-3">Stok Bahan</h2>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-8 col-lg-6  mt-4 mt-lg-0 button-file">
+                    <a href="{{ route('material-stock.material-list') }}" class="btn btn-label-secondary mb-3 me-2"><span
+                            class="mdi mdi-arrow-left me-2"></span>Kembali</a>
+                    <a href="{{ route('material-stock.create', ['material_id' => $material_id]) }}"
+                        class="btn btn-primary mb-3"><span class="mdi mdi-plus me-2"></span>Stok</a>
+                </div>
+            </div>
+            <!-- Table -->
+            <div class="table-responsive text-nowrap">
+                <table class="datatables-basic table table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th>nama bahan</th>
+                            <th>stok</th>
+                            <th>kode produksi</th>
+                            <th>harga</th>
+                            <th>action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                        @foreach ($stocks as $stock)
+                            @if ($stock->stock != 0)
+                                <tr>
+                                    <td>{{ $stock->material->name }}</td>
+                                    <td>{{ $stock->stock }}</td>
+                                    <td>{{ $stock->code }}</td>
+                                    <td>{{ $stock->price }}</td>
+                                    <td>
+                                        <a href="{{ route('material-stock.edit', ['material_id' => $material_id, 'material_stock_id' => $stock->id]) }}"
+                                            class="btn btn-warning me-1"><span class="mdi mdi-pencil me-2"></span>Kelola
+                                            Stok</a>
+                                        <a onclick="deleteMaterialStock('{{ route('material-stock.destroy', ['id' => $stock->id]) }}')"
+                                            href="javascript:;" class="btn btn-danger me-1"><span
+                                                class="mdi mdi-delete me-2"></span>Hapus</a>
 
-        <div class="table-responsive text-nowrap">
-            <a href="/" class="btn btn-label-secondary mb-3 me-2"><span class="mdi mdi-arrow-left me-2"></span>Kembali</a>
-            <a href="{{ route('material-stock.create', ['material_id' => $material_id]) }}"
-                class="btn btn-primary mb-3"><span class="mdi mdi-plus me-2"></span>Tambah Stok</a>
-            <table class="datatables-basic table table-bordered">
-                <thead class="table-light">
-                    <tr>
-                        <th>nama bahan</th>
-                        <th>stok</th>
-                        <th>kode produksi</th>
-                        <th>informasi</th>
-                        <th>action</th>
-                    </tr>
-                </thead>
-                <tbody class="table-border-bottom-0">
-                    @foreach ($stocks as $stock)
-                        @if ($stock->stock != 0)
-                            <tr>
-                                <td>{{ $stock->material->name }}</td>
-                                <td>{{ $stock->stock }}</td>
-                                <td>{{ $stock->code }}</td>
-                                <td>{{ $stock->informasi }}</td>
-                                <td>
-                                    <a href="{{ route('material-stock.edit', ['material_id' => $material_id, 'material_stock_id' => $stock->id]) }}"
-                                        class="btn btn-warning me-1"><span class="mdi mdi-pencil me-2"></span>Kelola
-                                        Stok</a>
-                                    <a onclick="deleteMaterialStock('{{ route('material-stock.destroy', ['id' => $stock->id]) }}')"
-                                        href="javascript:;" class="btn btn-danger me-1"><span
-                                            class="mdi mdi-delete me-2"></span>Hapus</a>
-
-                                </td>
-                            </tr>
-                        @endif
-                    @endforeach
-                </tbody>
-            </table>
+                                    </td>
+                                </tr>
+                            @endif
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!--/ Table -->
         </div>
     </div>
-    <!--/ Basic Bootstrap Table -->
 @endsection
 
 @section('script')
