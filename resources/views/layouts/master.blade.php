@@ -49,6 +49,12 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('assets/js/config.js') }}"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
         /* Chrome, Safari, Edge, Opera */
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
@@ -72,33 +78,28 @@
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
-            @include('components/sidebar')
             <!-- Menu -->
+            @include('components/sidebar')
             <!-- / Menu -->
 
             <!-- Layout container -->
             <div class="layout-page">
                 <!-- Navbar -->
-
                 @include('components/navbar')
-
                 <!-- / Navbar -->
 
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->
-
                     <div class="container-xxl flex-grow-1 container-p-y">
                         @yield('content')
                     </div>
                     <!-- Footer -->
-
-                    <!-- / Footer -->
                     @include('components.footer')
+                    <!-- / Footer -->
                     <div class="content-backdrop fade"></div>
                 </div>
                 <!-- Content wrapper -->
-
             </div>
             <!-- / Layout page -->
         </div>

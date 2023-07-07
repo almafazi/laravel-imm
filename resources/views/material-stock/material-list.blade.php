@@ -24,6 +24,13 @@
         .buttons-html5 {
             margin-right: 10px;
         }
+
+        @media only screen and (max-width: 767px) {
+            .button-file{
+                display: flex;
+                justify-content: center;
+            }
+        }
     </style>
 @endsection
 
@@ -37,24 +44,28 @@
         <h2 class="card-header mt-2 mb-3">List Stok Bahan</h2>
         <div class="table-responsive text-nowrap">
             <div class="row">
-                <div class="col-4">
-                    <a class="btn btn-label-secondary" href="{{ asset('example-export/example-export.xlsx') }}"><span
-                            class="mdi mdi-file-document-outline me-2"></span>format import</a>
-                    <a href="{{ route('material.export') }}" class="btn btn-label-primary mx-2"><span
-                            class="mdi mdi-export-variant me-2"></span>Export Data</a>
+                <div class="col-12 col-md-8 col-lg-6 button-file">
+                    <a class="btn btn-label-secondary" href="{{ asset('example-export/example-export.xlsx') }}">
+                        <span class="mdi mdi-file-document-outline me-2"></span>
+                        format import
+                    </a>
+                    <a href="{{ route('material.export') }}" class="btn btn-label-primary mx-2 ">
+                        <span class="mdi mdi-export-variant me-2"></span>
+                        Export Data
+                    </a>
                 </div>
-                <div class="offset-4 col-4">
+                <div class="col-12 col-md-8 col-lg-6  mt-4 mt-lg-0 button-file">
                     <form action="{{ route('material-stock.import') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="input-group">
                             <input class="form-control" type="file" name="file" id="import">
-                            <button class="btn btn-label-primary" type="submit"><span
+                            <button class="btn btn-label-primary " type="submit"><span
                                     class="mdi mdi-file-import me-2"></span>Import</button>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="table-responsive text-nowrap">
+            <div class="table-responsive text-nowrap mt-3 ">
                 <table class="datatables-basic table table-bordered">
                     <thead class="table-light">
                         <tr>
@@ -72,7 +83,7 @@
                         @foreach ($materials as $material)
                             <tr>
                                 <td> {{ $material->id }}</td>
-                                <td> {{ $material->name }}</td>
+                                <td><a href="{{ route('material-stock.index', ['material_id' => $material->id]) }}" class="text-secondary fw-bold">{{ $material->name }}</a></td>
                                 <td> {{ $material->criteria_1 }}</td>
                                 <td> {{ $material->criteria_2 ?? '-' }}</td>
                                 <td> {{ $material->information }}</td>
