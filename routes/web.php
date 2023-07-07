@@ -17,7 +17,9 @@ use App\Http\Controllers\MaterialStockController;
 */
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard', [
+        'title' => 'Dashboard'
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -52,17 +54,12 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::get('logs', [MaterialStockController::class, 'logs'])->name('material-stock.logs');    
-        // Route::get('export', [MaterialStockController::class, 'export'])->name('material-stock.export');
+        Route::get('export', [MaterialStockController::class, 'export'])->name('material-stock.export');
     });
 
-    Route::get('material/export', [MaterialController::class, 'export'])->name('material.export');
-
-   
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-
 
 require __DIR__ . '/auth.php';

@@ -14,9 +14,10 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.bootstrap5.min.css" />
 
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/animate-css/animate.css') }}" />
+    {{-- Sweet Alert --}}
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.css') }}" />
-    <!-- Row Group CSS -->
-    <!-- Row Group CSS -->
+    {{-- toaster --}}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/toastr/toastr.css') }}" />
     <style>
         .table-responsive {
             padding: 20px;
@@ -29,20 +30,20 @@
 @endsection
 
 @section('content')
+    <h5 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Gudang / List Stock Bahan /</span>
+        {{ $title }}
+    </h5>
     <!-- Basic Bootstrap Table -->
     <div class="card">
-        <h5 class="card-header">Kelola Stok Bahan</h5>
+        <h2 class="card-header mt-2 mb-3">Stok Bahan</h2>
 
         <div class="table-responsive text-nowrap">
+            <a href="/" class="btn btn-label-secondary mb-3 me-2"><span class="mdi mdi-arrow-left me-2"></span>Kembali</a>
             <a href="{{ route('material-stock.create', ['material_id' => $material_id]) }}"
-                class="btn btn-primary mb-3">Tambah Stok</a>
-            @if (\Session::has('success'))
-                <div class="alert alert-success">
-                    {!! \Session::get('success') !!}
-                </div>
-            @endif
-            <table class="table">
-                <thead>
+                class="btn btn-primary mb-3"><span class="mdi mdi-plus me-2"></span>Tambah Stok</a>
+            <table class="datatables-basic table table-bordered">
+                <thead class="table-light">
                     <tr>
                         <th>nama bahan</th>
                         <th>stok</th>
@@ -61,9 +62,11 @@
                                 <td>{{ $stock->informasi }}</td>
                                 <td>
                                     <a href="{{ route('material-stock.edit', ['material_id' => $material_id, 'material_stock_id' => $stock->id]) }}"
-                                        class="btn btn-primary me-1">Kelola Stok</a>
+                                        class="btn btn-warning me-1"><span class="mdi mdi-pencil me-2"></span>Kelola
+                                        Stok</a>
                                     <a onclick="deleteMaterialStock('{{ route('material-stock.destroy', ['id' => $stock->id]) }}')"
-                                        href="javascript:;" class="btn btn-danger me-1">Delete</a>
+                                        href="javascript:;" class="btn btn-danger me-1"><span
+                                            class="mdi mdi-delete me-2"></span>Hapus</a>
 
                                 </td>
                             </tr>
@@ -86,9 +89,35 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
     <script src="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/toastr/toastr.js') }}"></script>
     <!-- Page JS -->
+    <script src="{{ asset('assets/js/ui-toasts.js') }}"></script>
     <script src="{{ asset('assets/js/extended-ui-sweetalert2.js') }}"></script>
     <script>
+        $(document).ready(function() {
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "1000",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "2000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            @if (\Session::has('error'))
+                toastr.error('{{ \Session::get('error') }}');
+            @elseif (\Session::has('success'))
+                toastr.success('{{ \Session::get('success') }}', 'Success');
+            @endif
+        });
         setTimeout(() => {
             $('.alert-success').slideUp(1000);
         }, 2000);
@@ -97,12 +126,12 @@
         });
         const deleteMaterialStock = (url) => {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: 'Yakin ingin hapus?',
+                text: "Kamu mungkin akan kehilangan data selamanya!",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: "Ga jadi",
+                confirmButtonText: 'Ya, Hapus Saja',
+                cancelButtonText: "Tidak Jadi",
                 customClass: {
                     confirmButton: 'btn btn-primary me-3 waves-effect waves-light',
                     cancelButton: 'btn btn-label-secondary waves-effect'
@@ -111,6 +140,15 @@
             }).then(function(result) {
                 if (result.isConfirmed) {
                     window.location.href = url;
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire({
+                        title: 'Tidak Jadi',
+                        text: 'Selamat Data Kamu Masih Utuh :)',
+                        icon: 'error',
+                        customClass: {
+                            confirmButton: 'btn btn-success waves-effect'
+                        }
+                    });
                 }
             });
         }

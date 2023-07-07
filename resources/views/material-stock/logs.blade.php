@@ -27,17 +27,21 @@
 @endsection
 
 @section('content')
+    <h5 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Gudang /</span>
+        {{ $title }}
+    </h5>
     <!-- Basic Bootstrap Table -->
     <div class="card">
-        <h5 class="card-header">Log Stok Bahan</h5>
-        <div class="row">
+        <h2 class="card-header mb-2 mt-3">Log Stok Bahan</h2>
+        <div class="table-responsive text-nowrap">
             <div class="col-5 d-flex justify-content-start mx-3">
                 <a href="{{ route('material.export') }}" class="btn btn-primary mx-2">Export Data</a>
             </div>
         </div>
         <div class="table-responsive text-nowrap">
-            <table class="table" id="daterange_table">
-                <thead>
+            <table class="datatables-basic table table-bordered">
+                <thead class="table-light">
                     <tr>
                         <th class="search-input">Nama</th>
                         <th class="search-input">Kriteria 1</th>
@@ -102,8 +106,7 @@
         $(document).ready(function() {
             var table = $('.table').DataTable({
                 dom: 'Bfrtip',
-                buttons: [
-                    {
+                buttons: [{
                         extend: 'excel',
                         exportOptions: {
                             orthogonal: 'export',
@@ -126,7 +129,7 @@
                     }
                 ]
             });
-    
+
             // Pencarian saat mengetik di input search
             $('.search-input input').on('keyup change', function() {
                 var columnIndex = $(this).closest('th').index();
@@ -134,6 +137,4 @@
             });
         });
     </script>
-    
-    
 @endsection

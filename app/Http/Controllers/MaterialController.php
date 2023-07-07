@@ -14,7 +14,10 @@ class MaterialController extends Controller
     {
         //logic
         $materials = Material::all();
-        return view('material.material', ["materials" => $materials]);
+        return view('material.material', [
+            "materials" => $materials,
+            'title' => 'Master Bahan'
+        ]);
     }
 
     public function material_api()
@@ -27,7 +30,9 @@ class MaterialController extends Controller
     public function create()
     {
         //logic
-        return view('material.create');
+        return view('material.create', [
+            'title' => 'Tambah Bahan'
+        ]);
     }
 
     public function store(Request $request)
@@ -40,14 +45,17 @@ class MaterialController extends Controller
             'grade' => 'required|numeric|in:1,2,3',
         ]);
         Material::create($request->all());
-        return redirect('/material');
+        return redirect('/material')->with('success', 'Berhasil Menambah Bahan');
     }
 
     public function edit($id)
     {
         //logic
         $material = Material::where('id', $id)->firstOrFail();
-        return view('material.edit', ["bahan" => $material]);
+        return view('material.edit', [
+            "bahan" => $material,
+            'title' => 'Edit ' . $material->name
+        ]);
     }
 
     public function update(Request $request)
@@ -63,7 +71,7 @@ class MaterialController extends Controller
         Material::whereId($request->id)->update(
             $request->except('_token')
         );
-        return redirect('/material')->with('success', 'Data berhasil di update.');
+        return redirect('/material')->with('success', 'Bahan Berhasil Di Update.');
     }
 
     public function datatable()
@@ -72,8 +80,10 @@ class MaterialController extends Controller
 
         return DataTables::of($material)
             ->addColumn('actions', function ($material) {
-                return '<a href="' . route('material.edit', ['id' => $material->id]) . '" class="btn btn-primary me-1">ubah bahan</a>
-            <a onclick="deleteMaterial(`' . route('material.destroy', ['id' => $material->id]) . '`)" href="javascript:;" class="btn btn-danger me-1">hapus</a>';
+                return '<a href="' . route('material.edit', ['id' => $material->id]) . '" class="btn btn-warning me-1"><span
+                class="mdi mdi-pencil me-2"></span>edit</a>
+            <a onclick="deleteMaterial(`' . route('material.destroy', ['id' => $material->id]) . '`)" href="javascript:;" class="btn btn-danger me-1"><span
+            class="mdi mdi-delete me-2"></span>hapus</a>';
             })
             ->editColumn('name', function ($material) {
                 return '<b>' . ucwords($material->name) . '</b>';
@@ -92,7 +102,7 @@ class MaterialController extends Controller
     public function destroy($id)
     {
         Material::whereId($id)->delete();
-        return redirect('/material')->with('success', 'Data berhasil di hapus.');
+        return redirect('/material')->with('success', 'Bahan Berhasil Di Hapus.');
     }
 
     public function export()

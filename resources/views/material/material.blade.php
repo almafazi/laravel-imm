@@ -13,7 +13,10 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.bootstrap5.min.css" />
 
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/animate-css/animate.css') }}" />
+    {{-- Sweet Alert 2 --}}
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.css') }}" />
+    {{-- toaster --}}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/toastr/toastr.css') }}" />
     <!-- Row Group CSS -->
     <style>
         .table-responsive {
@@ -27,18 +30,18 @@
 @endsection
 
 @section('content')
+    <h5 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Gudang /</span>
+        {{ $title }}
+    </h5>
     <!-- Basic Bootstrap Table -->
     <div class="card">
-        <h5 class="card-header">Input Master Bahan</h5>
-        @if (\Session::has('success'))
-            <div class="alert alert-success mx-3">
-                {!! \Session::get('success') !!}
-            </div>
-        @endif
+        <h2 class="card-header mt-2 mb-3">Master Bahan</h2>
         <div class="table-responsive text-nowrap">
-            <a href="{{ route('material.create') }}" class="btn btn-primary mb-3 mx-2">Tambah Bahan</a>
-            <table class="table">
-                <thead>
+            <a href="{{ route('material.create') }}" class="btn btn-primary mb-3 mx-2"><span
+                class="mdi mdi-plus me-2"></span>Tambah Bahan</a>
+            <table class="datatables-basic table table-bordered">
+                <thead class="table-light">
                     <tr>
                         <th>nama bahan</th>
                         <th>kriteria 1</th>
@@ -67,20 +70,45 @@
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
 
     <script src="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/toastr/toastr.js') }}"></script>
     <!-- Page JS -->
+    <script src="{{ asset('assets/js/ui-toasts.js') }}"></script>
     <script src="{{ asset('assets/js/extended-ui-sweetalert2.js') }}"></script>
     <script>
-        setTimeout(() => {
-            $('.alert-success').slideUp(1000);
-        }, 2000);
+        // Toast Script
+        $(document).ready(function() {
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "1000",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "2000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            @if (\Session::has('error'))
+                toastr.error('{{ \Session::get('error') }}');
+            @elseif (\Session::has('success'))
+                toastr.success('{{ \Session::get('success') }}', 'Success');
+            @endif
+        });
+        // Alert Delete
         const deleteMaterial = (url) => {
             Swal.fire({
                 title: 'Yakin ingin hapus?',
-                text: "Seluruh data termasuk stok akan terhapus !!!",
+                text: "Kamu mungkin akan kehilangan data selamanya!",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Ya, Hapus',
-                cancelButtonText: "Tidak",
+                confirmButtonText: 'Ya, Hapus Saja',
+                cancelButtonText: "Tidak Jadi",
                 customClass: {
                     confirmButton: 'btn btn-primary me-3 waves-effect waves-light',
                     cancelButton: 'btn btn-label-secondary waves-effect'
@@ -89,6 +117,15 @@
             }).then(function(result) {
                 if (result.isConfirmed) {
                     window.location.href = url;
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire({
+                        title: 'Tidak Jadi',
+                        text: 'Selamat Data Kamu Masih Utuh :)',
+                        icon: 'error',
+                        customClass: {
+                            confirmButton: 'btn btn-success waves-effect'
+                        }
+                    });
                 }
             });
         }

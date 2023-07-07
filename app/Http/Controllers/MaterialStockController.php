@@ -23,7 +23,11 @@ class MaterialStockController extends Controller
     {
         $stocks = Material::whereId($material_id)->first()->material_stocks()->get();
 
-        return view('material-stock.stock', ["stocks" => $stocks, 'material_id' => $material_id]);
+        return view('material-stock.stock', [
+            "stocks" => $stocks, 
+            'material_id' => $material_id,
+            'title' => 'Stock Bahan'
+        ]);
     }
 
     public function material_list()
@@ -33,14 +37,19 @@ class MaterialStockController extends Controller
         }
         //logic
         $materials = Material::all();
-        return view('material-stock.material-list', ["materials" => $materials]);
+        return view('material-stock.material-list', [
+            "materials" => $materials,
+            'title' => 'List Stok Bahan'
+    ]);
     }
 
     public function create($material_id)
     {
         $material = Material::whereId($material_id)->first();
         //logic
-        return view('material-stock.create', compact('material'));
+        return view('material-stock.create', compact('material'),[
+            'title' => 'Tambah Stock ' . $material->name
+        ]);
     }
 
     public function store(Request $request)
@@ -66,7 +75,7 @@ class MaterialStockController extends Controller
 
         Auth()->user()->notify(new StockNotification($material_stock, $request->stock, 'new_stock'));
 
-        return redirect()->route('material-stock.index', ['material_id' => $material->id]);
+        return redirect()->route('material-stock.index', ['material_id' => $material->id])->with('success','Berhasil Menambah Stock');
     }
 
     public function edit($material_id, $material_stock_id)
@@ -75,7 +84,9 @@ class MaterialStockController extends Controller
 
         $material_stock = $material->material_stocks()->whereId($material_stock_id)->first();
         //logic
-        return view('material-stock.edit', compact('material', 'material_stock'));
+        return view('material-stock.edit', compact('material', 'material_stock'),[
+            'title' => 'Kelola Stock '. $material->name
+        ]);
     }
 
     public function update(Request $request)
@@ -109,7 +120,7 @@ class MaterialStockController extends Controller
     public function destroy($id)
     {
         MaterialStock::whereId($id)->delete();
-        return redirect()->back()->with('success', 'Data berhasil dihapus.');
+        return redirect()->back()->with('success', 'Stock Bahan Berhasil Dihapus!');
     }
 
     public function import()
@@ -123,7 +134,9 @@ class MaterialStockController extends Controller
     {
         $material_stocks = MaterialStock::with('stockMutations')->groupBy('id')->get();
 
-        return view('material-stock.logs', compact('material_stocks'));
+        return view('material-stock.logs', compact('material_stocks'),[
+            'title' => 'Log Stock Bahan'
+        ]);
     }
 
     public function export()
