@@ -23,9 +23,9 @@
                         <label for="stock">Stock</label>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="number" class="form-control" id="price" name="price"
-                            placeholder="Input harga" />
-                        <label for="price">Harga</label>
+                        <input type="text" class="form-control" id="code" name="code"
+                            placeholder="Input Kode Produksi" />
+                        <label for="code">Kode Produksi</label>
                     </div>
                 </div>
             </div>
