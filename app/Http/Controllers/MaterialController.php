@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\StocksExport;
-use App\Imports\StocksImport;
-use App\Models\Material\Material;
-use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Http\Request;
+use App\Models\Material\Material;
+use App\Exports\MaterialStockExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class MaterialController extends Controller
@@ -106,9 +105,8 @@ class MaterialController extends Controller
         return redirect('/material')->with('success', 'Bahan Berhasil Di Hapus.');
     }
 
-
     public function export()
     {
-        return Excel::download(new StocksExport, 'Export Stock Tanggal ' . date('d-m-Y') . '.xlsx');
+        return Excel::download(new MaterialStockExport, 'material_stock.xlsx');
     }
 }

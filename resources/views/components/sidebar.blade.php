@@ -27,7 +27,15 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboards -->
-        <li class="menu-item active open">
+        <li class="menu-item  {{ Request::is('/') ? 'active' : '' }}">
+            @role('admin')
+            <a href="{{ route('dashboard') }}" class="menu-link">
+                <i class="menu-icon tf-icons mdi mdi-view-dashboard"></i>
+                <div>Dashboard</div>
+            </a>
+            @endrole
+        </li>
+        <li class="menu-item {{ Request::is('material-stock*')||Request::is('material*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons mdi mdi-home-outline"></i>
                 <div>Gudang</div>
@@ -41,7 +49,7 @@
                         </a>
                     </li>
                     <li
-                        class="menu-item {{ Request::is('/') || Request::is('material-stock/stocks/*') || Request::is('material-stock/create/*') || Request::is('material-stock/edit/*') ? 'active' : '' }}">
+                        class="menu-item {{ Request::is('material-stock/material.list') || Request::is('material-stock/stocks/*') || Request::is('material-stock/create/*') || Request::is('material-stock/edit/*') ? 'active' : '' }}">
                         <a href="{{ route('material-stock.material-list') }}" class="menu-link">
                             <div>List Stok Bahan</div>
                         </a>
@@ -54,5 +62,6 @@
                 </li>
             </ul>
         </li>
+        
     </ul>
 </aside>

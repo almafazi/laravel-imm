@@ -37,23 +37,31 @@
     <!-- Basic Bootstrap Table -->
     <div class="card">
         <h2 class="card-header mt-2 mb-3">Master Bahan</h2>
-        <div class="table-responsive text-nowrap">
-            <a href="{{ route('material.create') }}" class="btn btn-primary mb-3 mx-2"><span
-                class="mdi mdi-plus me-2"></span>Tambah Bahan</a>
-            <table class="datatables-basic table table-bordered">
-                <thead class="table-light">
-                    <tr>
-                        <th>nama bahan</th>
-                        <th>kriteria 1</th>
-                        <th>kriteria 2</th>
-                        <th>informasi</th>
-                        <th>grade</th>
-                        <th>aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="table-border-bottom-0">
-                </tbody>
-            </table>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <a href="{{ route('material.create') }}" class="btn btn-primary mb-3 mx-2"><span
+                        class="mdi mdi-plus me-2"></span>Tambah Bahan</a>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="table-responsive text-nowrap">
+                    <table class="datatables-basic table table-bordered">
+                        <thead class="table-light">
+                            <tr>
+                                <th>nama bahan</th>
+                                <th>kriteria 1</th>
+                                <th>kriteria 2</th>
+                                <th>informasi</th>
+                                <th>grade</th>
+                                <th>aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
     <!--/ Basic Bootstrap Table -->

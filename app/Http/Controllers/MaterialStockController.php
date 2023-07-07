@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\LogsExport;
+use Illuminate\Http\Request;
 use App\Imports\StocksImport;
+use Illuminate\Support\Carbon;
 use App\Models\Material\Material;
+use Appstract\Stock\StockMutation;
+use Illuminate\Support\Facades\DB;
+use App\Exports\MaterialStockExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Material\MaterialStock;
 use App\Notifications\StockNotification;
-use Appstract\Stock\StockMutation;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\FromCollection;
+
 
 class MaterialStockController extends Controller
 {
@@ -112,15 +118,20 @@ class MaterialStockController extends Controller
             Auth()->user()->notify(new StockNotification($material_stock, $decreasedStock->amount, 'decrease'));
         }
 
-        return redirect()->route('material-stock.index', ['material_id' => $material->id])->with('success', $material->name . ' Stock Updated!');
-    }
-
-
+    return redirect()->route('material-stock.index', ['material_id' => $material->id])->with('success',$material->name. ' Stock Updated!');
+}
 
     public function destroy($id)
     {
         MaterialStock::whereId($id)->delete();
         return redirect()->back()->with('success', 'Stock Bahan Berhasil Dihapus!');
+    }
+
+    public function import()
+    {
+        Excel::import(new StocksImport, request()->file('file'));
+
+        return redirect('/')->with('success', 'All good!');
     }
 
     public function logs()
@@ -132,10 +143,8 @@ class MaterialStockController extends Controller
         ]);
     }
 
-    public function import()
+    public function export()
     {
-        Excel::import(new StocksImport, request()->file('file'));
-
-        return redirect('/')->with('success', 'All good!');
+        return Excel::download(new MaterialStockExport, 'Export Stock Tanggal ' . date('d-m-Y') . '.xlsx');
     }
 }

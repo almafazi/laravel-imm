@@ -24,8 +24,9 @@
                     href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside"
                     aria-expanded="false">
                     <i class="mdi mdi-bell-outline mdi-24px"></i>
+
                     <span
-                        class="position-absolute top-0 start-50 translate-middle-y badge badge-dot bg-danger mt-2 border"></span>
+                        class="{{ !(Auth()->user()->unreadNotifications->count() == 0)? 'position-absolute top-0 start-50 translate-middle-y badge badge-dot bg-danger mt-2 border': '' }}"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end py-0">
                     <li class="dropdown-menu-header border-bottom">
@@ -38,24 +39,27 @@
                         <ul class="list-group list-group-flush">
                             @foreach (Auth()->user()->unreadNotifications as $item)
                                 <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                                    <div class="d-flex gap-2">
-                                        <div class="flex-shrink-0">
-                                            <div class="avatar me-1">
-                                                <img src="../../assets/img/avatars/1.png" alt
-                                                    class="w-px-40 h-auto rounded-circle" />
+                                    <a href="">
+                                        <div class="d-flex gap-2">
+                                            <div class="flex-shrink-0">
+                                                <div class="avatar me-1">
+                                                    <img src="../../assets/img/avatars/1.png" alt
+                                                        class="w-px-40 h-auto rounded-circle" />
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-200">
+                                                <h6 class="mb-1 text-truncate">
+                                                    {{ is_array($item->data['title']) ? '' : $item->data['title'] }}
+                                                </h6>
+                                                <small class="text-truncate text-body">Sebanyak:
+                                                    {{ is_array($item->data['stock']) ? '' : $item->data['stock'] }}</small>
+                                                <small class="text-muted">Tanggal
+                                                    {{ \Carbon\Carbon::parse($item->data['timestamp'])->format('d/m/Y') }}</small>
+                                            </div>
+                                            <div class="flex-shrink-0 dropdown-notifications-actions">
                                             </div>
                                         </div>
-                                        <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-200">
-                                            <h6 class="mb-1 text-truncate">
-                                                {{ is_array($item->data['title']) ? '' : $item->data['title'] }}</h6>
-                                            <small class="text-truncate text-body">Sebanyak:
-                                                {{ is_array($item->data['stock']) ? '' : $item->data['stock'] }}</small>
-                                            <small class="text-muted">Tanggal
-                                                {{ \Carbon\Carbon::parse($item->data['timestamp'])->format('d/m/Y') }}</small>
-                                        </div>
-                                        <div class="flex-shrink-0 dropdown-notifications-actions">
-                                        </div>
-                                    </div>
+                                    </a>
                                 </li>
                             @endforeach
                         </ul>
@@ -78,7 +82,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                        <a class="dropdown-item" >
+                        <a class="dropdown-item">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar avatar-online">

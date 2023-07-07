@@ -38,6 +38,28 @@
                 Simpan
             </button>
         </div>
-        @csrf
-    </form>
+        <div class="form-floating form-floating-outline mb-4">
+            <input
+              type="text"
+              class="form-control"
+              id="code"
+              name="code"
+              placeholder="Input kode produksi" />
+            <label for="code">Kode Produksi</label>
+        </div>
+        <div class="form-floating form-floating-outline mb-4">
+            <input
+              type="text"
+              class="form-control"
+              id="informasi"
+              name="informasi"
+              placeholder="Input informasi" />
+            <label for="price">Informasi</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Simpan Data</button>
+  @csrf
+</form>
 @endsection
