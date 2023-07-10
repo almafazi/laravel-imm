@@ -23,8 +23,18 @@
                         <label for="stock">Stock</label>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="code" name="code"
-                            placeholder="Input Kode Produksi" />
+                        <select class="form-control" id="code" placeholder="Input Kode Produksi" name="code">
+                            @if ($grade === 2) {
+                                <option value="generate code">Kode Produksi Baru</option>
+                            }
+                            @endif
+                            @if ($grade !== 2) {
+                                @foreach ($codes as $code)
+                                    <option value="{{ $code }}">{{ $code }}</option>
+                                @endforeach
+                            }
+                            @endif
+                        </select>
                         <label for="code">Kode Produksi</label>
                     </div>
                 </div>
@@ -37,29 +47,6 @@
                 <span class="mdi mdi-content-save me-2"></span>
                 Simpan
             </button>
-        </div>
-        <div class="form-floating form-floating-outline mb-4">
-            <input
-              type="text"
-              class="form-control"
-              id="code"
-              name="code"
-              placeholder="Input kode produksi" />
-            <label for="code">Kode Produksi</label>
-        </div>
-        <div class="form-floating form-floating-outline mb-4">
-            <input
-              type="text"
-              class="form-control"
-              id="informasi"
-              name="informasi"
-              placeholder="Input informasi" />
-            <label for="price">Informasi</label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <button type="submit" class="btn btn-primary">Simpan Data</button>
-  @csrf
-</form>
+            @csrf
+    </form>
 @endsection

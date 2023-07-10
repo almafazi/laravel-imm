@@ -47,9 +47,18 @@ class MaterialStockController extends Controller
     public function create($material_id)
     {
         $material = Material::whereId($material_id)->first();
+        $material_stocks = MaterialStock::join('materials', 'material_stocks.material_id', '=', 'materials.id')->select('material_stocks.*', 'materials.*')->get()->toArray();
+        $codes = [];
+        foreach ($material_stocks as $material_stock) {
+            if ($material_stock['grade'] === 2 && !in_array($material_stock['code'], $codes)) {
+                $codes[] = $material_stock['code'];
+            }
+        }
         //logic
         return view('material-stock.create', compact('material'), [
-            'title' => 'Tambah Stock ' . $material->name
+            'title' => 'Tambah Stock ' . $material->name,
+            'codes' => $codes,
+            'grade' => $material->grade
         ]);
     }
 
