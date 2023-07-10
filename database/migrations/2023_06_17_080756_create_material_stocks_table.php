@@ -16,10 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('material_id');
             $table->foreign('material_id')
                 ->references('id')->on('materials')->onDelete('cascade');
-            $table->integer('base_qty');
-            $table->integer('input_qty')->nullable();
-            $table->integer('output_qty')->nullable();
-            $table->string('code')->nullabe();
+            $table->string('code')->nullable();
+            $table->text('report_at');
             $table->timestamps();
         });
     }

@@ -21,7 +21,6 @@ class CreateStockMutationsTable extends Migration
             $table->integer('amount');
             $table->text('description')->nullable();
             $table->timestamps();
-
             $table->index(['reference_type', 'reference_id']);
         });
     }

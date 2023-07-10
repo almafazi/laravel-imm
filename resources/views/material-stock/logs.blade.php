@@ -48,7 +48,7 @@
                             <th>jumlah</th>
                             <th>akumulasi</th>
                             <th>kode produksi</th>
-                            <th>harga</th>
+                            <th>tanggal lapor</th>
                             <th>deskripsi</th>
                             <th>timestamp</th>
                         </tr>
@@ -76,7 +76,7 @@
                                         {{ $material_stock->code }}
                                     </td>
                                     <td>
-                                        {{ $material_stock->price }}
+                                        {{ $material_stock->report_at }}
                                     </td>
                                     <td>
                                         {!! $mutation->description ?? '' !!}

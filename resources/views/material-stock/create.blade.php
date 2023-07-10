@@ -23,6 +23,11 @@
                         <label for="stock">Stock</label>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
+                        <input type="text" class="form-control" id="flatpickr-date" name="report_at"
+                            placeholder="DD/MM/YYYY" />
+                        <label for="flatpickr-date">Tanggal Pelaporan</label>
+                    </div>
+                    <div class="form-floating form-floating-outline mb-4">
                         <select class="form-control" id="code" placeholder="Input Kode Produksi" name="code">
                             @if ($grade === 2) {
                                 <option value="generate code">Kode Produksi Baru</option>
