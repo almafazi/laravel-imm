@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Imports\StocksImport;
 use Illuminate\Support\Carbon;
 use App\Models\Material\Material;
-use Appstract\Stock\StockMutation;
+// use Appstract\Stock\StockMutation;
 use Illuminate\Support\Facades\DB;
 use App\Exports\MaterialStockExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -144,14 +144,29 @@ class MaterialStockController extends Controller
         return redirect('/')->with('success', 'All good!');
     }
 
-    public function logs()
-    {
-        $material_stocks = MaterialStock::with('stockMutations')->groupBy('id')->get();
+    public function logs(Request $request)
+{
+    $fromDate = $request->input('from_date');
+    $toDate = $request->input('to_date');
 
-        return view('material-stock.logs', compact('material_stocks'), [
-            'title' => 'Log Stock Bahan'
-        ]);
+    // Pengecekan apakah tanggal yang diinput valid
+    if ($fromDate && $toDate) {
+        $material_stocks = MaterialStock::with(['stockMutations' => function ($query) use ($fromDate, $toDate) {
+            $query->whereDate('created_at', '>=', $fromDate)
+                ->whereDate('created_at', '<=', $toDate);
+        }])->groupBy('id')->get();
+    } else {
+        $material_stocks = MaterialStock::with('stockMutations')->groupBy('id')->get();
     }
+
+    return view('material-stock.logs', compact('material_stocks'), [
+        'title' => 'Log Stock Bahan',
+        'fromDate' => $fromDate,
+        'toDate' => $toDate
+    ]);
+}
+
+
 
     public function export()
     {
