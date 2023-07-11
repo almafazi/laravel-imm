@@ -26,9 +26,18 @@
         }
 
         @media only screen and (max-width: 767px) {
-            .button-file{
+            .button-file {
                 display: flex;
                 justify-content: center;
+            }
+        }
+
+        @media only screen and (max-width: 463px){
+            .button-file {
+                display: block;
+            }
+            .button-export {
+                margin-top: 15px;
             }
         }
     </style>
@@ -42,16 +51,16 @@
     <!-- Basic Bootstrap Table -->
     <div class="card">
         <h2 class="card-header mt-2 mb-3">List Stok Bahan</h2>
-        <div class="table-responsive text-nowrap">
+        <div class="card-body">
             <div class="row">
                 <div class="col-12 col-md-8 col-lg-6 button-file">
                     <a class="btn btn-label-secondary" href="{{ asset('example-export/example-export.xlsx') }}">
                         <span class="mdi mdi-file-document-outline me-2"></span>
                         format import
                     </a>
-                    <a href="{{ route('material.export') }}" class="btn btn-label-primary mx-2 ">
+                    <a href="{{ route('material.export') }}" class="btn btn-label-primary mx-2 button-export">
                         <span class="mdi mdi-export-variant me-2"></span>
-                        Export Data
+                        Export data
                     </a>
                 </div>
                 <div class="col-12 col-md-8 col-lg-6  mt-4 mt-lg-0 button-file">
@@ -83,7 +92,8 @@
                         @foreach ($materials as $material)
                             <tr>
                                 <td> {{ $material->id }}</td>
-                                <td><a href="{{ route('material-stock.index', ['material_id' => $material->id]) }}" class="text-secondary fw-bold">{{ $material->name }}</a></td>
+                                <td><a href="{{ route('material-stock.index', ['material_id' => $material->id]) }}"
+                                        class="text-secondary fw-bold">{{ $material->name }}</a></td>
                                 <td> {{ $material->criteria_1 }}</td>
                                 <td> {{ $material->criteria_2 ?? '-' }}</td>
                                 <td> {{ $material->information }}</td>
@@ -96,7 +106,7 @@
                                     <a class="btn btn-primary"
                                         href="{{ route('material-stock.index', ['material_id' => $material->id]) }}"><span
                                             class="mdi mdi-pencil me-2"></span>
-                                            Pilih Bahan
+                                        Pilih Bahan
                                     </a>
                                 </td>
                             </tr>
