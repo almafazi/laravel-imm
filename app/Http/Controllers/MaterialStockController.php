@@ -67,10 +67,13 @@ class MaterialStockController extends Controller
         $material = Material::whereId($request->material_id)->first();
         // dd($material->material_stocks()->get());
 
-        $material_stock = $material->material_stocks()->create($request->except(['_token', 'material_id', 'stock']));
+        $material_stock = $material->material_stocks()->create($request->except(['_token', 'material_id', 'stock', 'report_at']));
+
+        $report_at = $request->report_at;
 
         $material_stock->setStock($request->stock, [
             'description' => '<span class="badge bg-success">Stok Awal</span>',
+            'report_at' => $report_at,
             'reference' => '',
         ]);
         if ($material->grade == 2) {
@@ -108,9 +111,12 @@ class MaterialStockController extends Controller
         $material = Material::whereId($request->material_id)->first();
         $material_stock = $material->material_stocks()->whereId($request->material_stock_id)->first();
 
+        $report_at = $request->report_at;
+
         if ($request->increase_stock) {
             $increasedStock = $material_stock->increaseStock($request->increase_stock, [
                 'description' => '<span class="badge bg-primary">Penambahan Stok</span>',
+                'report_at' => $report_at,
                 'reference' => '',
             ]);
 
@@ -121,6 +127,7 @@ class MaterialStockController extends Controller
         if ($request->decrease_stock) {
             $decreasedStock = $material_stock->decreaseStock($request->decrease_stock, [
                 'description' => '<span class="badge bg-danger">Pengurangan Stok</span>',
+                'report_at' => $report_at,
                 'reference' => '',
             ]);
 

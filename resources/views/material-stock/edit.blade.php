@@ -37,9 +37,9 @@
                     </div>
                     <h6>Tanggal Lapor</h6>
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="report_at" name="report_at"
-                            placeholder="YYYY-MM-DD" />
-                        <label for="report_at">Tanggal Lapor</label>
+                        <input type="text" class="form-control" id="flatpickr-date" name="report_at"
+                            placeholder="DD/MM/YYYY" />
+                        <label for="flatpickr-date">Tanggal Pelaporan</label>
                     </div>
                     {{-- <div class="form-floating form-floating-outline mb-4">
             <textarea id="description" class="form-control" placeholder="Menambah atau mengurangi stok untuk?" name="description" id="" cols="300" rows="100"></textarea>

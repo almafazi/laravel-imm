@@ -20,6 +20,7 @@ class CreateStockMutationsTable extends Migration
             $table->unsignedBigInteger('reference_id')->nullable();
             $table->integer('amount');
             $table->text('description')->nullable();
+            $table->text('report_at');
             $table->timestamps();
             $table->index(['reference_type', 'reference_id']);
         });

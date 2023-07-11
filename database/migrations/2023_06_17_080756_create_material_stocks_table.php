@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreign('material_id')
                 ->references('id')->on('materials')->onDelete('cascade');
             $table->string('code')->nullable();
-            $table->text('report_at');
             $table->timestamps();
         });
     }

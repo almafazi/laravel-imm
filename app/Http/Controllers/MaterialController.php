@@ -39,9 +39,9 @@ class MaterialController extends Controller
     {
         $request->validate([
             'name' => 'required|string|min:2|max:100',
-            'criteria_1' => 'nullable|string|min:2|max:100',
-            'criteria_2' => 'nullable|string|min:2|max:100',
-            'information' => 'required|string|min:2|max:1000',
+            'criteria_1' => 'nullable|string|max:100',
+            'criteria_2' => 'nullable|string|max:100',
+            'information' => 'nullable|string|max:1000',
             'grade' => 'required|numeric|in:1,2,3',
         ]);
         Material::create($request->all());

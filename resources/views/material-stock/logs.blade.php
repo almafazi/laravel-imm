@@ -79,7 +79,7 @@
                                 <tr>
                                     <td> {{ $material_stock->material->name }}</td>
                                     <td> {{ $material_stock->material->criteria_1 }}</td>
-                                    <td> {{ $material_stock->material->criteria_2 ?? '-' }}</td>
+                                    <td> {{ $material_stock->material->criteria_2 }}</td>
                                     <td> {{ $material_stock->material->information }}</td>
                                     <td> {{ $material_stock->material->grade }}</td>
                                     <td>
@@ -92,7 +92,7 @@
                                         {{ $material_stock->code }}
                                     </td>
                                     <td>
-                                        {{ $material_stock->report_at }}
+                                        {{ $mutation->report_at }}
                                     </td>
                                     <td>
                                         {!! $mutation->description ?? '' !!}
