@@ -23,7 +23,7 @@
                         <label for="stock">Stock</label>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="flatpickr-date" name="report_at"
+                        <input type="date" class="form-control" id="flatpickr-date" name="report_at"
                             placeholder="DD/MM/YYYY" />
                         <label for="flatpickr-date">Tanggal Pelaporan</label>
                     </div>
@@ -54,4 +54,14 @@
             </button>
             @csrf
     </form>
+@endsection
+@section('script')
+<script>
+    flatpickr("#flatpickr-date", {
+        parseDate: true,
+        altInput: true,
+        altFormat: "d/m/Y",
+        dateFormat: "Y-m-d",
+    });
+</script>
 @endsection

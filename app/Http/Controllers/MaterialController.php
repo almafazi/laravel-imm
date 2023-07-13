@@ -63,9 +63,9 @@ class MaterialController extends Controller
         $request->validate([
             'id' => 'required|numeric|exists:materials,id',
             'name' => 'required|string|min:2|max:100',
-            'criteria_1' => 'nullable|string|min:2|max:100',
-            'criteria_2' => 'nullable|string|min:2|max:100',
-            'information' => 'required|string|min:2|max:1000',
+            'criteria_1' => 'nullable|string|max:100',
+            'criteria_2' => 'nullable|string|max:100',
+            'information' => 'nullable|string|max:1000',
             'grade' => 'required|numeric|in:1,2,3',
         ]);
         Material::whereId($request->id)->update(
@@ -92,7 +92,7 @@ class MaterialController extends Controller
                 if ($material->criteria_2) {
                     return $material->criteria_2;
                 } else {
-                    return '-';;
+                    return '';;
                 }
             })
             ->rawColumns(['actions', 'name'])

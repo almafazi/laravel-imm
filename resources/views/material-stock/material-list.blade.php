@@ -95,7 +95,7 @@
                                 <td><a href="{{ route('material-stock.index', ['material_id' => $material->id]) }}"
                                         class="text-secondary fw-bold">{{ $material->name }}</a></td>
                                 <td> {{ $material->criteria_1 }}</td>
-                                <td> {{ $material->criteria_2 ?? '-' }}</td>
+                                <td> {{ $material->criteria_2 }}</td>
                                 <td> {{ $material->information }}</td>
                                 <td> {{ $material->grade }}</td>
                                 <td>
