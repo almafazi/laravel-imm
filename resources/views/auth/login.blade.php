@@ -102,7 +102,7 @@
                             </div>
                             <div class="mb-3 d-flex justify-content-between">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="remember" />
+                                    <input class="form-check-input" type="checkbox" id="remember" name="remember"/>
                                     <label class="form-check-label" for="remember">Remember Me</label>
                                 </div>
                                 {{-- <a href="auth-forgot-password-basic.html" class="float-end mb-1">

@@ -33,12 +33,13 @@ class MaterialStockExport implements FromCollection, WithHeadings, WithStyles
                     $mutation->amount,
                     $accumulation,
                     $materialStock->code,
-                    $materialStock->informasi,
+                    $mutation->report_at,
                     $description ?? '',
                     $mutation->created_at->format('d/m/Y'),
                 ];
             }
         }
+        dd($data);
 
         return collect($data);
     }
@@ -54,7 +55,7 @@ class MaterialStockExport implements FromCollection, WithHeadings, WithStyles
             'Jumlah',
             'Akumulasi',
             'Kode Produksi',
-            'Informasi',
+            'Tanggal Lapor',
             'Deskripsi',
             'Timestamp',
         ];
