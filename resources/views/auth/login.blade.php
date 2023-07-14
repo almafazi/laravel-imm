@@ -43,6 +43,8 @@
     <!-- Helpers -->
     <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('assets/js/config.js') }}"></script>
@@ -89,20 +91,19 @@
                                 <div class="form-password-toggle">
                                     <div class="input-group input-group-merge">
                                         <div class="form-floating form-floating-outline">
-                                            <input type="password" id="password" class="form-control" name="password"
-                                                placeholder="Password"
-                                                aria-describedby="password" />
+                                            <input type="password" id="pass_log_id" class="form-control" name="password"
+                                                placeholder="Password" aria-describedby="password" />
                                             <label for="password">Password</label>
                                         </div>
                                         <span class="input-group-text cursor-pointer"><i
-                                                class="mdi mdi-eye-off-outline"></i></span>
+                                                class="mdi mdi-eye-off-outline toggle-password"></i></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-3 d-flex justify-content-between">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="remember_me" />
-                                    <label class="form-check-label" for="remember_me">Remember Me</label>
+                                    <input class="form-check-input" type="checkbox" id="remember" />
+                                    <label class="form-check-label" for="remember">Remember Me</label>
                                 </div>
                                 {{-- <a href="auth-forgot-password-basic.html" class="float-end mb-1">
                                     <span>Forgot Password?</span>
@@ -146,6 +147,18 @@
 
     <!-- Page JS -->
     <script src="{{ asset('assets/js/pages-auth.js') }}"></script>
+    <script>
+        $("body").on('click', '.toggle-password', function() {
+            $(this).toggleClass("mdi-eye-outline");
+            var input = $("#pass_log_id");
+            if (input.attr("type") === "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+
+        });
+    </script>
 </body>
 
 </html>
