@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use DataTables;
 use App\Exports\LogsExport;
 use Illuminate\Http\Request;
 use App\Imports\StocksImport;
+use GuzzleHttp\Promise\Create;
 use Illuminate\Support\Carbon;
-use App\Models\Material\Material;
 // use Appstract\Stock\StockMutation;
+use App\Models\Material\Material;
 use Illuminate\Support\Facades\DB;
 use App\Exports\MaterialStockExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Material\MaterialStock;
 use App\Notifications\StockNotification;
-use GuzzleHttp\Promise\Create;
+use Appstract\Stock\StockMutation;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
@@ -153,6 +155,10 @@ class MaterialStockController extends Controller
 
     public function logs(Request $request)
 {
+    // $material_stocks_x = MaterialStock::join('materials', 'material_stocks.material_id', '=', 'materials.id')
+    // ->join('stock_mutations', 'material_stocks.id', '=', 'stock_mutations.stockable_id')
+    // ->select('material_stocks.*', 'materials.*', 'stock_mutations.*')
+    // ->get();
     $fromDate = $request->input('from_date');
     $toDate = $request->input('to_date');
 

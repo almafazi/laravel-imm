@@ -39,7 +39,6 @@ class MaterialStockExport implements FromCollection, WithHeadings, WithStyles
                 ];
             }
         }
-        dd($data);
 
         return collect($data);
     }
