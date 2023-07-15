@@ -6,6 +6,7 @@ use DataTables;
 use Illuminate\Http\Request;
 use App\Models\Material\Material;
 use App\Exports\MaterialStockExport;
+use App\Exports\StocksExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class MaterialController extends Controller
@@ -107,6 +108,6 @@ class MaterialController extends Controller
 
     public function export()
     {
-        return Excel::download(new MaterialStockExport, 'material_stock.xlsx');
+        return Excel::download(new StocksExport, 'Export Stock Tanggal ' . date('d-m-Y') . '.xlsx');
     }
 }

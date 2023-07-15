@@ -183,6 +183,6 @@ class MaterialStockController extends Controller
 
     public function export()
     {
-        return Excel::download(new MaterialStockExport, 'Export Stock Tanggal ' . date('d-m-Y') . '.xlsx');
+        return Excel::download(new MaterialStockExport, 'Export Stock Log Tanggal ' . date('d-m-Y') . '.xlsx');
     }
 }

@@ -51,7 +51,7 @@
                     <span></span>
                     <i class="fas fa-caret-down"></i>
                 </div> --}}
-                <a href="{{ route('material.export') }}" class="btn btn-primary mx-2">Export Data</a>
+                <a href="{{ route('material-stock.export') }}" class="btn btn-primary mx-2">Export Data</a>
             </div>
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered" id="">
