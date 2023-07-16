@@ -18,8 +18,16 @@
                         <label for="name">Nama Bahan</label>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
+                        <input type="text" disabled class="form-control" id="criteria_1" value="{{ $material->criteria_1 }}" />
+                        <label for="criteria_1">Kriteria 1</label>
+                    </div>
+                    <div class="form-floating form-floating-outline mb-4">
+                        <input type="text" disabled class="form-control" id="criteria_2" value="{{ $material->criteria_2 }}" />
+                        <label for="criteria_2">Kriteria 2</label>
+                    </div>
+                    <div class="form-floating form-floating-outline mb-4">
                         <input type="number" class="form-control" id="stock" name="stock"
-                            placeholder="Input stok awal" />
+                            placeholder="Input stok awal" step=".01" min=”0″/>
                         <label for="stock">Stock</label>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
@@ -62,6 +70,7 @@
         altInput: true,
         altFormat: "d/m/Y",
         dateFormat: "Y-m-d",
+        defaultDate: new Date(),
     });
 </script>
 @endsection
