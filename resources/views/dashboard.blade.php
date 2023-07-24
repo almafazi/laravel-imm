@@ -37,7 +37,15 @@
                         <p class="mb-0">Ini adalah halaman utama dari sistem <span class="fw-semibold">Gudang IMM</span>.
                         </p>
                         <p>Segera cek stok gudang anda.</p>
-                        <a href="material" class="btn btn-primary">Masuk Gudang</a>
+                        @role('admin')
+                            <a href="material" class="btn btn-primary">Masuk Gudang</a>
+                        @endrole
+                        @role('purchasing')
+                            <a href="material-stock/material.list" class="btn btn-primary">Masuk Gudang</a>
+                        @endrole
+                        @role('finance')
+                            <a href="material-stock/material.list" class="btn btn-primary">Masuk Gudang</a>
+                        @endrole
                     </div>
                 </div>
                 {{-- Side B --}}

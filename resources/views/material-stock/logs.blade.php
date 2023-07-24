@@ -51,7 +51,7 @@
                     <span></span>
                     <i class="fas fa-caret-down"></i>
                 </div> --}}
-                <a href="{{ route('material-stock.export') }}" class="btn btn-primary mx-2">Export Data</a>
+                <a href="{{ route('material-stock.export') }}" class="btn btn-primary mx-2" id="updateExportLink">Export Data</a>
             </div>
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered" id="">
@@ -118,9 +118,17 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
     <script>
+
         $(document).ready(function() {
             $('.table').DataTable({});
         });
+
+        function updateExportLink(fromDate, toDate, keyword) {
+            var exportUrl = "{{ route('material.export') }}?from_date=" + fromDate.format('YYYY-MM-DD') +
+                "&to_date=" + toDate.format('YYYY-MM-DD') + "&keyword=" + keyword;
+            $('#exportButton').attr('href', exportUrl);
+        }
+
         /* $(function() {
             var start_date = moment().subtract(1, 'M');
             var end_date = moment();

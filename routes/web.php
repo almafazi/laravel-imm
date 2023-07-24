@@ -42,20 +42,22 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('material-stock')->group(function () {
-        Route::group(['middleware' => ['role:admin']], function () {
+        Route::group(['middleware' => ['role:admin']], function () {            
+            Route::post('import', [MaterialStockController::class, 'import'])->name('material-stock.import');
+            Route::get('logs', [MaterialStockController::class, 'logs'])->name('material-stock.logs');    
+            Route::get('export', [MaterialStockController::class, 'export'])->name('material-stock.export');
+        });
+        Route::group(['middleware' => ['role:admin|purchasing|finance']], function () {
             Route::get('create/{material_id}', [MaterialStockController::class, 'create'])->name('material-stock.create');
             Route::post('store', [MaterialStockController::class, 'store'])->name('material-stock.store');
-            Route::get('stocks/{material_id}', [MaterialStockController::class, 'index'])->name('material-stock.index');
-            Route::get('material.list', [MaterialStockController::class, 'material_list'])->name('material-stock.material-list');
             Route::get('edit/{material_id}/{material_stock_id}', [MaterialStockController::class, 'edit'])->name('material-stock.edit');
             Route::post('update', [MaterialStockController::class, 'update'])->name('material-stock.update');
             Route::get('destroy/{id}', [MaterialStockController::class, 'destroy'])->name('material-stock.destroy');
-
-            Route::post('import', [MaterialStockController::class, 'import'])->name('material-stock.import');
+            Route::get('material.list', [MaterialStockController::class, 'material_list'])->name('material-stock.material-list');
+            Route::get('stocks/{material_id}', [MaterialStockController::class, 'index'])->name('material-stock.index');
+            Route::get('logs', [MaterialStockController::class, 'logs'])->name('material-stock.logs');    
+            Route::get('export', [MaterialStockController::class, 'export'])->name('material-stock.export');
         });
-
-        Route::get('logs', [MaterialStockController::class, 'logs'])->name('material-stock.logs');    
-        Route::get('export', [MaterialStockController::class, 'export'])->name('material-stock.export');
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -29,14 +29,26 @@ class UserTableSeeder extends Seeder
         $user->assignRole($role);
 
         $user = User::create([
-            'name' => 'Guest',
-            'email' => 'guest@gudang.com',
+            'name' => 'Purchasing',
+            'email' => 'purchasing@gudang.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('guests'),
+            'password' => Hash::make('purchasing'),
             'remember_token' => Str::random(10),
         ]);
 
-        $role = Role::create(['name' => 'guest']);
+        $role = Role::create(['name' => 'purchasing']);
+
+        $user->assignRole($role);
+
+        $user = User::create([
+            'name' => 'Finance',
+            'email' => 'finance@gudang.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('purchasing'),
+            'remember_token' => Str::random(10),
+        ]);
+
+        $role = Role::create(['name' => 'finance']);
 
         $user->assignRole($role);
 

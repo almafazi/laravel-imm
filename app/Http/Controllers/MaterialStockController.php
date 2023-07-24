@@ -35,9 +35,9 @@ class MaterialStockController extends Controller
 
     public function material_list()
     {
-        if (!Auth()->user()->hasRole('admin')) {
-            return redirect()->route('material-stock.logs');
-        }
+        // if (!Auth()->user()->hasRole('admin')) {
+        //     return redirect()->route('material-stock.logs');
+        // }
         //logic
         $materials = Material::all();
         return view('material-stock.material-list', [

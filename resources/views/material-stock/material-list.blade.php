@@ -53,6 +53,7 @@
         <h2 class="card-header mt-2 mb-3">List Stok Bahan</h2>
         <div class="card-body">
             <div class="row">
+                @role('admin')
                 <div class="col-12 col-md-8 col-lg-6 button-file">
                     <a class="btn btn-label-secondary" href="{{ asset('example-export/example-export.xlsx') }}">
                         <span class="mdi mdi-file-document-outline me-2"></span>
@@ -73,6 +74,15 @@
                         </div>
                     </form>
                 </div>
+                @endrole
+                @role('finance')
+                <div class="col-12 col-md-8 col-lg-6 button-file">
+                    <a href="{{ route('material.export') }}" class="btn btn-label-primary mx-2 button-export">
+                        <span class="mdi mdi-export-variant me-2"></span>
+                        Export data
+                    </a>
+                </div>
+                @endrole
             </div>
             <div class="table-responsive text-nowrap mt-3 ">
                 <table class="datatables-basic table table-bordered">

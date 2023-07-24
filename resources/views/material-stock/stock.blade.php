@@ -49,8 +49,14 @@
                 <div class="col-12 col-md-8 col-lg-6  mt-4 mt-lg-0 button-file">
                     <a href="{{ route('material-stock.material-list') }}" class="btn btn-label-secondary mb-3 me-2"><span
                             class="mdi mdi-arrow-left me-2"></span>Kembali</a>
+                    @role('admin')
                     <a href="{{ route('material-stock.create', ['material_id' => $material_id]) }}"
                         class="btn btn-primary mb-3"><span class="mdi mdi-plus me-2"></span>Stok</a>
+                    @endrole
+                    @role('purchasing')
+                    <a href="{{ route('material-stock.create', ['material_id' => $material_id]) }}"
+                        class="btn btn-primary mb-3"><span class="mdi mdi-plus me-2"></span>Stok</a>
+                    @endrole
                 </div>
             </div>
             <!-- Table -->
@@ -61,7 +67,9 @@
                             <th>nama bahan</th>
                             <th>stok</th>
                             <th>kode produksi</th>
+                            @role('admin')
                             <th>action</th>
+                            @endrole
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -71,6 +79,7 @@
                                     <td>{{ $stock->material->name }}</td>
                                     <td>{{ $stock->stock }}</td>
                                     <td>{{ $stock->code }}</td>
+                                    @role('admin')
                                     <td>
                                         <a href="{{ route('material-stock.edit', ['material_id' => $material_id, 'material_stock_id' => $stock->id]) }}"
                                             class="btn btn-warning me-1"><span class="mdi mdi-pencil me-2"></span>Kelola
@@ -80,6 +89,7 @@
                                                 class="mdi mdi-delete me-2"></span>Hapus</a>
 
                                     </td>
+                                    @endrole
                                 </tr>
                             @endif
                         @endforeach
