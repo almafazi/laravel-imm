@@ -44,7 +44,7 @@ class UserTableSeeder extends Seeder
             'name' => 'Finance',
             'email' => 'finance@gudang.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('purchasing'),
+            'password' => Hash::make('finance'),
             'remember_token' => Str::random(10),
         ]);
 
