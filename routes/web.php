@@ -41,10 +41,14 @@ Route::middleware('auth')->group(function () {
         Route::get('material/export', [MaterialController::class, 'export'])->name('material.export');
     });
 
+    Route::group(['middleware' => ['role:purchasing|finance']], function () {
+        Route::get('material/export', [MaterialController::class, 'export'])->name('material.export');
+    });
+
     Route::prefix('material-stock')->group(function () {
-        Route::group(['middleware' => ['role:admin']], function () {            
+        Route::group(['middleware' => ['role:admin']], function () {
             Route::post('import', [MaterialStockController::class, 'import'])->name('material-stock.import');
-            Route::get('logs', [MaterialStockController::class, 'logs'])->name('material-stock.logs');    
+            Route::get('logs', [MaterialStockController::class, 'logs'])->name('material-stock.logs');
             Route::get('export', [MaterialStockController::class, 'export'])->name('material-stock.export');
         });
         Route::group(['middleware' => ['role:admin|purchasing|finance']], function () {
@@ -55,7 +59,7 @@ Route::middleware('auth')->group(function () {
             Route::get('destroy/{id}', [MaterialStockController::class, 'destroy'])->name('material-stock.destroy');
             Route::get('material.list', [MaterialStockController::class, 'material_list'])->name('material-stock.material-list');
             Route::get('stocks/{material_id}', [MaterialStockController::class, 'index'])->name('material-stock.index');
-            Route::get('logs', [MaterialStockController::class, 'logs'])->name('material-stock.logs');    
+            Route::get('logs', [MaterialStockController::class, 'logs'])->name('material-stock.logs');
             Route::get('export', [MaterialStockController::class, 'export'])->name('material-stock.export');
         });
     });
