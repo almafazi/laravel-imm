@@ -31,6 +31,11 @@
                         <label for="stock">Stock</label>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
+                        <input type="number" class="form-control" id="price" name="price"
+                            placeholder="Harga"/>
+                        <label for="price">Harga</label>
+                    </div>
+                    <div class="form-floating form-floating-outline mb-4">
                         <input type="date" class="form-control" id="flatpickr-date" name="report_at"
                             placeholder="DD/MM/YYYY" />
                         <label for="flatpickr-date">Tanggal Pelaporan</label>
@@ -71,6 +76,19 @@
         altFormat: "d/m/Y",
         dateFormat: "Y-m-d",
         defaultDate: new Date(),
+    });
+</script>
+<script>
+    $('#form').on('keydown', 'input', function(event) {
+        if (event.which == 13) {
+            var $allInputs = $('#form input, #form select')
+            var $this = $(event.target);
+            var index = $allInputs.index($this);
+            if (index < $allInputs.length - 1) {
+                event.preventDefault();
+                $allInputs[index + 1].focus()
+            }
+        }
     });
 </script>
 @endsection

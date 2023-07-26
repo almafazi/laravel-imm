@@ -38,10 +38,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/material/destroy/{id}', [MaterialController::class, 'destroy'])->name('material.destroy');
 
         Route::get('/material/datatable', [MaterialController::class, 'datatable'])->name('material.datatable');
-        Route::get('material/export', [MaterialController::class, 'export'])->name('material.export');
     });
 
-    Route::group(['middleware' => ['role:purchasing|finance']], function () {
+    Route::group(['middleware' => ['role:admin|purchasing|finance']], function () {
         Route::get('material/export', [MaterialController::class, 'export'])->name('material.export');
     });
 

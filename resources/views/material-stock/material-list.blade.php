@@ -59,6 +59,10 @@
                         <span class="mdi mdi-file-document-outline me-2"></span>
                         format import
                     </a>
+                    <a href="{{ route('material.export') }}" class="btn btn-label-primary mx-2 button-export">
+                        <span class="mdi mdi-export-variant me-2"></span>
+                        Export data
+                    </a>
                 </div>
                 <div class="col-12 col-md-8 col-lg-6  mt-4 mt-lg-0 button-file">
                     <form action="{{ route('material-stock.import') }}" method="post" enctype="multipart/form-data">
