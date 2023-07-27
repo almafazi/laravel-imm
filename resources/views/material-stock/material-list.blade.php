@@ -75,7 +75,7 @@
                     </form>
                 </div>
                 @endrole
-                @role('finance')
+                @role('finance|purchasing')
                 <div class="col-12 col-md-8 col-lg-6 button-file">
                     <a href="{{ route('material.export') }}" class="btn btn-label-primary mx-2 button-export">
                         <span class="mdi mdi-export-variant me-2"></span>

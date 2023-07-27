@@ -65,6 +65,9 @@
                             <th>jumlah</th>
                             <th>akumulasi</th>
                             <th>kode produksi</th>
+                            @role('purchasing|finance')
+                            <th>harga</th>
+                            @endrole()
                             <th>tanggal lapor</th>
                             <th>deskripsi</th>
                             <th>timestamp</th>
@@ -91,6 +94,11 @@
                                     <td>
                                         {{ $material_stock->code }}
                                     </td>
+                                    @role('purchasing|finance')
+                                    <td>
+                                        {{ $mutation->price }}
+                                    </td>
+                                    @endrole
                                     <td>
                                         {{ $mutation->report_at }}
                                     </td>

@@ -65,6 +65,8 @@
                     <thead class="table-light">
                         <tr>
                             <th>nama bahan</th>
+                            <th>kriteria 1</th>
+                            <th>kriteria 2</th>
                             <th>stok</th>
                             <th>kode produksi</th>
                             @role('admin')
@@ -74,9 +76,11 @@
                     </thead>
                     <tbody class="table-border-bottom-0">
                         @foreach ($stocks as $stock)
-                            @if ($stock->stock != 0)
+                            {{-- @if ($stock->stock != 0) --}}
                                 <tr>
                                     <td>{{ $stock->material->name }}</td>
+                                    <td>{{ $stock->material->criteria_1 }}</td>
+                                    <td>{{ $stock->material->criteria_2 }}</td>
                                     <td>{{ $stock->stock }}</td>
                                     <td>{{ $stock->code }}</td>
                                     @role('admin')
@@ -91,7 +95,7 @@
                                     </td>
                                     @endrole
                                 </tr>
-                            @endif
+                            {{-- @endif --}}
                         @endforeach
                     </tbody>
                 </table>
