@@ -21,7 +21,7 @@ class CreateStockMutationsTable extends Migration
             $table->decimal('amount');
             $table->text('description')->nullable();
             $table->integer('price')->nullable();
-            $table->date('report_at')->format('d/m/Y')->nullable();
+            $table->date('report_at')->nullable();
             $table->timestamps();
             $table->index(['reference_type', 'reference_id']);
         });

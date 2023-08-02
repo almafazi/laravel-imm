@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MaterialStockController;
 
@@ -32,12 +33,18 @@ Route::middleware('auth')->group(function () {
         Route::get('/material', [MaterialController::class, 'index'])->name('material.index');
         Route::get('/material/create', [MaterialController::class, 'create'])->name('material.create');
         Route::post('/material/store', [MaterialController::class, 'store'])->name('material.store');
-
         Route::get('/material/edit/{id}', [MaterialController::class, 'edit'])->name('material.edit');
         Route::post('/material/update', [MaterialController::class, 'update'])->name('material.update');
         Route::get('/material/destroy/{id}', [MaterialController::class, 'destroy'])->name('material.destroy');
-
         Route::get('/material/datatable', [MaterialController::class, 'datatable'])->name('material.datatable');
+
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
+        Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+        Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
+        Route::get('/users/edit/{user}', [UserController::class, 'edit'])->name('users.edit');
+        Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+        Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+        // Route::get('/users/datatables', [UserController::class, 'datatables'])->name('users.datatables');
     });
 
     Route::group(['middleware' => ['role:admin|purchasing|finance']], function () {

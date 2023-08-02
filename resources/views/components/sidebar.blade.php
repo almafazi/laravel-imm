@@ -35,6 +35,7 @@
                 </a>
             @endrole
         </li>
+
         <li class="menu-item {{ Request::is('material-stock*') || Request::is('material*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons mdi mdi-home-outline"></i>
@@ -60,6 +61,7 @@
                         </a>
                     </li>
                 @endrole
+                
                 @role('purchasing')
                     <li
                         class="menu-item {{ Request::is('material-stock/material.list') || Request::is('material-stock/stocks/*') || Request::is('material-stock/create/*') || Request::is('material-stock/edit/*') ? 'active' : '' }}">
@@ -80,7 +82,7 @@
                             <div>List Stok Bahan</div>
                         </a>
                     </li>
-                    <li class="menu-item {{ Request::is('material-stock/logs') ? 'active' : '' }}">
+                    <li class="menu-item {{ Request::is('users') ? 'active' : '' }}">
                         <a href="{{ route('material-stock.logs') }}" class="menu-link">
                             <div>Log Stok Bahan</div>
                         </a>
@@ -90,5 +92,15 @@
             </ul>
         </li>
 
+        <li class="menu-item  {{ Request::is('users') ? 'active' : '' }}">
+            @role('admin')
+                <a href="{{ route('users.index') }}" class="menu-link">
+                    {{-- <i class="menu-icon tf-icons mdi mdi-view-dashboard"></i> --}}
+                    <i class="fas fa-user me-3"></i>
+                    <div>List User</div>
+                </a>
+            @endrole
+        </li>
     </ul>
 </aside>
+

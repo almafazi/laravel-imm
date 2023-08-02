@@ -51,7 +51,8 @@
                     <span></span>
                     <i class="fas fa-caret-down"></i>
                 </div> --}}
-                <a href="{{ route('material-stock.export') }}" class="btn btn-primary mx-2" id="updateExportLink">Export Data</a>
+                <a href="{{ route('material-stock.export') }}" class="btn btn-primary mx-2" id="updateExportLink">Export
+                    Data</a>
             </div>
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered" id="">
@@ -66,7 +67,7 @@
                             <th>akumulasi</th>
                             <th>kode produksi</th>
                             @role('purchasing|finance')
-                            <th>harga</th>
+                                <th>harga</th>
                             @endrole()
                             <th>tanggal lapor</th>
                             <th>deskripsi</th>
@@ -95,13 +96,30 @@
                                         {{ $material_stock->code }}
                                     </td>
                                     @role('purchasing|finance')
-                                    <td>
-                                        {{ $mutation->price }}
-                                    </td>
+                                        <td>
+                                            {{ $mutation->price }}
+                                        </td>
                                     @endrole
                                     <td>
-                                        {{ $mutation->report_at }}
+                                        @if ($mutation->report_at)
+                                            @php
+                                                try {
+                                                    $date = \DateTime::createFromFormat('Y-m-d', $mutation->report_at);
+                                                    if ($date !== false) {
+                                                        echo $date->format('d/m/Y');
+                                                    } else {
+                                                        echo 'Invalid date format';
+                                                    }
+                                                } catch (\Exception $e) {
+                                                    echo 'Error: ' . $e->getMessage();
+                                                }
+                                            @endphp
+                                        @endif
+
                                     </td>
+                                    {{-- <td>
+                                        {{ $mutation->report_at->format('d/m/Y') }}
+                                    </td> --}}
                                     <td>
                                         {!! $mutation->description ?? '' !!}
                                     </td>
@@ -126,7 +144,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
     <script>
-
         $(document).ready(function() {
             $('.table').DataTable({});
         });
