@@ -16,17 +16,52 @@ class UserTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $role = Role::create(['name' => 'admin']);
+        // Buat peran (role) admin
+        $roleAdmin = Role::create(['name' => 'admin']);
 
-        $user = User::create([
+        // Buat peran (role) finance
+        $roleFinance = Role::create(['name' => 'finance']);
+
+        // Buat peran (role) purchasing
+        $rolePurchasing = Role::create(['name' => 'purchasing']);
+
+        // Tambahkan pengguna (user) admin dan tetapkan role_id dengan nilai dari $roleAdmin->id
+        $userAdmin = User::create([
             'name' => 'Admin',
             'email' => 'admin@gudang.com',
             'email_verified_at' => now(),
             'password' => Hash::make('admins'),
             'remember_token' => Str::random(10),
-            'role_id' => $role->id
+            'role_id' => $roleAdmin->id, // Tambahkan role_id sesuai nilai dari $roleAdmin->id
         ]);
 
-        $user->assignRole($role);
+        // Assign role admin ke user admin
+        $userAdmin->assignRole($roleAdmin);
+
+        // Tambahkan pengguna (user) finance dan tetapkan role_id dengan nilai dari $roleFinance->id
+        $userFinance = User::create([
+            'name' => 'Finance',
+            'email' => 'finance@gudang.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('finance'),
+            'remember_token' => Str::random(10),
+            'role_id' => $roleFinance->id, // Tambahkan role_id sesuai nilai dari $roleFinance->id
+        ]);
+
+        // Assign role finance ke user finance
+        $userFinance->assignRole($roleFinance);
+
+        // Tambahkan pengguna (user) purchasing dan tetapkan role_id dengan nilai dari $rolePurchasing->id
+        $userPurchasing = User::create([
+            'name' => 'Purchasing',
+            'email' => 'purchasing@gudang.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('purchasing'),
+            'remember_token' => Str::random(10),
+            'role_id' => $rolePurchasing->id, // Tambahkan role_id sesuai nilai dari $rolePurchasing->id
+        ]);
+
+        // Assign role purchasing ke user purchasing
+        $userPurchasing->assignRole($rolePurchasing);
     }
 }

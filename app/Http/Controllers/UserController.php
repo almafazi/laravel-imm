@@ -99,7 +99,7 @@ class UserController extends Controller
         $user->save();
 
         // Hapus peran (role) lama dan tetapkan peran yang baru
-        $user->removeRole($user->role); // Hapus peran lama
+        $user->roles()->detach();
         $user->assignRole($role); // Assign peran baru
 
         return redirect()->route('users.index')->with('success', 'User berhasil diperbarui!');
