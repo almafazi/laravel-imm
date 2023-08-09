@@ -190,22 +190,22 @@ class MaterialStockController extends Controller
 
         $material_stocks = $material_stocks->get();
 
-    // Pengecekan apakah tanggal yang diinput valid
-    if ($fromDate && $toDate) {
-        $material_stocks = MaterialStock::with(['stockMutations' => function ($query) use ($fromDate, $toDate) {
-            $query->whereDate('created_at', '>=', $fromDate)
-                ->whereDate('created_at', '<=', $toDate);
-        }])->groupBy('id')->get();
-    } else {
-        $material_stocks = MaterialStock::with('stockMutations')->groupBy('id')->get();
-    }
+        // Pengecekan apakah tanggal yang diinput valid
+        if ($fromDate && $toDate) {
+            $material_stocks = MaterialStock::with(['stockMutations' => function ($query) use ($fromDate, $toDate) {
+                $query->whereDate('created_at', '>=', $fromDate)
+                    ->whereDate('created_at', '<=', $toDate);
+            }])->groupBy('id')->get();
+        } else {
+            $material_stocks = MaterialStock::with('stockMutations')->groupBy('id')->get();
+        }
 
-    return view('material-stock.logs', compact('material_stocks'), [
-        'title' => 'Log Stock Bahan',
-        'fromDate' => $fromDate,
-        'toDate' => $toDate
-    ]);
-}
+        return view('material-stock.logs', compact('material_stocks'), [
+            'title' => 'Log Stock Bahan',
+            'fromDate' => $fromDate,
+            'toDate' => $toDate
+        ]);
+    }
 
     public function export(Request $request)
     {
@@ -213,34 +213,14 @@ class MaterialStockController extends Controller
 
         // Lakukan operasi pengambilan data yang akan diekspor berdasarkan tanggal
         $dataToExport = MaterialStock::whereDate('created_at', $created_at)->get();
-    
+
         // Konversi tanggal menjadi format yang sesuai untuk menyimpan dalam nama file
         $formattedDate = Carbon::parse($created_at)->format('Y-m-d');
-    
+
         // Generate nama file yang unik
         $filename = 'material_stock_export_' . $formattedDate . '.xlsx';
-    
+
         // Logic untuk ekspor data menggunakan library Excel
-        return Excel::download(new MaterialStockExport($dataToExport), $filename);    
+        return Excel::download(new MaterialStockExport($dataToExport), $filename);
     }
-
-    // public function export(Request $request)
-    // {
-    //     $created_at = $request->query('created_at');
-
-    //     // Lakukan operasi pengambilan data yang akan diekspor berdasarkan tanggal
-    //     $dataToExport = MaterialStock::whereDate('created_at', $created_at)->get();
-    
-    //     // Generate nama file yang unik dengan tanggal
-    //     $formattedDate = Carbon::parse($created_at)->format('Y-m-d');
-    //     $filename = 'material_stock_export_' . $formattedDate . '.xlsx';
-    
-    //     // Export data menggunakan Excel dan simpan sementara
-    //     $storagePath = 'public'; // Sesuaikan dengan konfigurasi penyimpanan kamu
-    //     $filePath = Storage::put($storagePath . '/' . $filename, Excel::raw(new MaterialStockExport($dataToExport), \Maatwebsite\Excel\Excel::XLSX));
-    
-    //     // Unduh file yang sudah disimpan
-    //     return Storage::download($filePath);
-    
-    // }
 }
