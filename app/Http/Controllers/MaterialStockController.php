@@ -86,9 +86,28 @@ class MaterialStockController extends Controller
         ]);
         if ($material->grade == 2) {
             DB::transaction(function () use ($material, $material_stock) {
-                $current_material_count = $material->material_stocks()->count();
 
-                $generated_code = $material->grade . '/' . date('m') . date('Y') . '/' . str_pad($current_material_count, 3, 0, STR_PAD_LEFT);
+                $last_material_code = $material->material_stocks()->latest('created_at')->skip(1)->value('code');
+
+                $current_month = intval(date('m'));
+                $current_year = intval(date('Y'));
+
+                if ($last_material_code !== null) {
+                    $last_code_parts = explode('/', $last_material_code);
+                    $last_month = intval(substr($last_code_parts[1], 0, 2));
+                    $last_year = intval(substr($last_code_parts[1], 2, 4));
+                    $last_count = intval(substr($last_code_parts[2], -3));
+
+                    if ($current_month !== $last_month || $current_year !== $last_year) {
+                        $current_count = 1;
+                    } else {
+                        $current_count = $last_count + 1;
+                    }
+                    $generated_code = $material->grade . '/' . str_pad($current_month, 2, '0', STR_PAD_LEFT) . $current_year . '/' . str_pad($current_count, 3, '0', STR_PAD_LEFT);
+                } else {
+                    $generated_code = $material->grade . '/' . str_pad($current_month, 2, '0', STR_PAD_LEFT) . $current_year . '/' . str_pad(1, 3, '0', STR_PAD_LEFT);
+                }
+
 
                 $material_stock->update([
                     'code' => $generated_code
@@ -171,9 +190,22 @@ class MaterialStockController extends Controller
 
         $material_stocks = $material_stocks->get();
 
-        return view('material-stock.logs', compact('material_stocks'))->with(['title' => 'Log Stock Bahan']);
+    // Pengecekan apakah tanggal yang diinput valid
+    if ($fromDate && $toDate) {
+        $material_stocks = MaterialStock::with(['stockMutations' => function ($query) use ($fromDate, $toDate) {
+            $query->whereDate('created_at', '>=', $fromDate)
+                ->whereDate('created_at', '<=', $toDate);
+        }])->groupBy('id')->get();
+    } else {
+        $material_stocks = MaterialStock::with('stockMutations')->groupBy('id')->get();
     }
 
+    return view('material-stock.logs', compact('material_stocks'), [
+        'title' => 'Log Stock Bahan',
+        'fromDate' => $fromDate,
+        'toDate' => $toDate
+    ]);
+}
 
     public function export(Request $request)
     {
