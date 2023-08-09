@@ -55,7 +55,7 @@ Route::middleware('auth')->group(function () {
         Route::group(['middleware' => ['role:admin']], function () {
             Route::post('import', [MaterialStockController::class, 'import'])->name('material-stock.import');
             Route::get('logs', [MaterialStockController::class, 'logs'])->name('material-stock.logs');
-            Route::get('export', [MaterialStockController::class, 'export'])->name('material-stock.export');
+            Route::get('export/{created_at?}', [MaterialStockController::class, 'export'])->name('material-stock.export');
         });
         Route::group(['middleware' => ['role:admin|purchasing|finance']], function () {
             Route::get('create/{material_id}', [MaterialStockController::class, 'create'])->name('material-stock.create');
@@ -66,7 +66,7 @@ Route::middleware('auth')->group(function () {
             Route::get('material.list', [MaterialStockController::class, 'material_list'])->name('material-stock.material-list');
             Route::get('stocks/{material_id}', [MaterialStockController::class, 'index'])->name('material-stock.index');
             Route::get('logs', [MaterialStockController::class, 'logs'])->name('material-stock.logs');
-            Route::get('export', [MaterialStockController::class, 'export'])->name('material-stock.export');
+            // Route::get('export/{created_at?}', [MaterialStockController::class, 'export'])->name('material-stock.export');
         });
     });
 

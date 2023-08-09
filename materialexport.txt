@@ -1,3 +1,4 @@
+kode asli material export
 <?php
 
 namespace App\Exports;
@@ -8,19 +9,12 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Facades\Excel;
-// use Maatwebsite\Excel\Events\AfterSheet;
 
 class MaterialStockExport implements FromCollection, WithHeadings, WithStyles
 {
     public function collection()
     {
-        $created_at = request('created_at');
-
-        $materialStocks = MaterialStock::with('material', 'stockMutations')
-            ->whereHas('stockMutations', function ($query) use ($created_at) {
-                $query->whereDate('created_at', $created_at);
-            })
-            ->get();
+        $materialStocks = MaterialStock::with('material', 'stockMutations')->get();
 
         $data = [];
 

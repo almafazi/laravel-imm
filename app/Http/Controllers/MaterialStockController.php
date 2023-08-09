@@ -2,22 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use DataTables;
-use App\Exports\LogsExport;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Imports\StocksImport;
-use GuzzleHttp\Promise\Create;
-use Illuminate\Support\Carbon;
-// use Appstract\Stock\StockMutation;
 use App\Models\Material\Material;
 use Illuminate\Support\Facades\DB;
 use App\Exports\MaterialStockExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Material\MaterialStock;
+use Illuminate\Support\Facades\Storage;
 use App\Notifications\StockNotification;
-use Appstract\Stock\StockMutation;
-use Maatwebsite\Excel\Concerns\Exportable;
-use Maatwebsite\Excel\Concerns\FromCollection;
+// use Appstract\Stock\StockMutation;
+// use Maatwebsite\Excel\Concerns\Exportable;
+// use Maatwebsite\Excel\Concerns\FromCollection;
+// use Illuminate\Http\Response;
+// use GuzzleHttp\Promise\Create;
+// use App\Exports\LogsExport;
+// use DataTables;
+// use Illuminate\Support\Carbon;
+
+
 
 
 class MaterialStockController extends Controller
@@ -158,33 +162,53 @@ class MaterialStockController extends Controller
     }
 
     public function logs(Request $request)
-{
-    // $material_stocks_x = MaterialStock::join('materials', 'material_stocks.material_id', '=', 'materials.id')
-    // ->join('stock_mutations', 'material_stocks.id', '=', 'stock_mutations.stockable_id')
-    // ->select('material_stocks.*', 'materials.*', 'stock_mutations.*')
-    // ->get();
-    $fromDate = $request->input('from_date');
-    $toDate = $request->input('to_date');
-
-    // Pengecekan apakah tanggal yang diinput valid
-    if ($fromDate && $toDate) {
-        $material_stocks = MaterialStock::with(['stockMutations' => function ($query) use ($fromDate, $toDate) {
-            $query->whereDate('created_at', '>=', $fromDate)
-                ->whereDate('created_at', '<=', $toDate);
-        }])->groupBy('id')->get();
-    } else {
-        $material_stocks = MaterialStock::with('stockMutations')->groupBy('id')->get();
-    }
-
-    return view('material-stock.logs', compact('material_stocks'), [
-        'title' => 'Log Stock Bahan',
-        'fromDate' => $fromDate,
-        'toDate' => $toDate
-    ]);
-}
-
-    public function export()
     {
-        return Excel::download(new MaterialStockExport, 'Export Stock Log Tanggal ' . date('d-m-Y') . '.xlsx');
+        $material_stocks = MaterialStock::query()->with('stockMutations');
+
+        $material_stocks->when($request->created_at, function ($query) use ($request) {
+            return $query->whereDate('created_at', $request->created_at);
+        });
+
+        $material_stocks = $material_stocks->get();
+
+        return view('material-stock.logs', compact('material_stocks'))->with(['title' => 'Log Stock Bahan']);
     }
+
+
+    public function export(Request $request)
+    {
+        $created_at = request('created_at');
+
+        // Lakukan operasi pengambilan data yang akan diekspor berdasarkan tanggal
+        $dataToExport = MaterialStock::whereDate('created_at', $created_at)->get();
+    
+        // Konversi tanggal menjadi format yang sesuai untuk menyimpan dalam nama file
+        $formattedDate = Carbon::parse($created_at)->format('Y-m-d');
+    
+        // Generate nama file yang unik
+        $filename = 'material_stock_export_' . $formattedDate . '.xlsx';
+    
+        // Logic untuk ekspor data menggunakan library Excel
+        return Excel::download(new MaterialStockExport($dataToExport), $filename);    
+    }
+
+    // public function export(Request $request)
+    // {
+    //     $created_at = $request->query('created_at');
+
+    //     // Lakukan operasi pengambilan data yang akan diekspor berdasarkan tanggal
+    //     $dataToExport = MaterialStock::whereDate('created_at', $created_at)->get();
+    
+    //     // Generate nama file yang unik dengan tanggal
+    //     $formattedDate = Carbon::parse($created_at)->format('Y-m-d');
+    //     $filename = 'material_stock_export_' . $formattedDate . '.xlsx';
+    
+    //     // Export data menggunakan Excel dan simpan sementara
+    //     $storagePath = 'public'; // Sesuaikan dengan konfigurasi penyimpanan kamu
+    //     $filePath = Storage::put($storagePath . '/' . $filename, Excel::raw(new MaterialStockExport($dataToExport), \Maatwebsite\Excel\Excel::XLSX));
+    
+    //     // Unduh file yang sudah disimpan
+    //     return Storage::download($filePath);
+    
+    // }
 }
