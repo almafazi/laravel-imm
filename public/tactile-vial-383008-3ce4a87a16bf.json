@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "tactile-vial-383008",
+  "private_key_id": "3ce4a87a16bf63418c5db6fdc0fa31d513070754",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDJMPNi+hEar5w4\nQ3fsZCSpTAo6Acc39WKmYA0YcQUWTqxB/aUCy5s39axfyYDF/XMsZ13Q0FANvQms\nk6ABGPhbtWKSccA2a7VEdMYYsAfjYUGBf03j/6JysQf6JiBbJGo0pRlio+0WojgQ\n9Itvn5DD67wrhlqz3rxZze3rX80gvrbB89BYHofr+3m1psc9chKx78o0zcrSJqq2\nuhwWKWjQSyF3N2xd/Wki7bw9luLi3pvqrC6msPXPGAF4QufXrWBO0wZIs40ChaaJ\nPJV6H8VhOxavHul0dTKl3Lmvi+lZa+twGLlvmB6+T/rDomZ/i8Z7AKgN0L711nbg\nEUlDQfWJAgMBAAECggEAAnK/i3VKjv4TExYzF+PSFGNR/om2AGbSh/7EOgdqDe7w\nJq9s+h87KM+rBNFhaUdfxusNF7TpPHmP7BMxz8GbiBYpeGm88oyV/JrFLFi8B9bP\nosFHU95w/h9MXw1muGU1i6V0rSAcivl3YDFxnu6cpt2wAQGWCflMZnVcj1AvoVXb\nQn1jf6Ov+C5X665RxyTgZ/K+nw/qJIcfyELylk0uYbG1CjaMSCHPHflLMMJTaz2N\npaoEFhpe1EMneD0lCr0pJzIODxwdhOdOT8gjZto30lzxcwRsy4xgDEVQmr+br/A0\nhOpZHU9GEcNo1axWfEpgDfgYGa2ENm1giCD0TipRwQKBgQDjE5jvSzo8fCK+j0F+\nDLWnub3kZTvuWUfqvXXS0B5bR8clmJauy8m4Ijz9/0ZTsx4yO1qFAE4RimwSwTQl\nfNpX3M7HcBmYBFAiSBUGMqkbtm8Sf4lrYawi4YneL+yp6IaxhN9UfGc+jwH2ocEm\np6pTuy3ppnC8zX5iLn2j53XImQKBgQDi0Uv0yHVaZ+Gvvx23JUpyFns5foFDiFpl\npeSD7+2fTwcJ298ES2Q+UFPrpf5TTFRubhpeqFOBW07EYIK2Mau+qSmPhod1Okr0\nar2R2aRZjQTk5piaK3KuS6unot042HQWFpoqzDmU5c1DLtM8HEyNcUpLjtIpBFzo\ntuC1Nbf6cQKBgQDSy5B/I1COcZY3W/kqMFY5u32CFlAKNStDyFkmODjV983xIrNO\n1LMPkgkYqO76KB7x9pNTQDM4qU0mI+BqpHp0cfAqx++aZPaWvF93/3No3HRDsc05\nt9P6FXDMp6SFHexbwsMnRMz7D/p8nzAU2DSPwgUfD3k8a27Vad8MVoPKkQKBgQC2\nVoUWUnQs6mf/DcfIrLzNPI9xJ+aosJvjLVqoSiAfurswzMXbQPRkN9VPElGDC1Cw\nueiPAginbAzFR8SszP+BNaKIlCCfN+570Ld24Z0CtKAjl9FD1vvJbGGhUQdApJmm\nDCOBlk4QCjFZ+fGsWB+ecV3FohoHCU/bcPDyHC47sQKBgEKF6s4LJOtQq1BykHwW\n/BJUu6RXbl5+BxbTQ4GxtBeuAiRMVXjopeWD67HqbfuzX5dmIYUAXZlz4/wpB/HI\nHukYcErruagj6sGUTbFLfGWoCY2ZXPZPDaeaP5c3tLRh/gRWT+h1kLTFPSo+IupC\nGdBHnXIcdfasWGhhVY9RqSRt\n-----END PRIVATE KEY-----\n",
+  "client_email": "gudang-imm@tactile-vial-383008.iam.gserviceaccount.com",
+  "client_id": "100828745109330951613",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/gudang-imm%40tactile-vial-383008.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

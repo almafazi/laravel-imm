@@ -14,7 +14,7 @@ class StockMutation extends Model
         'amount',
         'description',
         'price',
-        'report_at',
+        'report_at'
     ];
 
     /**

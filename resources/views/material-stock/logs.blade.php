@@ -23,16 +23,20 @@
             padding: 20px;
         }
 
-        .buttons-html5 {
-            margin-right: 10px;
-        }
-
         .tanggal {
             background: #fff;
             cursor: pointer;
             border: 1px solid #ccc;
             text-align: center;
             padding: 5px 10px;
+        }
+
+        .dt-buttons .btn.buttons-html5 {
+            margin-right: 10px;
+        }
+
+        .buttons-page-length {
+            margin-left: 10px;
         }
     </style>
 @endsection
@@ -47,7 +51,7 @@
     <div class="card">
         <h2 class="card-header mb-2 mt-3">Log Stok Bahan</h2>
         <div class="card-body">
-            <form action="{{ route('material-stock.logs') }}" method="get">
+            {{-- <form action="{{ route('material-stock.logs') }}" method="get">
                 @csrf
                 <div class="col-6 d-flex">
                     <div class="col-sm-4">
@@ -64,10 +68,10 @@
                         <a href="{{ $exportRoute }}" class="btn btn-success"><i class="fas fa-file-export"></i></a>
                     @endif
                 </div>
-            </form>
+            </form> --}}
 
             <div class="table-responsive text-nowrap">
-                <table class="table table-bordered" id="">
+                <table class="table table-bordered" id="table-logs">
                     <thead class="table-light">
                         <tr>
                             <th>name</th>
@@ -149,9 +153,27 @@
 @section('script')
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('.table').DataTable({});
+            $('#table-logs').DataTable({
+                dom: 'Bfrtip',
+                lengthMenu: [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, 'All'],
+                ],
+                buttons: [{
+                        extend: 'excel',
+                        className: 'btn btn-primary mt-2 mt-lg-0'
+                    },
+                    {
+                        extend: 'pageLength',
+                        className: 'btn btn-primary mt-2 mt-lg-0'
+                    },
+                ]
+            });
         });
     </script>
 @endsection

@@ -17,7 +17,7 @@ trait HasStock
     /**
      * Stock accessor.
      *
-     *
+     * @return int
      */
     public function getStockAttribute()
     {
@@ -34,11 +34,11 @@ trait HasStock
     {
         $date = $date ?: Carbon::now();
 
-        if (! $date instanceof DateTimeInterface) {
+        if (!$date instanceof DateTimeInterface) {
             $date = Carbon::create($date);
         }
 
-        return $this->stockMutations()
+        return (int) $this->stockMutations()
             ->where('created_at', '<=', $date->format('Y-m-d H:i:s'))
             ->sum('amount');
     }
@@ -62,7 +62,7 @@ trait HasStock
     {
         $this->stockMutations()->delete();
 
-        if (! is_null($newAmount)) {
+        if (!is_null($newAmount)) {
             $this->createStockMutation($newAmount, $arguments);
         }
 
@@ -101,14 +101,15 @@ trait HasStock
 
         $createArguments = collect([
             'amount' => $amount,
-            'description' => Arr::get($arguments, 'description'),
-            'report_at' => Arr::get($arguments, 'report_at'),
             'price' => Arr::get($arguments, 'price'),
+            'report_at' => Arr::get($arguments, 'report_at'),
+            'description' => Arr::get($arguments, 'description'),
         ])->when($reference, function ($collection) use ($reference) {
             return $collection
                 ->put('reference_type', $reference->getMorphClass())
                 ->put('reference_id', $reference->getKey());
         })->toArray();
+
         return $this->stockMutations()->create($createArguments);
     }
 

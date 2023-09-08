@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Events\LogFilled;
 use Illuminate\Http\Request;
 use App\Imports\StocksImport;
 use App\Models\Material\Material;
@@ -12,6 +13,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Material\MaterialStock;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\StockNotification;
+use Revolution\Google\Sheets\Facades\Sheets;
+
 // use Appstract\Stock\StockMutation;
 // use Maatwebsite\Excel\Concerns\Exportable;
 // use Maatwebsite\Excel\Concerns\FromCollection;
@@ -71,7 +74,6 @@ class MaterialStockController extends Controller
     public function store(Request $request)
     {
         $material = Material::whereId($request->material_id)->first();
-        // dd($material->material_stocks()->get());
 
         $material_stock = $material->material_stocks()->create($request->except(['_token', 'material_id', 'stock', 'report_at', 'price']));
 
@@ -84,6 +86,7 @@ class MaterialStockController extends Controller
             'report_at' => $report_at,
             'reference' => '',
         ]);
+
         if ($material->grade == 2) {
             DB::transaction(function () use ($material, $material_stock) {
 
@@ -117,6 +120,21 @@ class MaterialStockController extends Controller
             $material_stock->update($request->only(['code']));
         }
 
+        $logData = [
+            'name' => $material_stock->material->name,
+            'criteria_1' => $material_stock->material->criteria_1,
+            'criteria_2' => $material_stock->material->criteria_2,
+            'information' => $material_stock->material->information,
+            'grade' => $material_stock->material->grade,
+            'stock' => $request->stock,
+            'code' => $material_stock->code,
+            'report_date' => Carbon::parse($report_at)->format('d/m/Y'),
+            'description' => 'Stock Awal',
+            'timestamp' => $material_stock->created_at->format('d/m/Y'),
+        ];
+
+        LogFilled::dispatch($logData);
+
         Auth()->user()->notify(new StockNotification($material_stock, $request->stock, 'new_stock'));
 
         return redirect()->route('material-stock.material-list')->with('success', 'Berhasil Menambah Stock');
@@ -148,6 +166,21 @@ class MaterialStockController extends Controller
                 'reference' => '',
             ]);
 
+            $logData = [
+                'name' => $material_stock->material->name,
+                'criteria_1' => $material_stock->material->criteria_1,
+                'criteria_2' => $material_stock->material->criteria_2,
+                'information' => $material_stock->material->information,
+                'grade' => $material_stock->material->grade,
+                'stock' => $request->increase_stock,
+                'code' => $material_stock->code,
+                'report_date' => Carbon::parse($report_at)->format('d/m/Y'),
+                'description' => 'Penambahan Stock',
+                'timestamp' => $material_stock->created_at->format('d/m/Y'),
+            ];
+
+            LogFilled::dispatch($logData);
+
             // Mengirim notifikasi penambahan stok
             Auth()->user()->notify(new StockNotification($material_stock, $increasedStock->amount, 'increase'));
         }
@@ -159,6 +192,21 @@ class MaterialStockController extends Controller
                 'report_at' => $report_at,
                 'reference' => '',
             ]);
+
+            $logData = [
+                'name' => $material_stock->material->name,
+                'criteria_1' => $material_stock->material->criteria_1,
+                'criteria_2' => $material_stock->material->criteria_2,
+                'information' => $material_stock->material->information,
+                'grade' => $material_stock->material->grade,
+                'stock' => -$request->decrease_stock,
+                'code' => $material_stock->code,
+                'report_date' => Carbon::parse($report_at)->format('d/m/Y'),
+                'description' => 'Pengurangan Stock',
+                'timestamp' => $material_stock->created_at->format('d/m/Y'),
+            ];
+
+            LogFilled::dispatch($logData);
 
             // Mengirim notifikasi pengurangan stok
             Auth()->user()->notify(new StockNotification($material_stock, $decreasedStock->amount, 'decrease'));
@@ -200,14 +248,14 @@ class MaterialStockController extends Controller
 
         // Lakukan operasi pengambilan data yang akan diekspor berdasarkan tanggal
         $dataToExport = MaterialStock::whereDate('created_at', $created_at)->get();
-    
+
         // Konversi tanggal menjadi format yang sesuai untuk menyimpan dalam nama file
         $formattedDate = Carbon::parse($created_at)->format('Y-m-d');
-    
+
         // Generate nama file yang unik
         $filename = 'material_stock_export_' . $formattedDate . '.xlsx';
-    
+
         // Logic untuk ekspor data menggunakan library Excel
-        return Excel::download(new MaterialStockExport($dataToExport), $filename);    
+        return Excel::download(new MaterialStockExport($dataToExport), $filename);
     }
 }
