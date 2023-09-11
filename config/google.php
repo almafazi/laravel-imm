@@ -24,8 +24,6 @@ return [
         'https://www.googleapis.com/auth/drive',
         'https://www.googleapis.com/auth/drive.file',
         'https://www.googleapis.com/auth/spreadsheets',
-        \Google\Service\Sheets::DRIVE,
-        \Google\Service\Sheets::SPREADSHEETS,
     ],
     'access_type' => 'online',
     'approval_prompt' => 'auto',
