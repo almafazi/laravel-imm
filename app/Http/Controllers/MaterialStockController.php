@@ -59,7 +59,10 @@ class MaterialStockController extends Controller
         $material_stocks = MaterialStock::join('materials', 'material_stocks.material_id', '=', 'materials.id')->select('material_stocks.*', 'materials.*')->get()->toArray();
         $codes = [];
         foreach ($material_stocks as $material_stock) {
-            if ($material_stock['grade'] === 2 && !in_array($material_stock['code'], $codes)) {
+            if ($material_stock['grade'] === 2 && $material_stock['name'] === $material->name && !in_array($material_stock['code'], $codes)) {
+                $codes[] = $material_stock['code'];
+            }
+            elseif ($material_stock['grade'] === 2 && $material_stock['name'] === "WAXBLOK" && !in_array($material_stock['code'], $codes)) {
                 $codes[] = $material_stock['code'];
             }
         }

@@ -11,12 +11,12 @@ class MaterialController extends Controller
 {
     use ApiResponseHelpers;
 
-    
+
     public function index()
     {
         //logic
         $materials = Material::all();
-        
+
         return $this->respondWithSuccess($materials);
     }
 }
