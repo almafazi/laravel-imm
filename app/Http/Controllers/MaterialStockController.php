@@ -42,10 +42,6 @@ class MaterialStockController extends Controller
 
     public function material_list()
     {
-        // if (!Auth()->user()->hasRole('admin')) {
-        //     return redirect()->route('material-stock.logs');
-        // }
-        //logic
         $materials = Material::all();
         return view('material-stock.material-list', [
             "materials" => $materials,
@@ -63,8 +59,7 @@ class MaterialStockController extends Controller
         foreach ($material_stocks as $material_stock) {
             if ($material_stock['grade'] === 2 && $material_stock['name'] === $material->name) {
                 $codes[] = $material_stock['code'];
-            }
-            elseif ($material_stock['grade'] === 2 && $material_stock['name'] === "WAXBLOK") {
+            } elseif ($material_stock['grade'] === 2 && $material_stock['name'] === "WAXBLOK") {
                 $codes[] = $material_stock['code'];
             }
         }
@@ -233,18 +228,105 @@ class MaterialStockController extends Controller
         return redirect('/')->with('success', 'All good!');
     }
 
-    public function logs(Request $request)
+    // public function logs(Request $request)
+    // {
+    //     $material_stocks = MaterialStock::query()->with('stockMutations');
+
+    //     $material_stocks->when($request->created_at, function ($query) use ($request) {
+    //         return $query->whereDate('created_at', $request->created_at);
+    //     });
+
+    //     $material_stocks = $material_stocks->get();
+
+    //     return view('material-stock.logs', compact('material_stocks'))->with(['title' => 'Log Stock Bahan']);
+    // }
+
+    public function logs()
     {
-        $material_stocks = MaterialStock::query()->with('stockMutations');
-
-        $material_stocks->when($request->created_at, function ($query) use ($request) {
-            return $query->whereDate('created_at', $request->created_at);
-        });
-
-        $material_stocks = $material_stocks->get();
-
-        return view('material-stock.logs', compact('material_stocks'))->with(['title' => 'Log Stock Bahan']);
+        return view('material-stock.logs', ['title' => 'Log Stock Bahan']);
     }
+
+    public function logsData(Request $request)
+    {
+        $query = MaterialStock::query()->with(['stockMutations']);
+
+        $test = "hello";
+        // Implementasikan filter berdasarkan tanggal di sini jika diperlukan
+        if ($request->has('created_at')) {
+            $query->whereDate('created_at', $request->created_at);
+        }
+
+        return datatables()->eloquent($query)
+            ->addColumn('material_name', function ($material_stock) {
+                return $material_stock->material->name;
+            })
+            ->addColumn('criteria_1', function ($material_stock) {
+                return $material_stock->material->criteria_1;
+            })
+            ->addColumn('criteria_2', function ($material_stock) {
+                return $material_stock->material->criteria_2;
+            })
+            ->addColumn('information', function ($material_stock) {
+                return $material_stock->material->information;
+            })
+            ->addColumn('grade', function ($material_stock) {
+                return $material_stock->material->grade;
+            })
+            ->addColumn('jumlah', function ($material_stock) {
+                $amount = 0;
+                foreach ($material_stock->stockMutations as $mutation) {
+                    $amount = $mutation->amount;
+                }
+                return $amount;
+            })
+            // pada bagian ini perlu perbaikan untuk menghitung akumulasi yang terjadi dengan acuan data view awal yang menggunakan client side
+            ->addColumn('akumulasi', function ($material_stock) {
+                $accumulation = 0;
+                foreach ($material_stock->stockMutations as $mutation) {
+                    $accumulation += $mutation->amount;
+                }
+                return $accumulation;
+            })
+            ->addColumn('code', function ($material_stock) {
+                return $material_stock->code;
+            })
+            ->addColumn('price', function ($material_stock) {
+                $price = "";
+                foreach ($material_stock->stockMutations as $mutation) {
+                    $description = $mutation->price;
+                }
+                return $price;
+            })
+            ->addColumn('report_at', function ($material_stock) {
+                $report_at = "";
+                foreach ($material_stock->stockMutations as $mutation) {
+                    if ($mutation->report_at)
+                        try {
+                            $date = \DateTime::createFromFormat('Y-m-d', $mutation->report_at);
+                            if ($date !== false) {
+                                $report_at = $date->format('d/m/Y');
+                            } else {
+                                $report_at = 'Invalid date format';
+                            }
+                        } catch (\Exception $e) {
+                            echo 'Error: ' . $e->getMessage();
+                        }
+                }
+                return $report_at;
+            })
+            ->addColumn('description', function ($material_stock) {
+                $description = "";
+                foreach ($material_stock->stockMutations as $mutation) {
+                    $description = $mutation->description;
+                }
+                return $description;
+            })->rawColumns(['description']) // Menggunakan rawColumns untuk memberi tahu DataTables bahwa kolom description adalah HTML
+            ->addColumn('timestamp', function ($material_stock) {
+                return $material_stock->created_at->format('d/m/Y');
+            })
+            ->toJson();
+    }
+
 
 
     public function export(Request $request)
