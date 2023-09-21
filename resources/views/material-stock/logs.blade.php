@@ -105,7 +105,6 @@
                         className: 'btn btn-primary mt-2 mt-lg-0'
                     },
                 ],
-                serverSide: true, // Aktifkan server-side processing
                 ajax: "{{ route('material-stock.logs.data') }}", // Tentukan URL endpoint server-side
                 columns: [
                     // Definisikan kolom-kolom yang sesuai dengan data yang dikirimkan oleh server

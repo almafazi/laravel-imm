@@ -250,12 +250,6 @@ class MaterialStockController extends Controller
     {
         $query = MaterialStock::query()->with(['stockMutations']);
 
-        $test = "hello";
-        // Implementasikan filter berdasarkan tanggal di sini jika diperlukan
-        if ($request->has('created_at')) {
-            $query->whereDate('created_at', $request->created_at);
-        }
-
         return datatables()->eloquent($query)
             ->addColumn('material_name', function ($material_stock) {
                 return $material_stock->material->name;
@@ -293,7 +287,7 @@ class MaterialStockController extends Controller
             ->addColumn('price', function ($material_stock) {
                 $price = "";
                 foreach ($material_stock->stockMutations as $mutation) {
-                    $description = $mutation->price;
+                    $price = $mutation->price;
                 }
                 return $price;
             })
