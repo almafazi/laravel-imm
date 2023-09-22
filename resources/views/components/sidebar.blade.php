@@ -60,8 +60,13 @@
                             <div>Log Stok Bahan</div>
                         </a>
                     </li>
+                    <li class="menu-item {{ Request::is('material-stock/logs-serverside') ? 'active' : '' }}">
+                        <a href="{{ route('material-stock.logs-serverside') }}" class="menu-link">
+                            <div class="text-wrap">Log Stok Bahan (serverside on development)</div>
+                        </a>
+                    </li>
                 @endrole
-                
+
                 @role('purchasing')
                     <li
                         class="menu-item {{ Request::is('material-stock/material.list') || Request::is('material-stock/stocks/*') || Request::is('material-stock/create/*') || Request::is('material-stock/edit/*') ? 'active' : '' }}">
@@ -74,6 +79,11 @@
                             <div>Log Stok Bahan</div>
                         </a>
                     </li>
+                    <li class="menu-item {{ Request::is('material-stock/logs-serverside') ? 'active' : '' }}">
+                        <a href="{{ route('material-stock.logs-serverside') }}" class="menu-link">
+                            <div class="text-wrap">Log Stok Bahan (serverside on development)</div>
+                        </a>
+                    </li>
                 @endrole
                 @role('finance')
                     <li
@@ -82,13 +92,18 @@
                             <div>List Stok Bahan</div>
                         </a>
                     </li>
-                    <li class="menu-item {{ Request::is('users') ? 'active' : '' }}">
+                    <li class="menu-item {{ Request::is('material-stock/logs') ? 'active' : '' }}">
                         <a href="{{ route('material-stock.logs') }}" class="menu-link">
                             <div>Log Stok Bahan</div>
                         </a>
                     </li>
+                    <li class="menu-item {{ Request::is('material-stock/logs-serverside') ? 'active' : '' }}">
+                        <a href="{{ route('material-stock.logs-serverside') }}" class="menu-link">
+                            <div class="text-wrap">Log Stok Bahan (serverside on development)</div>
+                        </a>
+                    </li>
                 @endrole
-                
+
             </ul>
         </li>
 
@@ -103,4 +118,3 @@
         </li>
     </ul>
 </aside>
-

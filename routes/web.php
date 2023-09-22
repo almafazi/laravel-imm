@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
         Route::group(['middleware' => ['role:admin']], function () {
             Route::post('import', [MaterialStockController::class, 'import'])->name('material-stock.import');
             Route::get('logs', [MaterialStockController::class, 'logs'])->name('material-stock.logs');
+            Route::get('logs-serverside', [MaterialStockController::class, 'logs_serverside'])->name('material-stock.logs-serverside');
             Route::get('logs/data', [MaterialStockController::class, 'logsData'])->name('material-stock.logs.data');
             Route::get('export/{created_at?}', [MaterialStockController::class, 'export'])->name('material-stock.export');
         });

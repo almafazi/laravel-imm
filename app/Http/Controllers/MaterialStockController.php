@@ -129,6 +129,7 @@ class MaterialStockController extends Controller
             'stock' => $request->stock,
             'code' => $material_stock->code,
             'report_date' => Carbon::parse($report_at)->format('d/m/Y'),
+            'price' => $price,
             'description' => 'Stock Awal',
             'timestamp' => $material_stock->created_at->format('d/m/Y'),
         ];
@@ -157,11 +158,12 @@ class MaterialStockController extends Controller
         $material_stock = $material->material_stocks()->whereId($request->material_stock_id)->first();
 
         $report_at = $request->report_at;
+        $price = $request->price;
 
         if ($request->increase_stock) {
             $increasedStock = $material_stock->increaseStock($request->increase_stock, [
                 'description' => '<span class="badge bg-primary">Penambahan Stok</span>',
-                'price' => '',
+                'price' => $price,
                 'report_at' => $report_at,
                 'reference' => '',
             ]);
@@ -175,6 +177,7 @@ class MaterialStockController extends Controller
                 'stock' => $request->increase_stock,
                 'code' => $material_stock->code,
                 'report_date' => Carbon::parse($report_at)->format('d/m/Y'),
+                'price' => $price,
                 'description' => 'Penambahan Stock',
                 'timestamp' => $material_stock->created_at->format('d/m/Y'),
             ];
@@ -188,7 +191,7 @@ class MaterialStockController extends Controller
         if ($request->decrease_stock) {
             $decreasedStock = $material_stock->decreaseStock($request->decrease_stock, [
                 'description' => '<span class="badge bg-danger">Pengurangan Stok</span>',
-                'price' => '',
+                'price' => $price,
                 'report_at' => $report_at,
                 'reference' => '',
             ]);
@@ -199,9 +202,10 @@ class MaterialStockController extends Controller
                 'criteria_2' => $material_stock->material->criteria_2,
                 'information' => $material_stock->material->information,
                 'grade' => $material_stock->material->grade,
-                'stock' => -$request->decrease_stock,
+                'stock' => $request->decrease_stock,
                 'code' => $material_stock->code,
                 'report_date' => Carbon::parse($report_at)->format('d/m/Y'),
+                'price' => $price,
                 'description' => 'Pengurangan Stock',
                 'timestamp' => $material_stock->created_at->format('d/m/Y'),
             ];
@@ -228,20 +232,16 @@ class MaterialStockController extends Controller
         return redirect('/')->with('success', 'All good!');
     }
 
-    // public function logs(Request $request)
-    // {
-    //     $material_stocks = MaterialStock::query()->with('stockMutations');
+    public function logs(Request $request)
+    {
+        $material_stocks = MaterialStock::query()->with('stockMutations');
 
-    //     $material_stocks->when($request->created_at, function ($query) use ($request) {
-    //         return $query->whereDate('created_at', $request->created_at);
-    //     });
+        $material_stocks = $material_stocks->get();
 
-    //     $material_stocks = $material_stocks->get();
+        return view('material-stock.logs', compact('material_stocks'))->with(['title' => 'Log Stock Bahan']);
+    }
 
-    //     return view('material-stock.logs', compact('material_stocks'))->with(['title' => 'Log Stock Bahan']);
-    // }
-
-    public function logs()
+    public function logs_serverside()
     {
         return view('material-stock.logs', ['title' => 'Log Stock Bahan']);
     }

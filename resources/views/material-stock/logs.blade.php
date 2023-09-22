@@ -51,6 +51,7 @@
     <div class="card">
         <h2 class="card-header mb-2 mt-3">Log Stok Bahan</h2>
         <div class="card-body">
+
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered" id="table-logs">
                     <thead class="table-light">
@@ -65,14 +66,64 @@
                             <th>kode produksi</th>
                             @role('purchasing|finance')
                                 <th>harga</th>
-                            @endrole
+                            @endrole()
                             <th>tanggal lapor</th>
                             <th>deskripsi</th>
                             <th>timestamp</th>
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                        <!-- Data akan dimuat oleh DataTables -->
+                        @foreach ($material_stocks as $material_stock)
+                            @php
+                                $accumulation = 0;
+                            @endphp
+                            @foreach ($material_stock->stockMutations as $mutation)
+                                <tr>
+                                    <td> {{ $material_stock->material->name }}</td>
+                                    <td> {{ $material_stock->material->criteria_1 }}</td>
+                                    <td> {{ $material_stock->material->criteria_2 }}</td>
+                                    <td> {{ $material_stock->material->information }}</td>
+                                    <td> {{ $material_stock->material->grade }}</td>
+                                    <td>
+                                        {{ $mutation->amount }}
+                                    </td>
+                                    <td>
+                                        {{ $accumulation = $accumulation + $mutation->amount }}
+                                    </td>
+                                    <td>
+                                        {{ $material_stock->code }}
+                                    </td>
+                                    @role('purchasing|finance')
+                                        <td>
+                                            {{ $mutation->price }}
+                                        </td>
+                                    @endrole
+                                    <td>
+                                        @if ($mutation->report_at)
+                                            @php
+                                                try {
+                                                    $date = \DateTime::createFromFormat('Y-m-d', $mutation->report_at);
+                                                    if ($date !== false) {
+                                                        echo $date->format('d/m/Y');
+                                                    } else {
+                                                        echo 'Invalid date format';
+                                                    }
+                                                } catch (\Exception $e) {
+                                                    echo 'Error: ' . $e->getMessage();
+                                                }
+                                            @endphp
+                                        @endif
+
+                                    </td>
+                                    <td>
+                                        {!! $mutation->description ?? '' !!}
+                                    </td>
+                                    <td>
+                                        {{ $mutation->created_at->format('d/m/Y') }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -80,7 +131,6 @@
     </div>
     <!--/ Basic Bootstrap Table -->
 @endsection
-
 
 @section('script')
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
@@ -102,50 +152,9 @@
                     },
                     {
                         extend: 'pageLength',
-                        className: 'btn btn-primary mt-2 mt-lg-0'
+                        className: 'btn btn-secondary mt-2 mt-lg-0'
                     },
-                ],
-                ajax: "{{ route('material-stock.logs.data') }}", // Tentukan URL endpoint server-side
-                columns: [
-                    // Definisikan kolom-kolom yang sesuai dengan data yang dikirimkan oleh server
-                    {
-                        data: 'material_name',
-                    },
-                    {
-                        data: 'criteria_1',
-                    },
-                    {
-                        data: 'criteria_2',
-                    },
-                    {
-                        data: 'information',
-                    },
-                    {
-                        data: 'grade',
-                    },
-                    {
-                        data: 'jumlah',
-                    },
-                    {
-                        data: 'akumulasi',
-                    },
-                    {
-                        data: 'code',
-                    },
-                    @role('purchasing|finance')
-                        {
-                            data: 'price',
-                        },
-                    @endrole {
-                        data: 'report_at',
-                    },
-                    {
-                        data: 'description',
-                    },
-                    {
-                        data: 'timestamp',
-                    },
-                ],
+                ]
             });
         });
     </script>
