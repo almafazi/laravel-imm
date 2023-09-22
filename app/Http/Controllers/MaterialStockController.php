@@ -162,6 +162,9 @@ class MaterialStockController extends Controller
         $price = $request->price;
 
         if ($request->increase_stock) {
+            $last_amount = $material_stock->stock;
+            $new_amount = $last_amount + $request->increase_stock;
+
             $increasedStock = $material_stock->increaseStock($request->increase_stock, [
                 'description' => '<span class="badge bg-primary">Penambahan Stok</span>',
                 'price' => $price,
@@ -176,7 +179,7 @@ class MaterialStockController extends Controller
                 'information' => $material_stock->material->information,
                 'grade' => $material_stock->material->grade,
                 'stock' => $request->increase_stock,
-                'akumulasi' => "",
+                'akumulasi' => $new_amount,
                 'code' => $material_stock->code,
                 'report_date' => Carbon::parse($report_at)->format('d/m/Y'),
                 'price' => $price,
@@ -191,6 +194,9 @@ class MaterialStockController extends Controller
         }
 
         if ($request->decrease_stock) {
+            $last_amount = $material_stock->stock;
+            $new_amount = $last_amount - $request->decrease_stock;
+
             $decreasedStock = $material_stock->decreaseStock($request->decrease_stock, [
                 'description' => '<span class="badge bg-danger">Pengurangan Stok</span>',
                 'price' => $price,
@@ -198,14 +204,15 @@ class MaterialStockController extends Controller
                 'reference' => '',
             ]);
 
+
             $logData = [
                 'name' => $material_stock->material->name,
                 'criteria_1' => $material_stock->material->criteria_1,
                 'criteria_2' => $material_stock->material->criteria_2,
                 'information' => $material_stock->material->information,
                 'grade' => $material_stock->material->grade,
-                'stock' => $request->decrease_stock,
-                'akumulasi' => "",
+                'stock' => -$request->decrease_stock,
+                'akumulasi' => $new_amount,
                 'code' => $material_stock->code,
                 'report_date' => Carbon::parse($report_at)->format('d/m/Y'),
                 'price' => $price,
