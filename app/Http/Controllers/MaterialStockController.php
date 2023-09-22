@@ -131,7 +131,7 @@ class MaterialStockController extends Controller
             'code' => $material_stock->code,
             'report_date' => Carbon::parse($report_at)->format('d/m/Y'),
             'price' => $price,
-            'description' => 'Stock Awal',
+            'description' => 'Stok Awal',
             'timestamp' => $material_stock->created_at->format('d/m/Y'),
         ];
 
@@ -183,7 +183,7 @@ class MaterialStockController extends Controller
                 'code' => $material_stock->code,
                 'report_date' => Carbon::parse($report_at)->format('d/m/Y'),
                 'price' => $price,
-                'description' => 'Penambahan Stock',
+                'description' => 'Penambahan Stok',
                 'timestamp' => $material_stock->created_at->format('d/m/Y'),
             ];
 
@@ -216,7 +216,7 @@ class MaterialStockController extends Controller
                 'code' => $material_stock->code,
                 'report_date' => Carbon::parse($report_at)->format('d/m/Y'),
                 'price' => $price,
-                'description' => 'Pengurangan Stock',
+                'description' => 'Pengurangan Stok',
                 'timestamp' => $material_stock->created_at->format('d/m/Y'),
             ];
 
