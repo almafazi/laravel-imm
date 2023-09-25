@@ -7,11 +7,15 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Revolution\Google\Sheets\Facades\Sheets;
 
-class SendDataLogToSpreadsheet
+class SendDataLogToSpreadsheet implements ShouldQueue
 {
+    use InteractsWithQueue;
     /**
      * Create the event listener.
      */
+
+    public $tries = 5;
+
     public function __construct()
     {
         //

@@ -17,6 +17,9 @@ class LogFilled
     /**
      * Create a new event instance.
      */
+
+    public $logData;
+    
     public function __construct($logData)
     {
         $this->logData = $logData;
