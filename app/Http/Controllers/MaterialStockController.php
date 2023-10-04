@@ -75,13 +75,14 @@ class MaterialStockController extends Controller
     {
         $material = Material::whereId($request->material_id)->first();
 
-        $material_stock = $material->material_stocks()->create($request->except(['_token', 'material_id', 'stock', 'report_at', 'price']));
+        $material_stock = $material->material_stocks()->create($request->except(['_token', 'material_id', 'stock', 'report_at', 'price', 'information']));
 
         $price = $request->price;
         $report_at = $request->report_at;
+        $information = $request->information ;
 
         $material_stock->setStock($request->stock, [
-            'description' => '<span class="badge bg-success">Stok Awal</span>',
+            'description' => '<span class="badge bg-success">Stok Awal ' . $information . '</span>',
             'price' => $price,
             'report_at' => $report_at,
             'reference' => '',
@@ -131,7 +132,7 @@ class MaterialStockController extends Controller
             'code' => $material_stock->code,
             'report_date' => Carbon::parse($report_at)->format('d/m/Y'),
             'price' => $price,
-            'description' => 'Stok Awal',
+            'description' => 'Stok Awal ' . $information,
             'timestamp' => $material_stock->created_at->format('d/m/Y'),
         ];
 
@@ -160,13 +161,14 @@ class MaterialStockController extends Controller
 
         $report_at = $request->report_at;
         $price = $request->price;
+        $information = $request->information;
 
         if ($request->increase_stock) {
             $last_amount = $material_stock->stock;
             $new_amount = $last_amount + $request->increase_stock;
 
             $increasedStock = $material_stock->increaseStock($request->increase_stock, [
-                'description' => '<span class="badge bg-primary">Penambahan Stok</span>',
+                'description' => '<span class="badge bg-primary">Penambahan Stok ' . $information . '</span>',
                 'price' => $price,
                 'report_at' => $report_at,
                 'reference' => '',
@@ -183,7 +185,7 @@ class MaterialStockController extends Controller
                 'code' => $material_stock->code,
                 'report_date' => Carbon::parse($report_at)->format('d/m/Y'),
                 'price' => $price,
-                'description' => 'Penambahan Stok',
+                'description' => 'Penambahan Stok ' . $information,
                 'timestamp' => $material_stock->created_at->format('d/m/Y'),
             ];
 
@@ -198,7 +200,7 @@ class MaterialStockController extends Controller
             $new_amount = $last_amount - $request->decrease_stock;
 
             $decreasedStock = $material_stock->decreaseStock($request->decrease_stock, [
-                'description' => '<span class="badge bg-danger">Pengurangan Stok</span>',
+                'description' => '<span class="badge bg-danger">Pengurangan Stok ' . $information. '</span>',
                 'price' => $price,
                 'report_at' => $report_at,
                 'reference' => '',
@@ -216,7 +218,7 @@ class MaterialStockController extends Controller
                 'code' => $material_stock->code,
                 'report_date' => Carbon::parse($report_at)->format('d/m/Y'),
                 'price' => $price,
-                'description' => 'Pengurangan Stok',
+                'description' => 'Pengurangan Stok ' . $information,
                 'timestamp' => $material_stock->created_at->format('d/m/Y'),
             ];
 

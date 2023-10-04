@@ -55,6 +55,11 @@
                         </select>
                         <label for="code">Kode Produksi</label>
                     </div>
+                    <div class="form-floating form-floating-outline mb-4">
+                        <input type="text" class="form-control" id="information" name="information"
+                            placeholder="Input informasi"/>
+                        <label for="infromation">Informasi</label>
+                    </div>
                 </div>
             </div>
         </div>
