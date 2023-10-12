@@ -53,14 +53,20 @@ class MaterialStockController extends Controller
     {
         $material = Material::whereId($material_id)->first();
 
-        $material_stocks = MaterialStock::join('materials', 'material_stocks.material_id', '=', 'materials.id')->select('material_stocks.*', 'materials.*')->get()->toArray();
+        $material_stocks = MaterialStock::join('materials', 'material_stocks.material_id', '=', 'materials.id')->where('materials.grade', 2)->select('material_stocks.*', 'materials.*')->get()->toArray();
 
         $codes = [];
         foreach ($material_stocks as $material_stock) {
-            if ($material_stock['grade'] === 2 && $material_stock['name'] === $material->name) {
+            if ($material_stock['name'] === $material->name) {
                 $codes[] = $material_stock['code'];
-            } elseif ($material_stock['grade'] === 2 && $material_stock['name'] === "WAXBLOK") {
-                $codes[] = $material_stock['code'];
+            }
+            if ($material->name === "ASBP" || $material->name === "ASEG" || $material->name === "ASLO" || $material->name === "ASOG" || $material->name === "ASGR" || $material->name === "ASDB") {
+                if ($material_stock['name'] === "BCWH")
+                    $codes[] = $material_stock['code'];
+            }
+            if ($material->name === "WAXSEAL") {
+                if ($material_stock['name'] === "WAXBLOK")
+                    $codes[] = $material_stock['code'];
             }
         }
         //logic
@@ -79,7 +85,7 @@ class MaterialStockController extends Controller
 
         $price = $request->price;
         $report_at = $request->report_at;
-        $information = $request->information ;
+        $information = $request->information;
 
         $material_stock->setStock($request->stock, [
             'description' => '<span class="badge bg-success">Stok Awal ' . $information . '</span>',
@@ -200,7 +206,7 @@ class MaterialStockController extends Controller
             $new_amount = $last_amount - $request->decrease_stock;
 
             $decreasedStock = $material_stock->decreaseStock($request->decrease_stock, [
-                'description' => '<span class="badge bg-danger">Pengurangan Stok ' . $information. '</span>',
+                'description' => '<span class="badge bg-danger">Pengurangan Stok ' . $information . '</span>',
                 'price' => $price,
                 'report_at' => $report_at,
                 'reference' => '',
