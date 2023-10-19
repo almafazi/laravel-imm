@@ -60,7 +60,7 @@ class MaterialStockController extends Controller
             if ($material_stock['name'] === $material->name) {
                 $codes[] = $material_stock['code'];
             }
-            if ($material->name === "ASBP" || $material->name === "ASEG" || $material->name === "ASLO" || $material->name === "ASOG" || $material->name === "ASGR" || $material->name === "ASDB") {
+            if ($material->name === "ASBP" || $material->name === "ASEG" || $material->name === "ASLO" || $material->name === "ASOG" || $material->name === "ASGR" || $material->name === "ASDB" || $material->name === "ASBR") {
                 if ($material_stock['name'] === "BCWH")
                     $codes[] = $material_stock['code'];
             }
