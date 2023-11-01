@@ -164,6 +164,7 @@ class MaterialStockController extends Controller
     {
         $material = Material::whereId($request->material_id)->first();
         $material_stock = $material->material_stocks()->whereId($request->material_stock_id)->first();
+        $id_material = $request->material_id;
 
         $report_at = $request->report_at;
         $price = $request->price;
@@ -234,7 +235,8 @@ class MaterialStockController extends Controller
             Auth()->user()->notify(new StockNotification($material_stock, $decreasedStock->amount, 'decrease'));
         }
 
-        return redirect()->route('material-stock.material-list')->with('success', $material->name . ' Stock Updated!');
+        // return redirect()->route('material-stock.material-list')->with('success', $material->name . ' Stock Updated!');
+        return redirect()->route('material-stock.index', ['material_id' => $id_material ])->with('success', $material->name . ' Stock Updated!');
     }
 
     public function destroy($id)

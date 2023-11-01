@@ -65,7 +65,7 @@ Route::middleware('auth')->group(function () {
             Route::get('edit/{material_id}/{material_stock_id}', [MaterialStockController::class, 'edit'])->name('material-stock.edit');
             Route::post('update', [MaterialStockController::class, 'update'])->name('material-stock.update');
             Route::get('destroy/{id}', [MaterialStockController::class, 'destroy'])->name('material-stock.destroy');
-            Route::get('material.list', [MaterialStockController::class, 'material_list'])->name('material-stock.material-list');
+            Route::get('material-list', [MaterialStockController::class, 'material_list'])->name('material-stock.material-list');
             Route::get('stocks/{material_id}', [MaterialStockController::class, 'index'])->name('material-stock.index');
             Route::get('logs', [MaterialStockController::class, 'logs'])->name('material-stock.logs');
             // Route::get('export/{created_at?}', [MaterialStockController::class, 'export'])->name('material-stock.export');
