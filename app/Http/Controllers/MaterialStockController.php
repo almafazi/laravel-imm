@@ -235,8 +235,8 @@ class MaterialStockController extends Controller
             Auth()->user()->notify(new StockNotification($material_stock, $decreasedStock->amount, 'decrease'));
         }
 
-        // return redirect()->route('material-stock.material-list')->with('success', $material->name . ' Stock Updated!');
-        return redirect()->route('material-stock.index', ['material_id' => $id_material ])->with('success', $material->name . ' Stock Updated!');
+        return redirect()->route('material-stock.material-list')->with('success', $material->name . ' Stock Updated!');
+        // return redirect()->route('material-stock.index', ['material_id' => $id_material ])->with('success', $material->name . ' Stock Updated!');
     }
 
     public function destroy($id)
