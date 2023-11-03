@@ -60,11 +60,11 @@
                             <div>Log Stok Bahan</div>
                         </a>
                     </li>
-                    <li class="menu-item {{ Request::is('material-stock/logs-serverside') ? 'active' : '' }}">
+                    {{-- <li class="menu-item {{ Request::is('material-stock/logs-serverside') ? 'active' : '' }}">
                         <a href="{{ route('material-stock.logs-serverside') }}" class="menu-link">
                             <div class="text-wrap">Log Stok Bahan (serverside on development)</div>
                         </a>
-                    </li>
+                    </li> --}}
                 @endrole
 
                 @role('purchasing')
@@ -97,11 +97,11 @@
                             <div>Log Stok Bahan</div>
                         </a>
                     </li>
-                    <li class="menu-item {{ Request::is('material-stock/logs-serverside') ? 'active' : '' }}">
+                    {{-- <li class="menu-item {{ Request::is('material-stock/logs-serverside') ? 'active' : '' }}">
                         <a href="{{ route('material-stock.logs-serverside') }}" class="menu-link">
                             <div class="text-wrap">Log Stok Bahan (serverside on development)</div>
                         </a>
-                    </li>
+                    </li> --}}
                 @endrole
 
             </ul>
