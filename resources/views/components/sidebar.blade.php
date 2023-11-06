@@ -49,10 +49,16 @@
                             <div>Master Bahan</div>
                         </a>
                     </li>
-                    <li
-                        class="menu-item {{ Request::is('material-stock/material.list') || Request::is('material-stock/stocks/*') || Request::is('material-stock/create/*') || Request::is('material-stock/edit/*') ? 'active' : '' }}">
+                    {{-- <li
+                        class="menu-item {{ Request::is('material-stock/material-list') || Request::is('material-stock/stocks/*') || Request::is('material-stock/create/*') || Request::is('material-stock/edit/*') ? 'active' : '' }}">
                         <a href="{{ route('material-stock.material-list') }}" class="menu-link">
                             <div>List Stok Bahan</div>
+                        </a>
+                    </li> --}}
+                    <li
+                        class="menu-item {{ Request::is('material-stock/all-material-list') || Request::is('material-stock/material-list') || Request::is('material-stock/create/*') || Request::is('material-stock/edit/*') ? 'active' : '' }}">
+                        <a href="{{ route('material-stock.all-material-list') }}" class="menu-link">
+                            <div class="text-wrap">List Semua Stok Bahan</div>
                         </a>
                     </li>
                     <li class="menu-item {{ Request::is('material-stock/logs') ? 'active' : '' }}">
@@ -69,9 +75,15 @@
 
                 @role('purchasing')
                     <li
-                        class="menu-item {{ Request::is('material-stock/material.list') || Request::is('material-stock/stocks/*') || Request::is('material-stock/create/*') || Request::is('material-stock/edit/*') ? 'active' : '' }}">
+                        class="menu-item {{ Request::is('material-stock/material-list') || Request::is('material-stock/stocks/*') || Request::is('material-stock/create/*') || Request::is('material-stock/edit/*') ? 'active' : '' }}">
                         <a href="{{ route('material-stock.material-list') }}" class="menu-link">
                             <div>List Stok Bahan</div>
+                        </a>
+                    </li>
+                    <li
+                        class="menu-item {{ Request::is('material-stock/all-material-list') || Request::is('material-stock/stocks/*') || Request::is('material-stock/create/*') || Request::is('material-stock/edit/*') ? 'active' : '' }}">
+                        <a href="{{ route('material-stock.all-material-list') }}" class="menu-link">
+                            <div class="text-wrap">List Semua Stok Bahan</div>
                         </a>
                     </li>
                     <li class="menu-item {{ Request::is('material-stock/logs') ? 'active' : '' }}">
@@ -87,9 +99,15 @@
                 @endrole
                 @role('finance')
                     <li
-                        class="menu-item {{ Request::is('material-stock/material.list') || Request::is('material-stock/stocks/*') || Request::is('material-stock/create/*') || Request::is('material-stock/edit/*') ? 'active' : '' }}">
+                        class="menu-item {{ Request::is('material-stock/material-list') || Request::is('material-stock/stocks/*') || Request::is('material-stock/create/*') || Request::is('material-stock/edit/*') ? 'active' : '' }}">
                         <a href="{{ route('material-stock.material-list') }}" class="menu-link">
                             <div>List Stok Bahan</div>
+                        </a>
+                    </li>
+                    <li
+                        class="menu-item {{ Request::is('material-stock/all-material-list') || Request::is('material-stock/stocks/*') || Request::is('material-stock/create/*') || Request::is('material-stock/edit/*') ? 'active' : '' }}">
+                        <a href="{{ route('material-stock.all-material-list') }}" class="menu-link">
+                            <div class="text-wrap">List Semua Stok Bahan</div>
                         </a>
                     </li>
                     <li class="menu-item {{ Request::is('material-stock/logs') ? 'active' : '' }}">

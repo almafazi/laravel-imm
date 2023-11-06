@@ -103,7 +103,7 @@ class MaterialStockController extends Controller
 
             return DataTables::of($materials)
                 ->addColumn('aksi', function ($material) {
-                    return '<a class="btn btn-primary" href="' . route('material-stock.index', ['material_id' => $material->id]) . '"><span class="mdi mdi-pencil me-2"></span>Pilih Bahan</a>';
+                    return '<a class="btn btn-primary" href="' . route('material-stock.create', ['material_id' => $material->id]) . '"><span class="mdi mdi-pencil me-2"></span>Pilih Bahan</a>';
                 })
                 ->addColumn('total_stok', function ($material) {
                     return $material->stock_mutations()->sum('amount');
@@ -114,6 +114,46 @@ class MaterialStockController extends Controller
 
         return view('material-stock.material-list', [
             'title' => 'List Stok Bahan'
+        ]);
+    }
+
+    public function all_material_list()
+    {
+        if (request()->ajax()) {
+            $stocks = MaterialStock::query();
+
+            return DataTables::of($stocks)
+                ->filterColumn('nama_bahan', function ($query, $keyword) {
+                    $query->whereHas('material', function ($q) use ($keyword) {
+                        $q->where('name', 'like', '%' . $keyword . '%');
+                    });
+                })
+                ->addColumn('nama_bahan', function ($stock) {
+                    return $stock->material->name;
+                })
+                ->addColumn('kriteria_1', function ($stock) {
+                    return $stock->material->criteria_1;
+                })
+                ->addColumn('kriteria_2', function ($stock) {
+                    return $stock->material->criteria_2;
+                })
+                ->addColumn('stok', function ($stock) {
+                    return $stock->stock;
+                })
+                ->addColumn('kode_produksi', function ($stock) {
+                    return $stock->code;
+                })
+                ->addColumn('action', function ($stock) {
+                    $action = '<a href="' . route('material-stock.edit-new', ['material_stock_id' => $stock->id]) . '" class="btn btn-warning me-1"><span class="mdi mdi-pencil me-2"></span>Kelola Stok</a>';
+                    $action .= '<a onclick="deleteMaterialStock(' . route('material-stock.destroy', ['id' => $stock->id]) . ')" href="javascript:;" class="btn btn-danger me-1"><span class="mdi mdi-delete me-2"></span>Hapus</a>';
+                    return $action;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('material-stock.all-material', [
+            'title' => 'Stock Bahan'
         ]);
     }
 
@@ -214,7 +254,7 @@ class MaterialStockController extends Controller
 
         Auth()->user()->notify(new StockNotification($material_stock, $request->stock, 'new_stock'));
 
-        return redirect()->route('material-stock.material-list')->with('success', 'Berhasil Menambah Stock');
+        return redirect()->route('material-stock.all-material-list')->with('success', 'Berhasil Menambah Stock');
     }
 
     public function edit($material_id, $material_stock_id)
@@ -225,6 +265,19 @@ class MaterialStockController extends Controller
         //logic
         return view('material-stock.edit', compact('material', 'material_stock'), [
             'title' => 'Kelola Stock ' . $material->name
+        ]);
+    }
+
+    public function edit_new($material_stock_id)
+    {
+        $material_stock = MaterialStock::whereId($material_stock_id)->first();
+
+        // dd($material_stock->material->name);
+
+        //logic
+        return view('material-stock.edit-new', [
+            'title' => 'Kelola Stock ' . $material_stock->material->name,
+            'material_stock' => $material_stock
         ]);
     }
 
@@ -303,7 +356,7 @@ class MaterialStockController extends Controller
             Auth()->user()->notify(new StockNotification($material_stock, $decreasedStock->amount, 'decrease'));
         }
 
-        return redirect()->route('material-stock.material-list')->with('success', $material->name . ' Stock Updated!');
+        return redirect()->route('material-stock.all-material-list')->with('success', $material->name . ' Stock Updated!');
         // return redirect()->route('material-stock.index', ['material_id' => $id_material ])->with('success', $material->name . ' Stock Updated!');
     }
 
