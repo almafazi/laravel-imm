@@ -28,7 +28,7 @@
         }
 
         @media only screen and (max-width: 767px) {
-            .button-file{
+            .button-file {
                 display: flex;
                 justify-content: center;
             }
@@ -50,17 +50,16 @@
                     <a href="{{ route('material-stock.material-list') }}" class="btn btn-label-secondary mb-3 me-2"><span
                             class="mdi mdi-arrow-left me-2"></span>Kembali</a>
                     @role('admin')
-                    <a href="{{ route('material-stock.create', ['material_id' => $material_id]) }}"
-                        class="btn btn-primary mb-3"><span class="mdi mdi-plus me-2"></span>Stok</a>
+                        <a href="{{ route('material-stock.create', ['material_id' => $material_id]) }}"
+                            class="btn btn-primary mb-3"><span class="mdi mdi-plus me-2"></span>Stok</a>
                     @endrole
                     @role('purchasing')
-                    <a href="{{ route('material-stock.create', ['material_id' => $material_id]) }}"
-                        class="btn btn-primary mb-3"><span class="mdi mdi-plus me-2"></span>Stok</a>
+                        <a href="{{ route('material-stock.create', ['material_id' => $material_id]) }}"
+                            class="btn btn-primary mb-3"><span class="mdi mdi-plus me-2"></span>Stok</a>
                     @endrole
                 </div>
             </div>
-            <!-- Table -->
-            <div class="table-responsive text-nowrap">
+            {{-- <div class="table-responsive text-nowrap">
                 <table class="datatables-basic table table-bordered">
                     <thead class="table-light">
                         <tr>
@@ -70,20 +69,19 @@
                             <th>stok</th>
                             <th>kode produksi</th>
                             @role('admin')
-                            <th>action</th>
+                                <th>action</th>
                             @endrole
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
                         @foreach ($stocks as $stock)
-                            {{-- @if ($stock->stock != 0) --}}
-                                <tr>
-                                    <td>{{ $stock->material->name }}</td>
-                                    <td>{{ $stock->material->criteria_1 }}</td>
-                                    <td>{{ $stock->material->criteria_2 }}</td>
-                                    <td>{{ $stock->stock }}</td>
-                                    <td>{{ $stock->code }}</td>
-                                    @role('admin')
+                            <tr>
+                                <td>{{ $stock->material->name }}</td>
+                                <td>{{ $stock->material->criteria_1 }}</td>
+                                <td>{{ $stock->material->criteria_2 }}</td>
+                                <td>{{ $stock->stock }}</td>
+                                <td>{{ $stock->code }}</td>
+                                @role('admin')
                                     <td>
                                         <a href="{{ route('material-stock.edit', ['material_id' => $material_id, 'material_stock_id' => $stock->id]) }}"
                                             class="btn btn-warning me-1"><span class="mdi mdi-pencil me-2"></span>Kelola
@@ -93,14 +91,30 @@
                                                 class="mdi mdi-delete me-2"></span>Hapus</a>
 
                                     </td>
-                                    @endrole
-                                </tr>
-                            {{-- @endif --}}
+                                @endrole
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
+            </div> --}}
+            <div class="table-responsive text-nowrap">
+                <table id="stock-table" class="datatables-basic table table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th>nama bahan</th>
+                            <th>kriteria 1</th>
+                            <th>kriteria 2</th>
+                            <th>stok</th>
+                            <th>kode produksi</th>
+                            @role('admin')
+                                <th>action</th>
+                            @endrole
+                        </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                    </tbody>
+                </table>
             </div>
-            <!--/ Table -->
         </div>
     </div>
 @endsection
@@ -119,6 +133,41 @@
     <!-- Page JS -->
     <script src="{{ asset('assets/js/ui-toasts.js') }}"></script>
     <script src="{{ asset('assets/js/extended-ui-sweetalert2.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#stock-table').DataTable({
+                serverSide: true,
+                ajax: '{{ route('material-stock.index', ['material_id' => $material_id]) }}',
+                columns: [{
+                        data: 'nama_bahan',
+                        name: 'material.name'
+                    },
+                    {
+                        data: 'kriteria_1',
+                        name: 'material.criteria_1'
+                    },
+                    {
+                        data: 'kriteria_2',
+                        name: 'material.criteria_2'
+                    },
+                    {
+                        data: 'stok',
+                        name: 'stock'
+                    },
+                    {
+                        data: 'kode_produksi',
+                        name: 'code'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
+        });
+    </script>
     <script>
         $(document).ready(function() {
             toastr.options = {
@@ -144,12 +193,15 @@
                 toastr.success('{{ \Session::get('success') }}', 'Success');
             @endif
         });
+
         setTimeout(() => {
             $('.alert-success').slideUp(1000);
         }, 2000);
-        $(document).ready(function() {
-            $('.table').DataTable();
-        });
+
+        // $(document).ready(function() {
+        //     $('.table').DataTable();
+        // });
+
         const deleteMaterialStock = (url) => {
             Swal.fire({
                 title: 'Yakin ingin hapus?',

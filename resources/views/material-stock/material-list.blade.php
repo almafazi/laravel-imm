@@ -32,10 +32,11 @@
             }
         }
 
-        @media only screen and (max-width: 463px){
+        @media only screen and (max-width: 463px) {
             .button-file {
                 display: block;
             }
+
             .button-export {
                 margin-top: 15px;
             }
@@ -54,37 +55,37 @@
         <div class="card-body">
             <div class="row">
                 @role('admin')
-                <div class="col-12 col-md-8 col-lg-6 button-file">
-                    <a class="btn btn-label-secondary" href="{{ asset('example-export/example-export.xlsx') }}">
-                        <span class="mdi mdi-file-document-outline me-2"></span>
-                        format import
-                    </a>
-                    <a href="{{ route('material.export') }}" class="btn btn-label-primary mx-2 button-export">
-                        <span class="mdi mdi-export-variant me-2"></span>
-                        Export data
-                    </a>
-                </div>
-                <div class="col-12 col-md-8 col-lg-6  mt-4 mt-lg-0 button-file">
-                    <form action="{{ route('material-stock.import') }}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <div class="input-group">
-                            <input class="form-control" type="file" name="file" id="import">
-                            <button class="btn btn-label-primary " type="submit"><span
-                                    class="mdi mdi-file-import me-2"></span>Import</button>
-                        </div>
-                    </form>
-                </div>
+                    <div class="col-12 col-md-8 col-lg-6 button-file">
+                        <a class="btn btn-label-secondary" href="{{ asset('example-export/example-export.xlsx') }}">
+                            <span class="mdi mdi-file-document-outline me-2"></span>
+                            format import
+                        </a>
+                        <a href="{{ route('material.export') }}" class="btn btn-label-primary mx-2 button-export">
+                            <span class="mdi mdi-export-variant me-2"></span>
+                            Export data
+                        </a>
+                    </div>
+                    <div class="col-12 col-md-8 col-lg-6  mt-4 mt-lg-0 button-file">
+                        <form action="{{ route('material-stock.import') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="input-group">
+                                <input class="form-control" type="file" name="file" id="import">
+                                <button class="btn btn-label-primary " type="submit"><span
+                                        class="mdi mdi-file-import me-2"></span>Import</button>
+                            </div>
+                        </form>
+                    </div>
                 @endrole
                 @role('finance|purchasing')
-                <div class="col-12 col-md-8 col-lg-6 button-file">
-                    <a href="{{ route('material.export') }}" class="btn btn-label-primary mx-2 button-export">
-                        <span class="mdi mdi-export-variant me-2"></span>
-                        Export data
-                    </a>
-                </div>
+                    <div class="col-12 col-md-8 col-lg-6 button-file">
+                        <a href="{{ route('material.export') }}" class="btn btn-label-primary mx-2 button-export">
+                            <span class="mdi mdi-export-variant me-2"></span>
+                            Export data
+                        </a>
+                    </div>
                 @endrole
             </div>
-            <div class="table-responsive text-nowrap mt-3 ">
+            {{-- <div class="table-responsive text-nowrap mt-3 ">
                 <table class="datatables-basic table table-bordered">
                     <thead class="table-light">
                         <tr>
@@ -110,7 +111,6 @@
                                 <td> {{ $material->grade }}</td>
                                 <td>
                                     {{ $material->stock_mutations()->sum('amount') }}
-                                    {{-- {{ $material->material_stocks()->withSum('stockMutations', 'amount')->get()->sum('stock_mutations_sum_amount') }} --}}
                                 </td>
                                 <td class="text-center">
                                     <a class="btn btn-primary"
@@ -123,6 +123,24 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div> --}}
+            <div class="table-responsive text-nowrap mt-3">
+                <table id="material-table" class="datatables-basic table table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th>id</th>
+                            <th>nama bahan</th>
+                            <th>kriteria 1</th>
+                            <th>kriteria 2</th>
+                            <th>informasi</th>
+                            <th>grade</th>
+                            <th>total stok</th>
+                            <th class="text-center">aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -132,9 +150,52 @@
 @section('script')
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('.table').DataTable({});
+        });
+    </script> --}}
+    <script>
+        $(document).ready(function() {
+            $('#material-table').DataTable({
+                serverSide: true,
+                ajax: '{{ route('material-stock.material-list') }}',
+                columns: [{
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'criteria_1',
+                        name: 'criteria_1'
+                    },
+                    {
+                        data: 'criteria_2',
+                        name: 'criteria_2'
+                    },
+                    {
+                        data: 'information',
+                        name: 'information'
+                    },
+                    {
+                        data: 'grade',
+                        name: 'grade'
+                    },
+                    {
+                        data: 'total_stok',
+                        name: 'total_stok'
+                    },
+                    {
+                        data: 'aksi',
+                        name: 'aksi',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
         });
     </script>
 @endsection

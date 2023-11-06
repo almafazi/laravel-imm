@@ -14,6 +14,8 @@ use App\Models\Material\MaterialStock;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\StockNotification;
 use Revolution\Google\Sheets\Facades\Sheets;
+use Yajra\DataTables\Facades\DataTables;
+
 
 // use Appstract\Stock\StockMutation;
 // use Maatwebsite\Excel\Concerns\Exportable;
@@ -29,22 +31,88 @@ use Revolution\Google\Sheets\Facades\Sheets;
 
 class MaterialStockController extends Controller
 {
+    // Clientside datatable
+    // public function index($material_id)
+    // {
+    //     $stocks = Material::whereId($material_id)->first()->material_stocks()->get();
+
+    //     return view('material-stock.stock', [
+    //         'stocks' => $stocks,
+    //         'material_id' => $material_id,
+    //         'title' => 'Stock Bahan'
+    //     ]);
+    // }
+
+
+    // Serverside datatable
     public function index($material_id)
     {
-        $stocks = Material::whereId($material_id)->first()->material_stocks()->get();
+        if (request()->ajax()) {
+            $stocks = MaterialStock::where('material_id', $material_id)->get();
+
+            return DataTables::of($stocks)
+                ->addColumn('nama_bahan', function ($stock) {
+                    return $stock->material->name;
+                })
+                ->addColumn('kriteria_1', function ($stock) {
+                    return $stock->material->criteria_1;
+                })
+                ->addColumn('kriteria_2', function ($stock) {
+                    return $stock->material->criteria_2;
+                })
+                ->addColumn('stok', function ($stock) {
+                    return $stock->stock;
+                })
+                ->addColumn('kode_produksi', function ($stock) {
+                    return $stock->code;
+                })
+                ->addColumn('action', function ($stock) use ($material_id) {
+                    $action = '<a href="' . route('material-stock.edit', ['material_id' => $material_id, 'material_stock_id' => $stock->id]) . '" class="btn btn-warning me-1"><span class="mdi mdi-pencil me-2"></span>Kelola Stok</a>';
+                    $action .= '<a onclick="deleteMaterialStock(' . route('material-stock.destroy', ['id' => $stock->id]) . ')" href="javascript:;" class="btn btn-danger me-1"><span class="mdi mdi-delete me-2"></span>Hapus</a>';
+                    return $action;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        $stocks = MaterialStock::where('material_id', $material_id)->get();
 
         return view('material-stock.stock', [
-            "stocks" => $stocks,
+            'stocks' => $stocks,
             'material_id' => $material_id,
             'title' => 'Stock Bahan'
         ]);
     }
 
+
+    // client side untuk material list
+    // public function material_list()
+    // {
+    //     $materials = Material::all();
+    //     return view('material-stock.material-list', [
+    //         "materials" => $materials,
+    //         'title' => 'List Stok Bahan'
+    //     ]);
+    // }
+
+    // serverside untuk material list
     public function material_list()
     {
-        $materials = Material::all();
+        if (request()->ajax()) {
+            $materials = Material::query();
+
+            return DataTables::of($materials)
+                ->addColumn('aksi', function ($material) {
+                    return '<a class="btn btn-primary" href="' . route('material-stock.index', ['material_id' => $material->id]) . '"><span class="mdi mdi-pencil me-2"></span>Pilih Bahan</a>';
+                })
+                ->addColumn('total_stok', function ($material) {
+                    return $material->stock_mutations()->sum('amount');
+                })
+                ->rawColumns(['aksi'])
+                ->make(true);
+        }
+
         return view('material-stock.material-list', [
-            "materials" => $materials,
             'title' => 'List Stok Bahan'
         ]);
     }
