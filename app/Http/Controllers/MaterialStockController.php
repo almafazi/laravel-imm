@@ -128,6 +128,16 @@ class MaterialStockController extends Controller
                         $q->where('name', 'like', '%' . $keyword . '%');
                     });
                 })
+                ->filterColumn('kriteria_1', function ($query, $keyword) {
+                    $query->whereHas('material', function ($q) use ($keyword) {
+                        $q->where('criteria_1', 'like', '%' . $keyword . '%');
+                    });
+                })
+                ->filterColumn('kriteria_2', function ($query, $keyword) {
+                    $query->whereHas('material', function ($q) use ($keyword) {
+                        $q->where('criteria_2', 'like', '%' . $keyword . '%');
+                    });
+                })
                 ->addColumn('nama_bahan', function ($stock) {
                     return $stock->material->name;
                 })
