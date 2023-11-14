@@ -38,7 +38,7 @@ trait HasStock
             $date = Carbon::create($date);
         }
 
-        return (int) $this->stockMutations()
+        return $this->stockMutations()
             ->where('created_at', '<=', $date->format('Y-m-d H:i:s'))
             ->sum('amount');
     }
