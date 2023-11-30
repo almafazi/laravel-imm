@@ -31,6 +31,7 @@ class MaterialStockExport implements FromCollection, WithHeadings, WithStyles
                 $description = strip_tags($mutation->description);
 
                 $data[] = [
+                    $mutation->id,
                     $materialStock->material->name,
                     $materialStock->material->criteria_1,
                     $materialStock->material->criteria_2 ?? '-',
@@ -53,6 +54,7 @@ class MaterialStockExport implements FromCollection, WithHeadings, WithStyles
     public function headings(): array
     {
         return [
+            'Id',
             'Nama',
             'Kriteria 1',
             'Kriteria 2',
@@ -71,7 +73,7 @@ class MaterialStockExport implements FromCollection, WithHeadings, WithStyles
     public function styles(Worksheet $sheet)
     {
         // Style the header row
-        $sheet->getStyle('A1:L1')->applyFromArray([
+        $sheet->getStyle('A1:M1')->applyFromArray([
             'font' => [
                 'bold' => true,
             ],
@@ -88,7 +90,7 @@ class MaterialStockExport implements FromCollection, WithHeadings, WithStyles
         ]);
 
         // Style the data rows
-        $sheet->getStyle('A2:L' . $sheet->getHighestRow())->applyFromArray([
+        $sheet->getStyle('A2:M' . $sheet->getHighestRow())->applyFromArray([
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
                 'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
@@ -96,18 +98,19 @@ class MaterialStockExport implements FromCollection, WithHeadings, WithStyles
         ]);
 
         $columnWidths = [
-            'A' => 20,
+            'A' => 10,
             'B' => 20,
             'C' => 20,
             'D' => 20,
-            'E' => 10,
-            'F' => 15,
+            'E' => 20,
+            'F' => 10,
             'G' => 15,
-            'H' => 20,
-            'I' => 15,
-            'J' => 20,
-            'K' => 40,
-            'L' => 15,
+            'H' => 15,
+            'I' => 20,
+            'J' => 15,
+            'K' => 20,
+            'L' => 40,
+            'M' => 15,
         ];
 
         foreach ($columnWidths as $column => $width) {
@@ -116,7 +119,7 @@ class MaterialStockExport implements FromCollection, WithHeadings, WithStyles
 
         // Set column gap
         $columnGap = 2;
-        foreach (range('A', 'L') as $column) {
+        foreach (range('A', 'M') as $column) {
             $sheet->getColumnDimension($column)->setWidth($sheet->getColumnDimension($column)->getWidth() + $columnGap);
         }
     }
