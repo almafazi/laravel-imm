@@ -56,6 +56,7 @@
                 <table class="table table-bordered" id="table-logs">
                     <thead class="table-light">
                         <tr>
+                            <th>id</th>
                             <th>name</th>
                             <th>kriteria 1</th>
                             <th>kriteria 2</th>
@@ -79,6 +80,9 @@
                             @endphp
                             @foreach ($material_stock->stockMutations as $mutation)
                                 <tr>
+                                    <td>
+                                        {{ $mutation->id }}
+                                    </td>
                                     <td> {{ $material_stock->material->name }}</td>
                                     <td> {{ $material_stock->material->criteria_1 }}</td>
                                     <td> {{ $material_stock->material->criteria_2 }}</td>
