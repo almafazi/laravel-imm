@@ -121,6 +121,20 @@
                         </a>
                     </li> --}}
                 @endrole
+                @role('pic')
+                <li
+                    class="menu-item {{ Request::is('material-stock/all-material-list') || Request::is('material-stock/stocks/*') || Request::is('material-stock/create/*') || Request::is('material-stock/edit/*') ? 'active' : '' }}">
+                    <a href="{{ route('material-stock.all-material-list') }}" class="menu-link">
+                        <div class="text-wrap">List Semua Stok Bahan</div>
+                    </a>
+                </li>
+                {{-- <li class="menu-item {{ Request::is('material-stock/logs-serverside') ? 'active' : '' }}">
+                    <a href="{{ route('material-stock.logs-serverside') }}" class="menu-link">
+                        <div class="text-wrap">Log Stok Bahan (serverside on development)</div>
+                    </a>
+                </li> --}}
+            @endrole
+
 
             </ul>
         </li>

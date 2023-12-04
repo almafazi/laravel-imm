@@ -68,7 +68,19 @@ Route::middleware('auth')->group(function () {
             Route::get('material-list', [MaterialStockController::class, 'material_list'])->name('material-stock.material-list');
             Route::get('stocks/{material_id}', [MaterialStockController::class, 'index'])->name('material-stock.index');
             Route::get('logs', [MaterialStockController::class, 'logs'])->name('material-stock.logs');
-            
+
+            // Semua list stock dengan kode produksi
+            Route::get('all-material-list', [MaterialStockController::class, 'all_material_list'])->name('material-stock.all-material-list');
+            Route::get('edit-new/{material_stock_id}', [MaterialStockController::class, 'edit_new'])->name('material-stock.edit-new');
+
+            // Route::get('export/{created_at?}', [MaterialStockController::class, 'export'])->name('material-stock.export');
+        });
+        Route::group(['middleware' => ['role:pic']], function () {
+            Route::post('store', [MaterialStockController::class, 'store'])->name('material-stock.store');
+            Route::get('edit/{material_id}/{material_stock_id}', [MaterialStockController::class, 'edit'])->name('material-stock.edit');
+            Route::post('update', [MaterialStockController::class, 'update'])->name('material-stock.update');
+            Route::get('material-list', [MaterialStockController::class, 'material_list'])->name('material-stock.material-list');
+
             // Semua list stock dengan kode produksi
             Route::get('all-material-list', [MaterialStockController::class, 'all_material_list'])->name('material-stock.all-material-list');
             Route::get('edit-new/{material_stock_id}', [MaterialStockController::class, 'edit_new'])->name('material-stock.edit-new');

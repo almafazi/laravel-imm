@@ -64,7 +64,7 @@
                             <th>kriteria 2</th>
                             <th>stok</th>
                             <th>kode produksi</th>
-                            @role('admin')
+                            @role('admin|pic')
                                 <th>action</th>
                             @endrole
                         </tr>

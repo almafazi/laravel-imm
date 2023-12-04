@@ -13,7 +13,8 @@
                 <h5 class="card-header">Kelola Stock Bahan</h5>
                 <div class="card-body demo-vertical-spacing demo-only-element">
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" disabled class="form-control" id="name" value="{{ $material_stock->material->name }}" />
+                        <input type="text" disabled class="form-control" id="name"
+                            value="{{ $material_stock->material->name }}" />
                         <label for="name">Nama Bahan</label>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
@@ -28,39 +29,43 @@
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
                         <input type="text" disabled class="form-control" id="code"
-                            value="{{ $material_stock->code }}" />
-                        <label for="code">Kode Produksi</label>
-                    </div>
-                    <input type="hidden" name="material_id" value="{{ $material_stock->material->id }}" id="">
-                    <input type="hidden" name="material_stock_id" value="{{ $material_stock->id }}" id="">
-                    <div class="form-floating form-floating-outline mb-4">
-                        <input type="number" class="form-control" id="base_qty" name="base_qty" disabled
-                            value="{{ $material_stock->stock }}" placeholder="input stock" />
-                        <label for="base_qty">Stock</label>
-                    </div>
-                    <hr>
-                    <h6>Kelola Stok</h6>
-                    <div class="form-floating form-floating-outline mb-4">
-                        <input type="number" class="form-control" id="increase_stock" name="increase_stock"
-                            placeholder="Jumlah stok masuk" step=".01" min=”0″ />
-                        <label for="increase_stock">Tambah Stok</label>
-                    </div>
-                    <div class="form-floating form-floating-outline mb-4">
-                        <input type="number" class="form-control" id="decrease_stock" name="decrease_stock"
-                            placeholder="Jumlah stok keluar" step=".01" min=”0″ />
-                        <label for="decrease_stock">Kurangi Stok</label>
-                    </div>
-                    <h6>Tanggal Lapor</h6>
-                    <div class="form-floating form-floating-outline mb-4">
-                        <input type="date" class="form-control" id="flatpickr-date" name="report_at" value=""
-                            placeholder="DD/MM/YYYY" />
-                        <label for="flatpickr-date">Tanggal Pelaporan</label>
-                    </div>
-                    <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="information" name="information"
-                            placeholder="Input informasi" />
-                        <label for="infromation">Informasi</label>
-                    </div>
+                                value="{{ $material_stock->code }}" />
+                            <label for="code">Kode Produksi</label>
+                        </div>
+                        <input type="hidden" name="material_id" value="{{ $material_stock->material->id }}" id="">
+                        <input type="hidden" name="material_stock_id" value="{{ $material_stock->id }}" id="">
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="number" class="form-control" id="base_qty" name="base_qty" disabled
+                                value="{{ $material_stock->stock }}" placeholder="input stock" />
+                            <label for="base_qty">Stock</label>
+                        </div>
+                        <hr>
+                        <h6>Kelola Stok</h6>
+                        @role('admin')
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="number" class="form-control" id="increase_stock" name="increase_stock"
+                                placeholder="Jumlah stok masuk" step=".01" min=”0″ />
+                            <label for="increase_stock">Tambah Stok</label>
+                        </div>
+                        @endrole
+                        @role('admin|pic')
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="number" class="form-control" id="decrease_stock" name="decrease_stock"
+                                placeholder="Jumlah stok keluar" step=".01" min=”0″ />
+                            <label for="decrease_stock">Kurangi Stok</label>
+                        </div>
+                        @endrole
+                        <h6>Tanggal Lapor</h6>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="date" class="form-control" id="flatpickr-date" name="report_at" value=""
+                                placeholder="DD/MM/YYYY" />
+                            <label for="flatpickr-date">Tanggal Pelaporan</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="text" class="form-control" id="information" name="information"
+                                placeholder="Input informasi" />
+                            <label for="infromation">Informasi</label>
+                        </div>
                 </div>
             </div>
         </div>
