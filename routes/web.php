@@ -75,7 +75,7 @@ Route::middleware('auth')->group(function () {
 
             // Route::get('export/{created_at?}', [MaterialStockController::class, 'export'])->name('material-stock.export');
         });
-        Route::group(['middleware' => ['role:pic']], function () {
+        Route::group(['middleware' => ['role:admin|purchasing|pic|finance']], function () {
             Route::post('store', [MaterialStockController::class, 'store'])->name('material-stock.store');
             Route::get('edit/{material_id}/{material_stock_id}', [MaterialStockController::class, 'edit'])->name('material-stock.edit');
             Route::post('update', [MaterialStockController::class, 'update'])->name('material-stock.update');
