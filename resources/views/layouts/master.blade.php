@@ -11,6 +11,7 @@
     <title>Gudang IMM - {{ $title }}</title>
 
     <meta name="description" content="" />
+    <meta name="robots" content="noindex">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/icons/brands/warehouse.png') }}" />
