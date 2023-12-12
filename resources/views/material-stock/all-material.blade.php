@@ -78,6 +78,11 @@
 @endsection
 
 @section('script')
+    <script src="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/toastr/toastr.js') }}"></script>
+    <!-- Page JS -->
+    <script src="{{ asset('assets/js/ui-toasts.js') }}"></script>
+    <script src="{{ asset('assets/js/extended-ui-sweetalert2.js') }}"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
@@ -86,11 +91,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
-    <script src="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/toastr/toastr.js') }}"></script>
-    <!-- Page JS -->
-    <script src="{{ asset('assets/js/ui-toasts.js') }}"></script>
-    <script src="{{ asset('assets/js/extended-ui-sweetalert2.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#stock-table').DataTable({
@@ -156,10 +156,9 @@
             $('.alert-success').slideUp(1000);
         }, 2000);
 
-        // $(document).ready(function() {
-        //     $('.table').DataTable();
-        // });
-
+        const test = () => {
+            console.log('testing')
+        } 
         const deleteMaterialStock = (url) => {
             Swal.fire({
                 title: 'Yakin ingin hapus?',

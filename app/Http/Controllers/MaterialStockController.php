@@ -155,7 +155,7 @@ class MaterialStockController extends Controller
                 })
                 ->addColumn('action', function ($stock) {
                     $action = '<a href="' . route('material-stock.edit-new', ['material_stock_id' => $stock->id]) . '" class="btn btn-warning me-1"><span class="mdi mdi-pencil me-2"></span>Kelola Stok</a>';
-                    $action .= '<a onclick="deleteMaterialStock(' . route('material-stock.destroy', ['id' => $stock->id]) . ')" href="javascript:;" class="btn btn-danger me-1"><span class="mdi mdi-delete me-2"></span>Hapus</a>';
+                    $action .= '<a href="javascript:void(0);" onclick="deleteMaterialStock(' . route('material-stock.destroy', ['id' => $stock->id]) . ')" class="btn btn-danger me-1"><span class="mdi mdi-delete me-2"></span>Hapus</a>';
                     return $action;
                 })
                 ->rawColumns(['action'])

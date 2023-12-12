@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
             Route::get('logs/data', [MaterialStockController::class, 'logsData'])->name('material-stock.logs.data');
             Route::get('export/{created_at?}', [MaterialStockController::class, 'export'])->name('material-stock.export');
         });
-        Route::group(['middleware' => ['role:admin|purchasing|finance']], function () {
+        Route::group(['middleware' => ['role:admin|purchasing|pic|finance']], function () {
             Route::get('create/{material_id}', [MaterialStockController::class, 'create'])->name('material-stock.create');
             Route::post('store', [MaterialStockController::class, 'store'])->name('material-stock.store');
             Route::get('edit/{material_id}/{material_stock_id}', [MaterialStockController::class, 'edit'])->name('material-stock.edit');
