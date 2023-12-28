@@ -51,7 +51,7 @@
                         @role('admin|pic')
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="number" class="form-control" id="decrease_stock" name="decrease_stock"
-                                placeholder="Jumlah stok keluar" step=".01" min=”0″ />
+                                placeholder="Jumlah stok keluar" step=".0001" min=”0″ />
                             <label for="decrease_stock">Kurangi Stok</label>
                         </div>
                         @endrole
